@@ -9,4 +9,20 @@
     <artifactId>jthornrule-base</artifactId>
     <name>Archetype - jthornrule-base</name>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>org.jstark</groupId>
+            <artifactId>jstark-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+        </dependency>
+        <!-- 用于编译时，生成代码 -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <scope>provided</scope> <!-- 或者使用compile，取决于你的构建配置 -->
+        </dependency>
+    </dependencies>
 </project>
