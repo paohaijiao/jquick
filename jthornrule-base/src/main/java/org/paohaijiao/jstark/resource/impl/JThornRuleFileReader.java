@@ -14,7 +14,7 @@ public class JThornRuleFileReader implements JThornRuleReader {
     }
 
     @Override
-    public String readData() {
+    public String getRule() {
         // 实现文件读取逻辑
         try {
             return new String(Files.readAllBytes(Paths.get(filePath)));

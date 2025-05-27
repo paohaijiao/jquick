@@ -6,10 +6,14 @@ import java.sql.*;
 
 public class JThornRuleDataBaseReader implements JThornRuleReader {
     private String jdbcUrl;
+
     private String driverClass;
+
     private String username;
+
     private String password;
-    private String query; // 假设我们有一个查询语句
+
+    private String query;
 
     public JThornRuleDataBaseReader(String jdbcUrl, String driverClass,
                                     String username, String password, String query) {
@@ -21,7 +25,7 @@ public class JThornRuleDataBaseReader implements JThornRuleReader {
     }
 
     @Override
-    public String readData() {
+    public String getRule() {
         // 实现数据库读取逻辑
         Connection conn = null;
         Statement stmt = null;

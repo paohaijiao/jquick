@@ -13,7 +13,7 @@ public class JThornRuleAdaptor {
         this.dataReader = dataReader;
     }
 
-    public String executeRead() {
-        return dataReader.readData();
+    public String getRuleContent() {
+        return dataReader.getRule();
     }
 }
