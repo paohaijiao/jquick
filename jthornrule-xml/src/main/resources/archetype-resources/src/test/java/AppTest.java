@@ -1,4 +1,4 @@
-package $org.jstark;
+package $org.paohaijiao.jstark;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

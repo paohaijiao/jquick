@@ -1,4 +1,4 @@
-package $org.jstark;
+package $org.paohaijiao.jstark;
 
 /**
  * Hello world!
