@@ -16,6 +16,7 @@
     <module>jthornrule-xml</module>
     <module>jthornrule-base</module>
     <module>jthornrule-jsonpath</module>
+    <module>jthornrule-quickLang</module>
   </modules>
   <dependencies>
 

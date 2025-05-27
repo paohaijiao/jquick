@@ -1,5 +1,5 @@
 <archetype>
-  <id>jthornrule-xml</id>
+  <id>jthornrule-quickLang</id>
   <sources>
     <source>src/main/java/App.java</source>
   </sources>
