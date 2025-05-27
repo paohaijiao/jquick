@@ -9,4 +9,15 @@
     <artifactId>jthornrule-quickLang</artifactId>
     <name>Archetype - jthornrule-quickLang</name>
     <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
