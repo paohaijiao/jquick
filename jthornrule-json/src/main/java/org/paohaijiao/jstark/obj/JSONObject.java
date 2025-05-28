@@ -5,18 +5,18 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class JSonObject implements Map<String, Object> {
+public class JSONObject implements Map<String, Object> {
     private final Map<String, Object> map;
 
-    public JSonObject() {
+    public JSONObject() {
         this.map = new LinkedHashMap<>();
     }
 
-    public JSonObject(int initialCapacity) {
+    public JSONObject(int initialCapacity) {
         this.map = new LinkedHashMap<>(initialCapacity);
     }
 
-    public JSonObject(Map<String, Object> map) {
+    public JSONObject(Map<String, Object> map) {
         this.map = new LinkedHashMap<>(map);
     }
 
@@ -46,13 +46,13 @@ public class JSonObject implements Map<String, Object> {
         return value == null ? null : Boolean.valueOf(value.toString());
     }
 
-    public JSonObject getJSONObject(String key) {
+    public JSONObject getJSONObject(String key) {
         Object value = map.get(key);
-        if (value instanceof JSonObject) {
-            return (JSonObject) value;
+        if (value instanceof JSONObject) {
+            return (JSONObject) value;
         }
         if (value instanceof Map) {
-            return new JSonObject((Map<String, Object>) value);
+            return new JSONObject((Map<String, Object>) value);
         }
         return null;
     }
@@ -146,7 +146,7 @@ public class JSonObject implements Map<String, Object> {
     }
 
     // 简单的字符串转义
-    private String escape(String s) {
+    public static String escape(String s) {
         if (s == null) return null;
         return s.replace("\"", "\\\"")
                 .replace("\\", "\\\\")
@@ -158,10 +158,10 @@ public class JSonObject implements Map<String, Object> {
     }
 
     // 静态工具方法
-    public static JSonObject parseObject(String json) {
+    public static JSONObject parseObject(String json) {
         // 简化的解析实现，实际FastJSON有复杂的解析器
         // 这里仅作为示例，实际使用时应该使用完整的JSON解析器
-        JSonObject obj = new JSonObject();
+        JSONObject obj = new JSONObject();
         // 简单实现，仅处理基本格式: {"key":"value","key2":123}
         String content = json.trim().substring(1, json.length() - 1);
         String[] entries = content.split(",");
@@ -194,11 +194,11 @@ public class JSonObject implements Map<String, Object> {
         if (obj == null) {
             return "null";
         }
-        if (obj instanceof JSonObject) {
+        if (obj instanceof JSONObject) {
             return obj.toString();
         }
         if (obj instanceof Map) {
-            return new JSonObject((Map<String, Object>) obj).toString();
+            return new JSONObject((Map<String, Object>) obj).toString();
         }
         if (obj instanceof String) {
             return "\"" + obj.toString() + "\"";

@@ -328,7 +328,9 @@ public class JSONParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PairContext extends ParserRuleContext {
-		public TerminalNode STRING() { return getToken(JSONParser.STRING, 0); }
+		public StringContext string() {
+			return getRuleContext(StringContext.class,0);
+		}
 		public ValueContext value() {
 			return getRuleContext(ValueContext.class,0);
 		}
@@ -358,7 +360,7 @@ public class JSONParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(43);
-			match(STRING);
+			string();
 			setState(44);
 			match(T__3);
 			setState(45);
@@ -673,7 +675,7 @@ public class JSONParser extends Parser {
 		"\u0000#%\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000%&\u0005\u0003"+
 		"\u0000\u0000&*\u0001\u0000\u0000\u0000\'(\u0005\u0001\u0000\u0000(*\u0005"+
 		"\u0003\u0000\u0000)\u001c\u0001\u0000\u0000\u0000)\'\u0001\u0000\u0000"+
-		"\u0000*\u0005\u0001\u0000\u0000\u0000+,\u0005\n\u0000\u0000,-\u0005\u0004"+
+		"\u0000*\u0005\u0001\u0000\u0000\u0000+,\u0003\n\u0005\u0000,-\u0005\u0004"+
 		"\u0000\u0000-.\u0003\u0002\u0001\u0000.\u0007\u0001\u0000\u0000\u0000"+
 		"/0\u0005\u0005\u0000\u000005\u0003\u0002\u0001\u000012\u0005\u0002\u0000"+
 		"\u000024\u0003\u0002\u0001\u000031\u0001\u0000\u0000\u000047\u0001\u0000"+
