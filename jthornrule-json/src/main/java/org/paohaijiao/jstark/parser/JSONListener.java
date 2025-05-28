@@ -1,4 +1,5 @@
-package org.paohaijiao.jstark.parser;// Generated from D:/idea/jthornrule/jthornrule-json/src/main/resources/JSON.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/json/JSON.g4 by ANTLR 4.13.2
+package org.paohaijiao.jstark.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -56,4 +57,44 @@ public interface JSONListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArray(JSONParser.ArrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JSONParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(JSONParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JSONParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(JSONParser.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JSONParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumber(JSONParser.NumberContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JSONParser#number}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumber(JSONParser.NumberContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JSONParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(JSONParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JSONParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(JSONParser.BoolContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JSONParser#null}.
+	 * @param ctx the parse tree
+	 */
+	void enterNull(JSONParser.NullContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JSONParser#null}.
+	 * @param ctx the parse tree
+	 */
+	void exitNull(JSONParser.NullContext ctx);
 }

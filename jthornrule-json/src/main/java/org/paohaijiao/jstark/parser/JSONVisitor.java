@@ -1,4 +1,5 @@
-package org.paohaijiao.jstark.parser;// Generated from D:/idea/jthornrule/jthornrule-json/src/main/resources/JSON.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/json/JSON.g4 by ANTLR 4.13.2
+package org.paohaijiao.jstark.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -39,4 +40,28 @@ public interface JSONVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArray(JSONParser.ArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JSONParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(JSONParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JSONParser#number}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumber(JSONParser.NumberContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JSONParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(JSONParser.BoolContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JSONParser#null}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNull(JSONParser.NullContext ctx);
 }
