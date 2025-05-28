@@ -8,7 +8,6 @@ import org.paohaijiao.jstark.parser.JSONParser;
 import org.paohaijiao.jstark.util.ObjectConverter;
 import java.math.BigDecimal;
 import java.util.List;
-
 public class JSONCommonVisitor extends JSONBaseVisitor {
     @Override
     public JSONObject visitJson(JSONParser.JsonContext ctx) {
