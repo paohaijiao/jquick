@@ -1,13 +1,11 @@
 package org.paohaijiao.jstark.visitor;
 
-import javafx.util.converter.ShortStringConverter;
+import org.paohaijiao.jstark.obj.JSONArray;
 import org.paohaijiao.jstark.obj.JSONObject;
 import org.paohaijiao.jstark.obj.JSonKeyValue;
 import org.paohaijiao.jstark.parser.JSONBaseVisitor;
 import org.paohaijiao.jstark.parser.JSONParser;
 import org.paohaijiao.jstark.util.ObjectConverter;
-
-import javax.print.DocFlavor;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
         Object result = null;
         if(null!=ctx.value()) {
             result=visitValue(ctx.value());
-             jsonObject=ObjectConverter.assign(result, JSONObject.class);
+            jsonObject=ObjectConverter.assign(result, JSONObject.class);
         }
         return jsonObject;
     }
@@ -27,6 +25,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     public Object visitValue(JSONParser.ValueContext ctx) {
         if(null!=ctx.object()){
             Object obj=visitObject(ctx.object());
+            return obj;
         }
         if(null!=ctx.array()){
             return visitArray(ctx.array());
@@ -50,9 +49,14 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
 
 
     @Override
-    public JSONObject visitArray(JSONParser.ArrayContext ctx) {
-//        return visitChildren(ctx);
-        return null;
+    public JSONArray visitArray(JSONParser.ArrayContext ctx) {
+        JSONArray array = new JSONArray();
+        for(JSONParser.ValueContext value: ctx.value()) {
+            Object  object=visitValue(value);
+            JSONObject val=ObjectConverter.assign(object, JSONObject.class);
+            array.add(val);
+        }
+        return array;
     }
     @Override
     public JSONObject visitObject(JSONParser.ObjectContext ctx) {
