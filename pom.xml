@@ -12,11 +12,12 @@
   <packaging>pom</packaging>
   <name>Archetype - jthornrule</name>
   <modules>
-    <module>jthornrule-json</module>
-    <module>jthornrule-xml</module>
+    <module>jthornrule-quickJson</module>
+    <module>jthornrule-quickXml</module>
     <module>jthornrule-base</module>
-    <module>jthornrule-jsonpath</module>
+    <module>jthornrule-quickPath</module>
     <module>jthornrule-quickLang</module>
+    <module>jthornrule-quickRest</module>
   </modules>
   <dependencies>
 

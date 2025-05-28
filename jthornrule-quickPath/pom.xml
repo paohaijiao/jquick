@@ -6,7 +6,8 @@
         <artifactId>jthornrule</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>jthornrule-xml</artifactId>
-    <name>Archetype - jthornrule-xml</name>
+    <artifactId>jthornrule-quickPath</artifactId>
+    <name>Archetype - jthornrule-jsonpath</name>
     <url>http://maven.apache.org</url>
+
 </project>
