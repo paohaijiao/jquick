@@ -18,6 +18,7 @@
     <module>jthornrule-quickPath</module>
     <module>jthornrule-quickLang</module>
     <module>jthornrule-quickRest</module>
+      <module>jthornrule-quickSql</module>
   </modules>
   <dependencies>
 
