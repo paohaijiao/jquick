@@ -7,6 +7,7 @@ import org.paohaijiao.jstark.parser.JSONBaseVisitor;
 import org.paohaijiao.jstark.parser.JSONParser;
 import org.paohaijiao.jstark.util.ObjectConverter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 public class JSONCommonVisitor extends JSONBaseVisitor {
     @Override
@@ -48,12 +49,12 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
 
 
     @Override
-    public JSONArray visitArray(JSONParser.ArrayContext ctx) {
-        JSONArray array = new JSONArray();
+    public List<Object> visitArray(JSONParser.ArrayContext ctx) {
+        List<Object> array = new ArrayList<>();
         for(JSONParser.ValueContext value: ctx.value()) {
             Object  object=visitValue(value);
-            JSONObject val=ObjectConverter.assign(object, JSONObject.class);
-            array.add(val);
+            array.add(object);
+
         }
         return array;
     }
