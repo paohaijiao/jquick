@@ -5,6 +5,7 @@ import org.paohaijiao.jstark.exception.AntlrExecutionException;
 import org.paohaijiao.jstark.executor.JThornRuleQuickLangExecutor;
 import org.paohaijiao.jstark.resource.JThornRuleReader;
 import org.paohaijiao.jstark.resource.impl.JThornRuleFileReader;
+import org.paohaijiao.jstark.resource.impl.JThornRuleReSourceFileReader;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Main {
             System.err.println("规则栈: " + error.getRuleStack());
         });
         try {
-            JThornRuleReader fileReader = new JThornRuleFileReader("rule.txt");
+            JThornRuleReader fileReader = new JThornRuleReSourceFileReader("rule.txt");
             JThornRuleAdaptor context = new JThornRuleAdaptor(fileReader);
             System.out.println(context.getRuleContent());
             Object result = executor.execute(context.getRuleContent());
