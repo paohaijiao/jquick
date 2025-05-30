@@ -38,6 +38,26 @@ public interface JThornRuleQuickLangListener extends ParseTreeListener {
 	 */
 	void exitAssignment(JThornRuleQuickLangParser.AssignmentContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickLangParser#elseIfStatment}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickLangParser#elseIfStatment}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseAction(JThornRuleQuickLangParser.ElseActionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseAction(JThornRuleQuickLangParser.ElseActionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JThornRuleQuickLangParser#action}.
 	 * @param ctx the parse tree
 	 */

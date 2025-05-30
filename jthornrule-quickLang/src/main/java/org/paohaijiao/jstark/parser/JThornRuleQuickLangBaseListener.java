@@ -53,6 +53,30 @@ public class JThornRuleQuickLangBaseListener implements JThornRuleQuickLangListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseAction(JThornRuleQuickLangParser.ElseActionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseAction(JThornRuleQuickLangParser.ElseActionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAction(JThornRuleQuickLangParser.ActionContext ctx) { }
 	/**
 	 * {@inheritDoc}

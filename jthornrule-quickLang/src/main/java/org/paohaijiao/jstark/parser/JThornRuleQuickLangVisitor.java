@@ -29,6 +29,18 @@ public interface JThornRuleQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(JThornRuleQuickLangParser.AssignmentContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickLangParser#elseIfStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseAction(JThornRuleQuickLangParser.ElseActionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JThornRuleQuickLangParser#action}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
