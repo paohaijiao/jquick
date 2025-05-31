@@ -8,7 +8,6 @@ import org.paohaijiao.jstark.parser.JThornRuleQuickXMLLexer;
 import org.paohaijiao.jstark.parser.JThornRuleQuickXMLParser;
 
 import java.util.List;
-
 public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVisitor {
 
     @Override
