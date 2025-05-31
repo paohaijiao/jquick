@@ -47,7 +47,6 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         prolog.put(attributes, jsonArray);
         return prolog;
     }
-
     @Override
     public JSONObject visitContent(JThornRuleQuickXMLParser.ContentContext ctx) {
         JSONObject content = new JSONObject();
