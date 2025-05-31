@@ -19,6 +19,7 @@
     <module>jthornrule-quickLang</module>
     <module>jthornrule-quickRest</module>
       <module>jthornrule-quickSql</module>
+      <module>jthornrule-excel</module>
   </modules>
   <dependencies>
 

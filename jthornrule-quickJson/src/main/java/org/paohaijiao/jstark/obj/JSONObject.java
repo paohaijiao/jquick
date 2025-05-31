@@ -20,7 +20,6 @@ public class JSONObject implements Map<String, Object> {
         this.map = new LinkedHashMap<>(map);
     }
 
-    // 常用方法
     public String getString(String key) {
         Object value = map.get(key);
         return value == null ? null : value.toString();
@@ -57,7 +56,6 @@ public class JSONObject implements Map<String, Object> {
         return null;
     }
 
-    // 实现Map接口的方法
     @Override
     public int size() {
         return map.size();
@@ -118,7 +116,6 @@ public class JSONObject implements Map<String, Object> {
         return map.entrySet();
     }
 
-    // 转换为JSON字符串
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -157,7 +154,6 @@ public class JSONObject implements Map<String, Object> {
                 .replace("\t", "\\t");
     }
 
-    // 静态工具方法
     public static JSONObject parseObject(String json) {
         // 简化的解析实现，实际FastJSON有复杂的解析器
         // 这里仅作为示例，实际使用时应该使用完整的JSON解析器
