@@ -2,15 +2,15 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.paohaijiao.jstark</groupId>
-    <artifactId>common-frame</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>com.paohaijiao.javelin</groupId>
+    <artifactId>javelin</artifactId>
+    <version>1.0.0</version>
   </parent>
-  <groupId>org.paohaijiao.jstark</groupId>
+  <groupId>com.paohaijiao.javelin</groupId>
   <artifactId>jthornrule</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
-  <name>Archetype - jthornrule</name>
+  <name>rule</name>
   <modules>
     <module>jthornrule-quickJson</module>
     <module>jthornrule-quickXml</module>
@@ -18,8 +18,8 @@
     <module>jthornrule-quickPath</module>
     <module>jthornrule-quickLang</module>
     <module>jthornrule-quickRest</module>
-      <module>jthornrule-quickSql</module>
-      <module>jthornrule-excel</module>
+    <module>jthornrule-quickSql</module>
+    <module>jthornrule-excel</module>
   </modules>
   <dependencies>
 
