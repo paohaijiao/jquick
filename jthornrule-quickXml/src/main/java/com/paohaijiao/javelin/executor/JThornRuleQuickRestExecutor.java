@@ -1,6 +1,7 @@
 package com.paohaijiao.javelin.executor;
 
 import com.paohaijiao.javelin.antlr.impl.AbstractAntlrExecutor;
+import com.paohaijiao.javelin.exception.AntlrExecutionException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;

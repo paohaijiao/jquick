@@ -27,7 +27,6 @@ public class Main {
         StringBuilder result = new StringBuilder();
         try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-
             String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line).append("\n");

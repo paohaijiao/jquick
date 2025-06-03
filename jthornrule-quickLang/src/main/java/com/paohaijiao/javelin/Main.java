@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin;
 
 import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
-import org.paohaijiao.jstark.exception.AntlrExecutionException;
+import com.paohaijiao.javelin.exception.AntlrExecutionException;
 import com.paohaijiao.javelin.executor.JThornRuleQuickLangExecutor;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
 import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
