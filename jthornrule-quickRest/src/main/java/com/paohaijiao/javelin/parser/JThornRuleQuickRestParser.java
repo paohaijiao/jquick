@@ -3,8 +3,11 @@ package com.paohaijiao.javelin.parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class JThornRuleQuickRestParser extends Parser {
@@ -16,36 +19,42 @@ public class JThornRuleQuickRestParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, T__19=20, T__20=21, HTTP_METHOD=22, STRING=23, STRING_EMPTY=24, 
-		URL=25, WS=26, LINE_CONTINUATION=27, UNKNOWN=28;
+		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
+		T__24=25, T__25=26, T__26=27, T__27=28, HTTP_METHOD=29, STRING=30, WS=31, 
+		LINE_CONTINUATION=32, UNKNOWN=33, STRING_EMPTY=34;
 	public static final int
 		RULE_curlCommand = 0, RULE_option = 1, RULE_requestMethod = 2, RULE_headerOption = 3, 
-		RULE_dataOption = 4, RULE_dataUrlEncodeOption = 5, RULE_emptyData = 6, 
-		RULE_formData = 7, RULE_userOption = 8, RULE_locationOption = 9, RULE_otherOption = 10, 
-		RULE_url = 11;
+		RULE_proxryOption = 4, RULE_socketOption = 5, RULE_http2Option = 6, RULE_dataOption = 7, 
+		RULE_dataUrlEncodeOption = 8, RULE_emptyData = 9, RULE_formData = 10, 
+		RULE_userOption = 11, RULE_locationOption = 12, RULE_loption = 13, RULE_otherOption = 14, 
+		RULE_downloadOption = 15, RULE_uploadOption = 16, RULE_url = 17;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"curlCommand", "option", "requestMethod", "headerOption", "dataOption", 
-			"dataUrlEncodeOption", "emptyData", "formData", "userOption", "locationOption", 
-			"otherOption", "url"
+			"curlCommand", "option", "requestMethod", "headerOption", "proxryOption", 
+			"socketOption", "http2Option", "dataOption", "dataUrlEncodeOption", "emptyData", 
+			"formData", "userOption", "locationOption", "loption", "otherOption", 
+			"downloadOption", "uploadOption", "url"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'curl'", "'-X'", "'--request'", "'-H'", "'--header'", "'-d'", 
-			"'--data'", "'--data-ascii'", "'--data-binary'", "'--data-raw'", "'--data-urlencode'", 
-			"'-u'", "'--user'", "'-L'", "'--location'", "'-v'", "'--verbose'", "'-s'", 
-			"'--silent'", "'-k'", "'--insecure'"
+			null, "'curl'", "'-X'", "'--request'", "'-H'", "'--header'", "'-x'", 
+			"'--proxy'", "'--socks5-hostname'", "'--http2'", "'-d'", "'--data'", 
+			"'--data-ascii'", "'--data-binary'", "'--data-raw'", "'--data-urlencode'", 
+			"'-u'", "'--user'", "'-L'", "'--location'", "'--max-redirs'", "'-v'", 
+			"'--verbose'", "'-s'", "'--silent'", "'-k'", "'--insecure'", "'-o'", 
+			"'-F'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, null, null, "HTTP_METHOD", 
-			"STRING", "STRING_EMPTY", "URL", "WS", "LINE_CONTINUATION", "UNKNOWN"
+			null, null, null, null, null, null, null, null, null, null, null, null, 
+			null, null, null, null, null, "HTTP_METHOD", "STRING", "WS", "LINE_CONTINUATION", 
+			"UNKNOWN", "STRING_EMPTY"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -139,14 +148,14 @@ public class JThornRuleQuickRestParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(36);
 			match(T__0);
-			setState(27); 
+			setState(39); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(27);
+				setState(39);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case T__1:
@@ -167,17 +176,22 @@ public class JThornRuleQuickRestParser extends Parser {
 				case T__16:
 				case T__17:
 				case T__18:
-				case T__19:
 				case T__20:
+				case T__21:
+				case T__22:
+				case T__23:
+				case T__24:
+				case T__25:
+				case T__26:
+				case T__27:
 					{
-					setState(25);
+					setState(37);
 					option();
 					}
 					break;
 				case STRING:
-				case URL:
 					{
-					setState(26);
+					setState(38);
 					url();
 					}
 					break;
@@ -185,10 +199,10 @@ public class JThornRuleQuickRestParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(29); 
+				setState(41); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 46137340L) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 1609564156L) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -225,6 +239,21 @@ public class JThornRuleQuickRestParser extends Parser {
 		public OtherOptionContext otherOption() {
 			return getRuleContext(OtherOptionContext.class,0);
 		}
+		public DownloadOptionContext downloadOption() {
+			return getRuleContext(DownloadOptionContext.class,0);
+		}
+		public UploadOptionContext uploadOption() {
+			return getRuleContext(UploadOptionContext.class,0);
+		}
+		public ProxryOptionContext proxryOption() {
+			return getRuleContext(ProxryOptionContext.class,0);
+		}
+		public SocketOptionContext socketOption() {
+			return getRuleContext(SocketOptionContext.class,0);
+		}
+		public Http2OptionContext http2Option() {
+			return getRuleContext(Http2OptionContext.class,0);
+		}
 		public OptionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -248,14 +277,14 @@ public class JThornRuleQuickRestParser extends Parser {
 		OptionContext _localctx = new OptionContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_option);
 		try {
-			setState(38);
+			setState(55);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__1:
 			case T__2:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(31);
+				setState(43);
 				requestMethod();
 				}
 				break;
@@ -263,54 +292,90 @@ public class JThornRuleQuickRestParser extends Parser {
 			case T__4:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(32);
+				setState(44);
 				headerOption();
 				}
 				break;
-			case T__5:
-			case T__6:
-			case T__7:
-			case T__8:
 			case T__9:
+			case T__10:
+			case T__11:
+			case T__12:
+			case T__13:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(33);
+				setState(45);
 				dataOption();
 				}
 				break;
-			case T__10:
+			case T__14:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(34);
+				setState(46);
 				dataUrlEncodeOption();
-				}
-				break;
-			case T__11:
-			case T__12:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(35);
-				userOption();
-				}
-				break;
-			case T__13:
-			case T__14:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(36);
-				locationOption();
 				}
 				break;
 			case T__15:
 			case T__16:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(47);
+				userOption();
+				}
+				break;
 			case T__17:
 			case T__18:
-			case T__19:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(48);
+				locationOption();
+				}
+				break;
 			case T__20:
+			case T__21:
+			case T__22:
+			case T__23:
+			case T__24:
+			case T__25:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(37);
+				setState(49);
 				otherOption();
+				}
+				break;
+			case T__26:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(50);
+				downloadOption();
+				}
+				break;
+			case T__27:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(51);
+				uploadOption();
+				}
+				break;
+			case T__5:
+			case T__6:
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(52);
+				proxryOption();
+				}
+				break;
+			case T__7:
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(53);
+				socketOption();
+				}
+				break;
+			case T__8:
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(54);
+				http2Option();
 				}
 				break;
 			default:
@@ -358,7 +423,7 @@ public class JThornRuleQuickRestParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(57);
 			_la = _input.LA(1);
 			if ( !(_la==T__1 || _la==T__2) ) {
 			_errHandler.recoverInline(this);
@@ -368,7 +433,7 @@ public class JThornRuleQuickRestParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(41);
+			setState(58);
 			((RequestMethodContext)_localctx).method = match(HTTP_METHOD);
 			}
 		}
@@ -413,7 +478,7 @@ public class JThornRuleQuickRestParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(43);
+			setState(60);
 			_la = _input.LA(1);
 			if ( !(_la==T__3 || _la==T__4) ) {
 			_errHandler.recoverInline(this);
@@ -423,8 +488,155 @@ public class JThornRuleQuickRestParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(44);
+			setState(61);
 			((HeaderOptionContext)_localctx).headerValue = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ProxryOptionContext extends ParserRuleContext {
+		public Token proxy;
+		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
+		public ProxryOptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_proxryOption; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterProxryOption(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitProxryOption(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitProxryOption(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ProxryOptionContext proxryOption() throws RecognitionException {
+		ProxryOptionContext _localctx = new ProxryOptionContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_proxryOption);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(63);
+			_la = _input.LA(1);
+			if ( !(_la==T__5 || _la==T__6) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(64);
+			((ProxryOptionContext)_localctx).proxy = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class SocketOptionContext extends ParserRuleContext {
+		public Token proxy;
+		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
+		public SocketOptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_socketOption; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterSocketOption(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitSocketOption(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitSocketOption(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final SocketOptionContext socketOption() throws RecognitionException {
+		SocketOptionContext _localctx = new SocketOptionContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_socketOption);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(66);
+			match(T__7);
+			}
+			setState(67);
+			((SocketOptionContext)_localctx).proxy = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class Http2OptionContext extends ParserRuleContext {
+		public Http2OptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_http2Option; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterHttp2Option(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitHttp2Option(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitHttp2Option(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final Http2OptionContext http2Option() throws RecognitionException {
+		Http2OptionContext _localctx = new Http2OptionContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_http2Option);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(69);
+			match(T__8);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -463,14 +675,14 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final DataOptionContext dataOption() throws RecognitionException {
 		DataOptionContext _localctx = new DataOptionContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_dataOption);
+		enterRule(_localctx, 14, RULE_dataOption);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
+			setState(71);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1984L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 31744L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -478,7 +690,7 @@ public class JThornRuleQuickRestParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(47);
+			setState(72);
 			((DataOptionContext)_localctx).dataValue = match(STRING);
 			}
 		}
@@ -522,24 +734,24 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final DataUrlEncodeOptionContext dataUrlEncodeOption() throws RecognitionException {
 		DataUrlEncodeOptionContext _localctx = new DataUrlEncodeOptionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_dataUrlEncodeOption);
+		enterRule(_localctx, 16, RULE_dataUrlEncodeOption);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
-			match(T__10);
-			setState(52);
+			setState(74);
+			match(T__14);
+			setState(77);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STRING_EMPTY:
 				{
-				setState(50);
+				setState(75);
 				emptyData();
 				}
 				break;
 			case STRING:
 				{
-				setState(51);
+				setState(76);
 				formData();
 				}
 				break;
@@ -583,11 +795,11 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final EmptyDataContext emptyData() throws RecognitionException {
 		EmptyDataContext _localctx = new EmptyDataContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_emptyData);
+		enterRule(_localctx, 18, RULE_emptyData);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54);
+			setState(79);
 			match(STRING_EMPTY);
 			}
 		}
@@ -626,11 +838,11 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final FormDataContext formData() throws RecognitionException {
 		FormDataContext _localctx = new FormDataContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_formData);
+		enterRule(_localctx, 20, RULE_formData);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56);
+			setState(81);
 			match(STRING);
 			}
 		}
@@ -670,14 +882,14 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final UserOptionContext userOption() throws RecognitionException {
 		UserOptionContext _localctx = new UserOptionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_userOption);
+		enterRule(_localctx, 22, RULE_userOption);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(58);
+			setState(83);
 			_la = _input.LA(1);
-			if ( !(_la==T__11 || _la==T__12) ) {
+			if ( !(_la==T__15 || _la==T__16) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -685,7 +897,7 @@ public class JThornRuleQuickRestParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(59);
+			setState(84);
 			((UserOptionContext)_localctx).userValue = match(STRING);
 			}
 		}
@@ -702,6 +914,9 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LocationOptionContext extends ParserRuleContext {
+		public LoptionContext loption() {
+			return getRuleContext(LoptionContext.class,0);
+		}
 		public LocationOptionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -723,14 +938,14 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final LocationOptionContext locationOption() throws RecognitionException {
 		LocationOptionContext _localctx = new LocationOptionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_locationOption);
+		enterRule(_localctx, 24, RULE_locationOption);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(61);
+			setState(86);
 			_la = _input.LA(1);
-			if ( !(_la==T__13 || _la==T__14) ) {
+			if ( !(_la==T__17 || _la==T__18) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -738,6 +953,64 @@ public class JThornRuleQuickRestParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
+			setState(88);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==T__19) {
+				{
+				setState(87);
+				loption();
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class LoptionContext extends ParserRuleContext {
+		public Token loptionValue;
+		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
+		public LoptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_loption; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterLoption(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitLoption(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitLoption(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final LoptionContext loption() throws RecognitionException {
+		LoptionContext _localctx = new LoptionContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_loption);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(90);
+			match(T__19);
+			}
+			setState(91);
+			((LoptionContext)_localctx).loptionValue = match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -774,14 +1047,14 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final OtherOptionContext otherOption() throws RecognitionException {
 		OtherOptionContext _localctx = new OtherOptionContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_otherOption);
+		enterRule(_localctx, 28, RULE_otherOption);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63);
+			setState(93);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 4128768L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 132120576L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -803,9 +1076,104 @@ public class JThornRuleQuickRestParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class DownloadOptionContext extends ParserRuleContext {
+		public Token file;
+		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
+		public DownloadOptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_downloadOption; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterDownloadOption(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitDownloadOption(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitDownloadOption(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DownloadOptionContext downloadOption() throws RecognitionException {
+		DownloadOptionContext _localctx = new DownloadOptionContext(_ctx, getState());
+		enterRule(_localctx, 30, RULE_downloadOption);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(95);
+			match(T__26);
+			}
+			setState(96);
+			((DownloadOptionContext)_localctx).file = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class UploadOptionContext extends ParserRuleContext {
+		public Token file;
+		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
+		public UploadOptionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_uploadOption; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).enterUploadOption(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JThornRuleQuickRestListener ) ((JThornRuleQuickRestListener)listener).exitUploadOption(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JThornRuleQuickRestVisitor ) return ((JThornRuleQuickRestVisitor<? extends T>)visitor).visitUploadOption(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final UploadOptionContext uploadOption() throws RecognitionException {
+		UploadOptionContext _localctx = new UploadOptionContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_uploadOption);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(98);
+			match(T__27);
+			}
+			setState(99);
+			((UploadOptionContext)_localctx).file = match(STRING);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class UrlContext extends ParserRuleContext {
 		public TerminalNode STRING() { return getToken(JThornRuleQuickRestParser.STRING, 0); }
-		public TerminalNode URL() { return getToken(JThornRuleQuickRestParser.URL, 0); }
 		public UrlContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -827,21 +1195,12 @@ public class JThornRuleQuickRestParser extends Parser {
 
 	public final UrlContext url() throws RecognitionException {
 		UrlContext _localctx = new UrlContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_url);
-		int _la;
+		enterRule(_localctx, 34, RULE_url);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(65);
-			_la = _input.LA(1);
-			if ( !(_la==STRING || _la==URL) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(101);
+			match(STRING);
 			}
 		}
 		catch (RecognitionException re) {
@@ -856,47 +1215,65 @@ public class JThornRuleQuickRestParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001cD\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\"h\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0001"+
-		"\u0000\u0001\u0000\u0001\u0000\u0004\u0000\u001c\b\u0000\u000b\u0000\f"+
-		"\u0000\u001d\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0003\u0001\'\b\u0001\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0003\u00055\b\u0005"+
-		"\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0001"+
-		"\b\u0001\t\u0001\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001\u000b"+
-		"\u0000\u0000\f\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016"+
-		"\u0000\u0007\u0001\u0000\u0002\u0003\u0001\u0000\u0004\u0005\u0001\u0000"+
-		"\u0006\n\u0001\u0000\f\r\u0001\u0000\u000e\u000f\u0001\u0000\u0010\u0015"+
-		"\u0002\u0000\u0017\u0017\u0019\u0019@\u0000\u0018\u0001\u0000\u0000\u0000"+
-		"\u0002&\u0001\u0000\u0000\u0000\u0004(\u0001\u0000\u0000\u0000\u0006+"+
-		"\u0001\u0000\u0000\u0000\b.\u0001\u0000\u0000\u0000\n1\u0001\u0000\u0000"+
-		"\u0000\f6\u0001\u0000\u0000\u0000\u000e8\u0001\u0000\u0000\u0000\u0010"+
-		":\u0001\u0000\u0000\u0000\u0012=\u0001\u0000\u0000\u0000\u0014?\u0001"+
-		"\u0000\u0000\u0000\u0016A\u0001\u0000\u0000\u0000\u0018\u001b\u0005\u0001"+
-		"\u0000\u0000\u0019\u001c\u0003\u0002\u0001\u0000\u001a\u001c\u0003\u0016"+
-		"\u000b\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001b\u001a\u0001\u0000"+
-		"\u0000\u0000\u001c\u001d\u0001\u0000\u0000\u0000\u001d\u001b\u0001\u0000"+
-		"\u0000\u0000\u001d\u001e\u0001\u0000\u0000\u0000\u001e\u0001\u0001\u0000"+
-		"\u0000\u0000\u001f\'\u0003\u0004\u0002\u0000 \'\u0003\u0006\u0003\u0000"+
-		"!\'\u0003\b\u0004\u0000\"\'\u0003\n\u0005\u0000#\'\u0003\u0010\b\u0000"+
-		"$\'\u0003\u0012\t\u0000%\'\u0003\u0014\n\u0000&\u001f\u0001\u0000\u0000"+
-		"\u0000& \u0001\u0000\u0000\u0000&!\u0001\u0000\u0000\u0000&\"\u0001\u0000"+
-		"\u0000\u0000&#\u0001\u0000\u0000\u0000&$\u0001\u0000\u0000\u0000&%\u0001"+
-		"\u0000\u0000\u0000\'\u0003\u0001\u0000\u0000\u0000()\u0007\u0000\u0000"+
-		"\u0000)*\u0005\u0016\u0000\u0000*\u0005\u0001\u0000\u0000\u0000+,\u0007"+
-		"\u0001\u0000\u0000,-\u0005\u0017\u0000\u0000-\u0007\u0001\u0000\u0000"+
-		"\u0000./\u0007\u0002\u0000\u0000/0\u0005\u0017\u0000\u00000\t\u0001\u0000"+
-		"\u0000\u000014\u0005\u000b\u0000\u000025\u0003\f\u0006\u000035\u0003\u000e"+
-		"\u0007\u000042\u0001\u0000\u0000\u000043\u0001\u0000\u0000\u00005\u000b"+
-		"\u0001\u0000\u0000\u000067\u0005\u0018\u0000\u00007\r\u0001\u0000\u0000"+
-		"\u000089\u0005\u0017\u0000\u00009\u000f\u0001\u0000\u0000\u0000:;\u0007"+
-		"\u0003\u0000\u0000;<\u0005\u0017\u0000\u0000<\u0011\u0001\u0000\u0000"+
-		"\u0000=>\u0007\u0004\u0000\u0000>\u0013\u0001\u0000\u0000\u0000?@\u0007"+
-		"\u0005\u0000\u0000@\u0015\u0001\u0000\u0000\u0000AB\u0007\u0006\u0000"+
-		"\u0000B\u0017\u0001\u0000\u0000\u0000\u0004\u001b\u001d&4";
+		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
+		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
+		"\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0004\u0000(\b\u0000\u000b\u0000\f\u0000)\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0003\u00018\b"+
+		"\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\b\u0001\b\u0001\b\u0003\bN\b\b\u0001\t\u0001\t\u0001\n\u0001\n\u0001"+
+		"\u000b\u0001\u000b\u0001\u000b\u0001\f\u0001\f\u0003\fY\b\f\u0001\r\u0001"+
+		"\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000f\u0001\u000f\u0001\u000f"+
+		"\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0011"+
+		"\u0000\u0000\u0012\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014"+
+		"\u0016\u0018\u001a\u001c\u001e \"\u0000\u0007\u0001\u0000\u0002\u0003"+
+		"\u0001\u0000\u0004\u0005\u0001\u0000\u0006\u0007\u0001\u0000\n\u000e\u0001"+
+		"\u0000\u0010\u0011\u0001\u0000\u0012\u0013\u0001\u0000\u0015\u001ad\u0000"+
+		"$\u0001\u0000\u0000\u0000\u00027\u0001\u0000\u0000\u0000\u00049\u0001"+
+		"\u0000\u0000\u0000\u0006<\u0001\u0000\u0000\u0000\b?\u0001\u0000\u0000"+
+		"\u0000\nB\u0001\u0000\u0000\u0000\fE\u0001\u0000\u0000\u0000\u000eG\u0001"+
+		"\u0000\u0000\u0000\u0010J\u0001\u0000\u0000\u0000\u0012O\u0001\u0000\u0000"+
+		"\u0000\u0014Q\u0001\u0000\u0000\u0000\u0016S\u0001\u0000\u0000\u0000\u0018"+
+		"V\u0001\u0000\u0000\u0000\u001aZ\u0001\u0000\u0000\u0000\u001c]\u0001"+
+		"\u0000\u0000\u0000\u001e_\u0001\u0000\u0000\u0000 b\u0001\u0000\u0000"+
+		"\u0000\"e\u0001\u0000\u0000\u0000$\'\u0005\u0001\u0000\u0000%(\u0003\u0002"+
+		"\u0001\u0000&(\u0003\"\u0011\u0000\'%\u0001\u0000\u0000\u0000\'&\u0001"+
+		"\u0000\u0000\u0000()\u0001\u0000\u0000\u0000)\'\u0001\u0000\u0000\u0000"+
+		")*\u0001\u0000\u0000\u0000*\u0001\u0001\u0000\u0000\u0000+8\u0003\u0004"+
+		"\u0002\u0000,8\u0003\u0006\u0003\u0000-8\u0003\u000e\u0007\u0000.8\u0003"+
+		"\u0010\b\u0000/8\u0003\u0016\u000b\u000008\u0003\u0018\f\u000018\u0003"+
+		"\u001c\u000e\u000028\u0003\u001e\u000f\u000038\u0003 \u0010\u000048\u0003"+
+		"\b\u0004\u000058\u0003\n\u0005\u000068\u0003\f\u0006\u00007+\u0001\u0000"+
+		"\u0000\u00007,\u0001\u0000\u0000\u00007-\u0001\u0000\u0000\u00007.\u0001"+
+		"\u0000\u0000\u00007/\u0001\u0000\u0000\u000070\u0001\u0000\u0000\u0000"+
+		"71\u0001\u0000\u0000\u000072\u0001\u0000\u0000\u000073\u0001\u0000\u0000"+
+		"\u000074\u0001\u0000\u0000\u000075\u0001\u0000\u0000\u000076\u0001\u0000"+
+		"\u0000\u00008\u0003\u0001\u0000\u0000\u00009:\u0007\u0000\u0000\u0000"+
+		":;\u0005\u001d\u0000\u0000;\u0005\u0001\u0000\u0000\u0000<=\u0007\u0001"+
+		"\u0000\u0000=>\u0005\u001e\u0000\u0000>\u0007\u0001\u0000\u0000\u0000"+
+		"?@\u0007\u0002\u0000\u0000@A\u0005\u001e\u0000\u0000A\t\u0001\u0000\u0000"+
+		"\u0000BC\u0005\b\u0000\u0000CD\u0005\u001e\u0000\u0000D\u000b\u0001\u0000"+
+		"\u0000\u0000EF\u0005\t\u0000\u0000F\r\u0001\u0000\u0000\u0000GH\u0007"+
+		"\u0003\u0000\u0000HI\u0005\u001e\u0000\u0000I\u000f\u0001\u0000\u0000"+
+		"\u0000JM\u0005\u000f\u0000\u0000KN\u0003\u0012\t\u0000LN\u0003\u0014\n"+
+		"\u0000MK\u0001\u0000\u0000\u0000ML\u0001\u0000\u0000\u0000N\u0011\u0001"+
+		"\u0000\u0000\u0000OP\u0005\"\u0000\u0000P\u0013\u0001\u0000\u0000\u0000"+
+		"QR\u0005\u001e\u0000\u0000R\u0015\u0001\u0000\u0000\u0000ST\u0007\u0004"+
+		"\u0000\u0000TU\u0005\u001e\u0000\u0000U\u0017\u0001\u0000\u0000\u0000"+
+		"VX\u0007\u0005\u0000\u0000WY\u0003\u001a\r\u0000XW\u0001\u0000\u0000\u0000"+
+		"XY\u0001\u0000\u0000\u0000Y\u0019\u0001\u0000\u0000\u0000Z[\u0005\u0014"+
+		"\u0000\u0000[\\\u0005\u001e\u0000\u0000\\\u001b\u0001\u0000\u0000\u0000"+
+		"]^\u0007\u0006\u0000\u0000^\u001d\u0001\u0000\u0000\u0000_`\u0005\u001b"+
+		"\u0000\u0000`a\u0005\u001e\u0000\u0000a\u001f\u0001\u0000\u0000\u0000"+
+		"bc\u0005\u001c\u0000\u0000cd\u0005\u001e\u0000\u0000d!\u0001\u0000\u0000"+
+		"\u0000ef\u0005\u001e\u0000\u0000f#\u0001\u0000\u0000\u0000\u0005\')7M"+
+		"X";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

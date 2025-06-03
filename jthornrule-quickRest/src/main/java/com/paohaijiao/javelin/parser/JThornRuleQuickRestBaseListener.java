@@ -65,6 +65,42 @@ public class JThornRuleQuickRestBaseListener implements JThornRuleQuickRestListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDataOption(JThornRuleQuickRestParser.DataOptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -137,6 +173,18 @@ public class JThornRuleQuickRestBaseListener implements JThornRuleQuickRestListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLoption(JThornRuleQuickRestParser.LoptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoption(JThornRuleQuickRestParser.LoptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOtherOption(JThornRuleQuickRestParser.OtherOptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -144,6 +192,30 @@ public class JThornRuleQuickRestBaseListener implements JThornRuleQuickRestListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOtherOption(JThornRuleQuickRestParser.OtherOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

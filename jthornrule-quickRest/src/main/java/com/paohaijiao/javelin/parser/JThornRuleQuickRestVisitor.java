@@ -35,6 +35,24 @@ public interface JThornRuleQuickRestVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHeaderOption(JThornRuleQuickRestParser.HeaderOptionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#proxryOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#socketOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#http2Option}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#dataOption}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -71,11 +89,29 @@ public interface JThornRuleQuickRestVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLocationOption(JThornRuleQuickRestParser.LocationOptionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#loption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoption(JThornRuleQuickRestParser.LoptionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#otherOption}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOtherOption(JThornRuleQuickRestParser.OtherOptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#downloadOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#uploadOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#url}.
 	 * @param ctx the parse tree

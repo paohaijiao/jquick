@@ -48,6 +48,36 @@ public interface JThornRuleQuickRestListener extends ParseTreeListener {
 	 */
 	void exitHeaderOption(JThornRuleQuickRestParser.HeaderOptionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#proxryOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#proxryOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#socketOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#socketOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#http2Option}.
+	 * @param ctx the parse tree
+	 */
+	void enterHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#http2Option}.
+	 * @param ctx the parse tree
+	 */
+	void exitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#dataOption}.
 	 * @param ctx the parse tree
 	 */
@@ -108,6 +138,16 @@ public interface JThornRuleQuickRestListener extends ParseTreeListener {
 	 */
 	void exitLocationOption(JThornRuleQuickRestParser.LocationOptionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#loption}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoption(JThornRuleQuickRestParser.LoptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#loption}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoption(JThornRuleQuickRestParser.LoptionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#otherOption}.
 	 * @param ctx the parse tree
 	 */
@@ -117,6 +157,26 @@ public interface JThornRuleQuickRestListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOtherOption(JThornRuleQuickRestParser.OtherOptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#downloadOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#downloadOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#uploadOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#uploadOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#url}.
 	 * @param ctx the parse tree
