@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin;
 
+import com.paohaijiao.javelin.obj.JSONObject;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import com.paohaijiao.javelin.parser.JSONLexer;
@@ -19,7 +20,8 @@ public class Main {
         JSONParser parser = new JSONParser(tokens);
         JSONParser.JsonContext tree = parser.json();
         JSONCommonVisitor tv = new JSONCommonVisitor();
-        tv.visit(tree);
+        JSONObject obj=tv.visitJson(tree);
+        System.out.println(obj);
     }
     public  String readFileFromClasspath(String fileName) {
         StringBuilder result = new StringBuilder();

@@ -5,6 +5,7 @@ import com.paohaijiao.javelin.obj.JSonKeyValue;
 import com.paohaijiao.javelin.parser.JSONBaseVisitor;
 import com.paohaijiao.javelin.parser.JSONParser;
 import com.paohaijiao.javelin.util.ObjectConverter;
+import com.paohaijiao.javelin.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     @Override
     public String visitString(JSONParser.StringContext ctx) {
         String str= ctx.getText();
-        return str;
+        return StringUtils.trim(str);
     }
 
     @Override
