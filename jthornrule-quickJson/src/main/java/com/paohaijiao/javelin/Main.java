@@ -1,27 +1,39 @@
 package com.paohaijiao.javelin;
 
+import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
+import com.paohaijiao.javelin.exception.AntlrExecutionException;
+import com.paohaijiao.javelin.executor.JSONExecutor;
 import com.paohaijiao.javelin.obj.JSONObject;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import com.paohaijiao.javelin.parser.JSONLexer;
-import com.paohaijiao.javelin.parser.JSONParser;
-import com.paohaijiao.javelin.visitor.JSONCommonVisitor;
-
+import com.paohaijiao.javelin.obj.JsonBean;
+import com.paohaijiao.javelin.resource.JThornRuleReader;
+import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        String rule=new Main().readFileFromClasspath("rule.txt");
-        JSONLexer lexer = new JSONLexer(CharStreams.fromString(rule));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JSONParser parser = new JSONParser(tokens);
-        JSONParser.JsonContext tree = parser.json();
-        JSONCommonVisitor tv = new JSONCommonVisitor();
-        JSONObject obj=tv.visitJson(tree);
-        System.out.println(obj);
+        JSONExecutor executor = new JSONExecutor();
+        executor.addErrorListener(error -> {
+            System.err.printf("错误: 行%d:%d - %s%n",
+                    error.getLine(), error.getCharPosition(), error.getMessage());
+            System.err.println("规则栈: " + error.getRuleStack());
+        });
+        try {
+            JThornRuleReader fileReader = new JThornRuleReSourceFileReader("rule.txt");
+            JThornRuleAdaptor context = new JThornRuleAdaptor(fileReader);
+            System.out.println(context.getRuleContent());
+            JSONObject jsonObject = executor.execute(context.getRuleContent());
+            JsonBean jsonBean=jsonObject.toBean(JsonBean.class);
+            Map map=jsonObject.toMap();
+            System.out.println("结果: " + jsonObject);
+        } catch (AntlrExecutionException e) {
+            System.err.println("解析失败: " + e.getMessage());
+            e.getErrors().forEach(err ->
+                    System.err.println(" - " + err.getMessage()));
+        }
     }
     public  String readFileFromClasspath(String fileName) {
         StringBuilder result = new StringBuilder();

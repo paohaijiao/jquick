@@ -1,11 +1,12 @@
 package com.paohaijiao.javelin.obj;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import com.paohaijiao.javelin.mapper.BeanMapper;
+import com.paohaijiao.javelin.util.ReflectionUtils;
 
-public class JSONObject implements Map<String, Object> {
+import java.lang.reflect.Field;
+import java.util.*;
+
+public class JSONObject implements Map<String, Object>, BeanMapper {
     private final Map<String, Object> map;
 
     public JSONObject() {
@@ -155,10 +156,7 @@ public class JSONObject implements Map<String, Object> {
     }
 
     public static JSONObject parseObject(String json) {
-        // 简化的解析实现，实际FastJSON有复杂的解析器
-        // 这里仅作为示例，实际使用时应该使用完整的JSON解析器
         JSONObject obj = new JSONObject();
-        // 简单实现，仅处理基本格式: {"key":"value","key2":123}
         String content = json.trim().substring(1, json.length() - 1);
         String[] entries = content.split(",");
         for (String entry : entries) {
@@ -200,5 +198,64 @@ public class JSONObject implements Map<String, Object> {
             return "\"" + obj.toString() + "\"";
         }
         return obj.toString();
+    }
+
+    @Override
+    public <T> T toBean(Class<T> t) {
+        try {
+            T instance = ReflectionUtils.newInstance(t);
+            List<Field> fields = ReflectionUtils.getAllFields(t);
+            for (Field field : fields) {
+                String fieldName = field.getName();
+                if (this.containsKey(fieldName)) {
+                    Object value = this.get(fieldName);
+                    Class<?> fieldType = field.getType();
+                    if (value instanceof Map && !Map.class.isAssignableFrom(fieldType)) {
+                        JSONObject nestedJson = new JSONObject((Map<String, Object>) value);
+                        value = nestedJson.toBean(fieldType);
+                    }
+                    else if (fieldType.isEnum() && value instanceof String) {
+                        value = ReflectionUtils.getEnumByName((Class<? extends Enum>) fieldType, (String) value);
+                    }
+                    else if (value != null && !fieldType.isAssignableFrom(value.getClass())) {
+                        if (fieldType == Integer.class || fieldType == int.class) {
+                            value = this.getInteger(fieldName);
+                        } else if (fieldType == Long.class || fieldType == long.class) {
+                            value = this.getLong(fieldName);
+                        } else if (fieldType == Double.class || fieldType == double.class) {
+                            value = this.getDouble(fieldName);
+                        } else if (fieldType == Boolean.class || fieldType == boolean.class) {
+                            value = this.getBoolean(fieldName);
+                        } else if (fieldType == String.class) {
+                            value = this.getString(fieldName);
+                        }
+                    }
+                    ReflectionUtils.setFieldValue(instance, fieldName, value);
+                }
+            }
+
+            return instance;
+        } catch (Exception e) {
+            throw new RuntimeException("转换JSON对象为Bean失败", e);
+        }
+    }
+
+    @Override
+    public Map toMap() {
+        return deepCopyMap(this.map);
+    }
+    private Map<String, Object> deepCopyMap(Map<String, Object> original) {
+        Map<String, Object> copy = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> entry : original.entrySet()) {
+            Object value = entry.getValue();
+            if (value instanceof Map) {
+                copy.put(entry.getKey(), deepCopyMap((Map<String, Object>) value));
+            } else if (value instanceof List) {
+                copy.put(entry.getKey(), new ArrayList<>((List<?>) value));
+            } else {
+                copy.put(entry.getKey(), value);
+            }
+        }
+        return copy;
     }
 }
