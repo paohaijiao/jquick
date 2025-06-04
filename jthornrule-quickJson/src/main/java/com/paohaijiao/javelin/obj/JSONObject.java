@@ -244,6 +244,48 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
     public Map toMap() {
         return deepCopyMap(this.map);
     }
+
+    @Override
+    public JSONObject fromBean(Object bean) {
+        if (bean == null) {
+            return new JSONObject();
+        }
+        JSONObject json = new JSONObject();
+        List<Field> fields = ReflectionUtils.getAllFields(bean.getClass());
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(bean);
+                if (value == null) {
+                    json.put(field.getName(), null);
+                } else if (value instanceof Number || value instanceof Boolean || value instanceof String) {
+                    json.put(field.getName(), value);
+                }
+                else if (!value.getClass().isArray() && !(value instanceof Collection) && !(value instanceof Map)) {
+                    json.put(field.getName(), fromBean(value));
+                }
+                else if (value instanceof Collection) {
+                    List<Object> list = new ArrayList<>();
+                    for (Object item : (Collection<?>) value) {
+                        list.add(item instanceof String || item instanceof Number || item instanceof Boolean ? item : fromBean(item));
+                    }
+                    json.put(field.getName(), list);
+                } else {
+                    json.put(field.getName(), value);
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Failed to convert bean to JSON", e);
+            }
+        }
+
+        return json;
+    }
+
+    @Override
+    public JSONObject fromMap(Map<String, Object> map) {
+        return new JSONObject(map);
+    }
+
     private Map<String, Object> deepCopyMap(Map<String, Object> original) {
         Map<String, Object> copy = new LinkedHashMap<>();
         for (Map.Entry<String, Object> entry : original.entrySet()) {

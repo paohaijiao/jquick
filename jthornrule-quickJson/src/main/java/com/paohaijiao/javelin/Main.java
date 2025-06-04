@@ -28,6 +28,8 @@ public class Main {
             JSONObject jsonObject = executor.execute(context.getRuleContent());
             JsonBean jsonBean=jsonObject.toBean(JsonBean.class);
             Map map=jsonObject.toMap();
+            JSONObject obj=new JSONObject().fromBean(jsonBean);
+            JSONObject newMap=new JSONObject().fromMap(map);
             System.out.println("结果: " + jsonObject);
         } catch (AntlrExecutionException e) {
             System.err.println("解析失败: " + e.getMessage());

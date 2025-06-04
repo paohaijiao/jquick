@@ -1,5 +1,7 @@
 package com.paohaijiao.javelin.mapper;
 
+import com.paohaijiao.javelin.obj.JSONObject;
+
 import java.util.Map;
 
 public interface BeanMapper {
@@ -8,5 +10,7 @@ public interface BeanMapper {
 
     public Map toMap();
 
-//    public Map toJson();
+    public  JSONObject fromBean(Object bean);
+
+    public  JSONObject fromMap(Map<String, Object> map);
 }
