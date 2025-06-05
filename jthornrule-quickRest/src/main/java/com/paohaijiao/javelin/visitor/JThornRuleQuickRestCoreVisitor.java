@@ -17,7 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+import okhttp3.OkHttpClient;
+import javax.net.ssl.*;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickRestBaseVisitor {
 
     protected OkHttpClient client;
@@ -31,7 +34,34 @@ public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickRestBaseVisit
     protected String downLoadFileName;
     protected JProxryBean jproxry;
     protected List<JFormParam> upLoadFileList = new ArrayList<>();
+    public static OkHttpClient getUnsafeOkHttpClient() {
+        try {
+            final TrustManager[] trustAllCerts = new TrustManager[] {
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                        }
 
+                        @Override
+                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                        }
+
+                        @Override
+                        public X509Certificate[] getAcceptedIssuers() {
+                            return new X509Certificate[]{};
+                        }
+                    }
+            };
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            return new OkHttpClient.Builder()
+                    .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager)trustAllCerts[0])
+                    .hostnameVerifier((hostname, session) -> true)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     protected String trimFileName(String fileName) {
         if(StringUtils.isNotEmpty(fileName)){
             return fileName.replaceAll("@", "");
