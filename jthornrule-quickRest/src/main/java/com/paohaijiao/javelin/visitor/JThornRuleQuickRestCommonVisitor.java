@@ -1,9 +1,11 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JFormParam;
+import com.paohaijiao.javelin.bean.JHeaderParam;
 import com.paohaijiao.javelin.bean.JProxryBean;
 import com.paohaijiao.javelin.enums.JHttpMethod;
 import com.paohaijiao.javelin.enums.JProxryType;
+import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -15,8 +17,8 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.concurrent.TimeUnit;
 
-@Slf4j
 public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVisitor {
 
     public JThornRuleQuickRestCommonVisitor(){
@@ -24,14 +26,19 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     }
 
     @Override
-    public ResponseBody visitCurlCommand(JThornRuleQuickRestParser.CurlCommandContext ctx) {
+    public Object visitCurlCommand(JThornRuleQuickRestParser.CurlCommandContext ctx) {
         for (JThornRuleQuickRestParser.OptionContext option : ctx.option()) {
             visitOption(option);
         }
         for (JThornRuleQuickRestParser.UrlContext urlCtx : ctx.url()) {
             this.url = urlCtx.getText().replaceAll("^['\"]|['\"]$", "");
         }
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES)
+                .readTimeout(10, TimeUnit.MINUTES)
+                .writeTimeout(10, TimeUnit.MINUTES)
+                .build();
+
         Proxy proxy =null;
         if (jproxry != null) {
             proxy = new Proxy(JProxryType.HTTP.getCode().equals(jproxry.getType().getCode())?
@@ -43,10 +50,19 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
                     .proxy(proxy)
                     .build();
         }
+        Assert.notNull(this.method ,"必须显示指定httpMethod");
         this.client = client;
         Request.Builder builder  = new Request.Builder().url(url);
+        RequestBody body=null;
+        if(null!=this.data){
+            body=RequestBody.create(this.data, MediaType.parse(ContentType));
+        }else{
+            body=RequestBody.create("{}", MediaType.parse(ContentType));
+        }
         builder.method(method, body);
-        builder.headers(headersBuilder.build());
+        headerList.forEach(e->{
+            builder.addHeader(e.getKey(),e.getValue());
+        });
         Request request=builder.build();
         MultipartBody.Builder mutiPartBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
@@ -76,11 +92,10 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
             if (downLoadFileName != null) {
                 downLoadFile(responseData);
             }
-            return responseData;
+            return responseData.string();
         }catch (IOException e){
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -112,30 +127,51 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
             visitHttp2Option(ctx.http2Option());
         }
         return null;
- }
-
-    @Override
-    public JHttpMethod visitRequestMethod(JThornRuleQuickRestParser.RequestMethodContext ctx) {
-         this.method = ctx.method.getText();
-         JHttpMethod method= JHttpMethod.codeOf(this.method);
-         return method;
     }
 
+    /**
+     * PASS
+     * @param ctx the parse tree
+     * @return
+     */
+    @Override
+    public JHttpMethod visitRequestMethod(JThornRuleQuickRestParser.RequestMethodContext ctx) {
+        this.method = ctx.method.getText();
+        JHttpMethod method= JHttpMethod.codeOf(this.method);
+        return method;
+    }
+
+    /**
+     * PASS
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Void visitHeaderOption(JThornRuleQuickRestParser.HeaderOptionContext ctx) {
         String header = ctx.headerValue.getText().replaceAll("^['\"]|['\"]$", "");
         String[] parts = header.split(":", 2);
         if (parts.length == 2) {
-            headersBuilder.add(parts[0].trim(), parts[1].trim());
+            JHeaderParam jHeaderParam = new JHeaderParam();
+            jHeaderParam.setKey(parts[0]);
+            jHeaderParam.setValue(parts[1]);
+            headerList.add(jHeaderParam);
+            if("Content-Type".equalsIgnoreCase(parts[0])) {
+                this.ContentType=parts[1];
+            }
         }
         return null;
     }
 
+    /**
+     * PASS
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public Object visitDataOption(JThornRuleQuickRestParser.DataOptionContext ctx) {
         String data = ctx.dataValue.getText().replaceAll("^['\"]|['\"]$", "");
-        body = RequestBody.create(data, MediaType.parse("application/x-www-form-urlencoded"));
-        return body;
+        this.data=data;
+        return null;
     }
 
     @Override
@@ -146,8 +182,8 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         } else {
             data = ctx.formData().getText().replaceAll("^['\"]|['\"]$", "");
         }
-        body = RequestBody.create(data, MediaType.parse("application/x-www-form-urlencoded"));
-        return body;
+        this.ContentType="application/x-www-form-urlencoded";
+        return null;
     }
 
     @Override
@@ -242,13 +278,17 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     }
 
 
-
+    /**
+     * PASS
+     * @param ctx the parse tree
+     * @return
+     */
     @Override
     public String visitUrl(JThornRuleQuickRestParser.UrlContext ctx) {
         if(null!=ctx.STRING()){
             return ctx.STRING().getText();
         }
-        throw new IllegalArgumentException("Unknown boolean expression type");
+        throw new IllegalArgumentException("Unknown URL adress");
     }
     @Override public OkHttpClient visitHttp2Option(
             JThornRuleQuickRestParser.Http2OptionContext ctx) {

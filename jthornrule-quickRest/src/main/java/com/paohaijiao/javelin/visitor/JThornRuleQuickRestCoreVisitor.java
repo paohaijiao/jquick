@@ -1,6 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JFormParam;
+import com.paohaijiao.javelin.bean.JHeaderParam;
 import com.paohaijiao.javelin.bean.JProxryBean;
 import okhttp3.OkHttpClient;
 import com.paohaijiao.javelin.parser.JThornRuleQuickRestBaseVisitor;
@@ -20,10 +21,11 @@ import java.util.List;
 public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickRestBaseVisitor {
 
     protected OkHttpClient client;
-    protected String method = "GET";
+    protected String method = null;
     protected String url;
-    protected final Headers.Builder headersBuilder = new Headers.Builder();
-    protected RequestBody body;
+    protected String data;
+    protected String ContentType="application/json";
+    protected List<JHeaderParam> headerList = new ArrayList<>();
     protected boolean followRedirects = false;
     protected String credentials;
     protected String downLoadFileName;
@@ -48,10 +50,10 @@ public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickRestBaseVisit
                 outputStream.write(buffer, 0, bytesRead);
             }
             return buffer;
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-        return null;
+        } catch(IOException e){
+            e.printStackTrace();
         }
-
+        return null;
     }
+
+}
