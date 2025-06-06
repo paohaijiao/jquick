@@ -11,7 +11,9 @@ public enum JHttpMethod {
     DELETE("DELETE","DELETE"),
     PATCH("PATCH","PATCH"),
     HEAD("HEAD","HEAD"),
-    OPTIONS("OPTIONS","OPTIONS");
+    OPTIONS("OPTIONS","OPTIONS"),
+    TRACE ("TRACE ","TRACE "),
+    CONNECT("CONNECT","CONNECT");
 
     private String code;
     private String name;
@@ -29,5 +31,19 @@ public enum JHttpMethod {
         }
         Assert.throwNewException("非法的方法");
         return null;
+    }
+    public static boolean requireNotHaveRequestBody(String code){
+        if(JHttpMethod.GET.getCode().equals(code)){
+            return true;
+        } else if (JHttpMethod.HEAD.getCode().equals(code)) {
+            return true;
+        } else if (JHttpMethod.CONNECT.getCode().equals(code)) {
+            return true;
+        }  else if (JHttpMethod.TRACE .getCode().equals(code)) {
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

@@ -45,8 +45,8 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         }else{//MediaType.parse(ContentType)
             body=RequestBody.create("{}", MediaType.parse(ContentType));
         }
-        if(this.method.equals(JHttpMethod.GET.getCode())){
-            builder.method("GET", null);
+        if(JHttpMethod.requireNotHaveRequestBody(this.method)){
+            builder.method(this.method, null);
         }else{
             builder.method(method, body);
         }
