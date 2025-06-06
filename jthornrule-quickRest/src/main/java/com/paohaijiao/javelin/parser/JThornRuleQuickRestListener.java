@@ -78,6 +78,16 @@ public interface JThornRuleQuickRestListener extends ParseTreeListener {
 	 */
 	void exitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#ignoreOption}.
+	 * @param ctx the parse tree
+	 */
+	void enterIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JThornRuleQuickRestParser#ignoreOption}.
+	 * @param ctx the parse tree
+	 */
+	void exitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JThornRuleQuickRestParser#dataOption}.
 	 * @param ctx the parse tree
 	 */

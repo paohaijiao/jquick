@@ -67,6 +67,13 @@ public class JThornRuleQuickRestBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitDataOption(JThornRuleQuickRestParser.DataOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

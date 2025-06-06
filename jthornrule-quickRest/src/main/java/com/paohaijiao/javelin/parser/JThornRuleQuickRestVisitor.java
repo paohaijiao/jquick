@@ -53,6 +53,12 @@ public interface JThornRuleQuickRestVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#ignoreOption}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JThornRuleQuickRestParser#dataOption}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

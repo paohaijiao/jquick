@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import com.paohaijiao.javelin.parser.JThornRuleQuickRestParser;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -33,42 +36,29 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         for (JThornRuleQuickRestParser.UrlContext urlCtx : ctx.url()) {
             this.url = urlCtx.getText().replaceAll("^['\"]|['\"]$", "");
         }
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(10, TimeUnit.MINUTES)
-                .writeTimeout(10, TimeUnit.MINUTES)
-                .build();
-
-        Proxy proxy =null;
-        if (jproxry != null) {
-            proxy = new Proxy(JProxryType.HTTP.getCode().equals(jproxry.getType().getCode())?
-                    Proxy.Type.HTTP:Proxy.Type.SOCKS,
-                    new InetSocketAddress(jproxry.getHost(),jproxry.getPort()));
-        }
-        if (proxy != null) {
-            client = new OkHttpClient.Builder()
-                    .proxy(proxy)
-                    .build();
-        }
         Assert.notNull(this.method ,"必须显示指定httpMethod");
-        this.client = client;
+        this.client = getOkHttpClient();
         Request.Builder builder  = new Request.Builder().url(url);
         RequestBody body=null;
         if(null!=this.data){
             body=RequestBody.create(this.data, MediaType.parse(ContentType));
-        }else{
+        }else{//MediaType.parse(ContentType)
             body=RequestBody.create("{}", MediaType.parse(ContentType));
         }
-        builder.method(method, body);
+        if(this.method.equals(JHttpMethod.GET.getCode())){
+            builder.method("GET", null);
+        }else{
+            builder.method(method, body);
+        }
         headerList.forEach(e->{
             builder.addHeader(e.getKey(),e.getValue());
         });
         Request request=builder.build();
-        MultipartBody.Builder mutiPartBuilder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM);
+        MultipartBody.Builder mutiPartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for(JFormParam formParam:upLoadFileList){
             if(formParam.isFile()){
-                File file = new File(formParam.getValue());
+                String fileName=StringUtils.trim(formParam.getValue());
+                File file = new File(fileName);
                 RequestBody fileBody = RequestBody.create(file, MediaType.parse("application/octet-stream"));
                 mutiPartBuilder.addFormDataPart(formParam.getKey(), file.getName(), fileBody);
             }else{
@@ -125,6 +115,8 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
             visitSocketOption(ctx.socketOption());
         }else if (ctx.http2Option() != null) {
             visitHttp2Option(ctx.http2Option());
+        }else if (ctx.ignoreOption() != null) {
+            visitIgnoreOption(ctx.ignoreOption());
         }
         return null;
     }
@@ -290,12 +282,18 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         }
         throw new IllegalArgumentException("Unknown URL adress");
     }
-    @Override public OkHttpClient visitHttp2Option(
+    @Override
+    public OkHttpClient visitHttp2Option(
             JThornRuleQuickRestParser.Http2OptionContext ctx) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .protocols(Arrays.asList(Protocol.HTTP_2, Protocol.HTTP_1_1))
                 .build();
         return client;
+    }
+    @Override
+    public Boolean visitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx) {
+        this.ignoreSsl=true;
+        return this.ignoreSsl;
     }
 
 }

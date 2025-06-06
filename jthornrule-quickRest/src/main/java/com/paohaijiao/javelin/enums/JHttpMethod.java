@@ -1,7 +1,9 @@
 package com.paohaijiao.javelin.enums;
 
 import com.paohaijiao.javelin.exception.Assert;
+import lombok.Getter;
 
+@Getter
 public enum JHttpMethod {
     GET("GET","GET"),
     POST("POST","POST"),

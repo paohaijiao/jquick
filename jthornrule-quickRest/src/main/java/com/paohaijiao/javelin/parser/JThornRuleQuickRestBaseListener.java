@@ -101,6 +101,18 @@ public class JThornRuleQuickRestBaseListener implements JThornRuleQuickRestListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDataOption(JThornRuleQuickRestParser.DataOptionContext ctx) { }
 	/**
 	 * {@inheritDoc}
