@@ -1,0 +1,5 @@
+app:
+  name: My Application
+  version: 1.0.0
+database:
+  pool-size: 10

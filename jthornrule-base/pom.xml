@@ -16,14 +16,22 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.paohaijiao.javelin</groupId>
+            <artifactId>javelin-resource</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
         </dependency>
-        <!-- 用于编译时，生成代码 -->
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
-            <scope>provided</scope> <!-- 或者使用compile，取决于你的构建配置 -->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
