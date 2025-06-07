@@ -29,6 +29,7 @@ public class ExcelImporter <T> {
     }
 
     private void init() {
+
         JExcelSheet sheetAnnotation = clazz.getAnnotation(JExcelSheet.class);
         if (sheetAnnotation != null) {
             sheetName = sheetAnnotation.name();
@@ -62,22 +63,17 @@ public class ExcelImporter <T> {
         if (sheet == null) {
             throw new RuntimeException("Sheet not found");
         }
-
         Iterator<Row> rowIterator = sheet.iterator();
         int currentRow = 0;
-
-        // 跳过表头
         while (currentRow < headRowNumber && rowIterator.hasNext()) {
             rowIterator.next();
             currentRow++;
         }
-
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             T obj = clazz.getDeclaredConstructor().newInstance();
             boolean hasValue = false;
             List<String> errors = new ArrayList<>();
-
             for (Cell cell : row) {
                 int columnIndex = cell.getColumnIndex();
                 Field field = fieldMap.get(columnIndex);
@@ -108,9 +104,7 @@ public class ExcelImporter <T> {
                 }
             }
         }
-
         workbook.close();
-
         if (listener != null) {
             listener.onSuccess(dataList);
             listener.onComplete();
@@ -121,11 +115,9 @@ public class ExcelImporter <T> {
         JExcelColumn column = field.getAnnotation(JExcelColumn.class);
         Class<?> fieldType = field.getType();
         String cellValue = getStringCellValue(cell);
-
         if (cellValue == null || cellValue.isEmpty()) {
             return null;
         }
-
         // 使用自定义转换器
         if (column != null && !column.converter().isEmpty()) {
             JCustomConverter<?> converter = JConverterRegistry.getConverter(column.converter());
@@ -133,8 +125,6 @@ public class ExcelImporter <T> {
                 return converter.convert(cellValue);
             }
         }
-
-        // 默认类型转换
         if (fieldType == String.class) {
             return cellValue;
         } else if (fieldType == Integer.class || fieldType == int.class) {
@@ -149,7 +139,6 @@ public class ExcelImporter <T> {
             String format = column != null && !column.format().isEmpty() ? column.format() : "yyyy-MM-dd";
             return new SimpleDateFormat(format).parse(cellValue);
         }
-
         return cellValue;
     }
 
@@ -157,7 +146,6 @@ public class ExcelImporter <T> {
         if (cell == null) {
             return null;
         }
-
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue().trim();
