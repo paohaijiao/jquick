@@ -1,0 +1,6 @@
+{
+  "books": [
+    {"title": "Book1", "price": 8.95},
+    {"title": "Book2", "price": 12.99}
+  ]
+}

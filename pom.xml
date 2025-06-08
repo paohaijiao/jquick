@@ -15,7 +15,7 @@
     <module>jthornrule-quickJson</module>
     <module>jthornrule-quickXml</module>
     <module>jthornrule-base</module>
-    <module>jthornrule-quickPath</module>
+    <module>jthornrule-quickJsonPath</module>
     <module>jthornrule-quickLang</module>
     <module>jthornrule-quickRest</module>
     <module>jthornrule-quickSql</module>

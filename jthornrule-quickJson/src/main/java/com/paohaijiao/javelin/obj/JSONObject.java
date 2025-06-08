@@ -300,4 +300,21 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
         }
         return copy;
     }
+    /**
+     * 检查JSON对象是否包含指定键
+     * @param key 要检查的键名
+     * @return 如果包含该键则返回true，否则返回false
+     */
+    public boolean has(String key) {
+        return map.containsKey(key);
+    }
+
+    /**
+     * 检查JSON对象是否包含指定键且值不为null
+     * @param key 要检查的键名
+     * @return 如果包含该键且值不为null则返回true，否则返回false
+     */
+    public boolean hasNotNull(String key) {
+        return map.containsKey(key) && map.get(key) != null;
+    }
 }
