@@ -179,23 +179,11 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         if (current == null) {
             return null;
         }
-        Object result = visitSubscript(ctx);
         if (current instanceof JSONObject) {
-            return result;
-        } else if (current instanceof List) {
-            List<Object> list = (List<Object>) current;
-            List<Object> results = new ArrayList<>();
-            for (Object item : list) {
-                Object itemResult = visitSubscript(ctx);
-                if (itemResult != null) {
-                    if (itemResult instanceof List) {
-                        results.addAll((List<?>) itemResult);
-                    } else {
-                        results.add(itemResult);
-                    }
-                }
-            }
-            return results.isEmpty() ? null : results;
+            return visitSubscript(ctx);
+        }
+        else if (current instanceof List) {
+            return visitSubscript(ctx);
         }
         return null;
     }

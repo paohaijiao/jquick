@@ -1,6 +1,7 @@
 package com.paohaijiao.javelin.executor;
 
 import com.paohaijiao.javelin.antlr.impl.AbstractAntlrExecutor;
+import com.paohaijiao.javelin.bean.JSONPathResult;
 import com.paohaijiao.javelin.exception.AntlrExecutionException;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
@@ -11,7 +12,7 @@ import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.TokenStream;
 
-public class JSONPathExecutor extends AbstractAntlrExecutor<String, JSONObject> {
+public class JSONPathExecutor extends AbstractAntlrExecutor<String, JSONPathResult> {
     private JSONObject json=null;
     public JSONPathExecutor(JSONObject json) {
         this.json=json;
@@ -26,7 +27,7 @@ public class JSONPathExecutor extends AbstractAntlrExecutor<String, JSONObject> 
     }
 
     @Override
-    protected JSONObject parse(Parser parser) throws AntlrExecutionException {
+    protected JSONPathResult parse(Parser parser) throws AntlrExecutionException {
         JQuickJSONPathParser calcParser = (JQuickJSONPathParser) parser;
         JQuickJSONPathParser.PathContext tree = calcParser.path();
         JSONPathCommonVisitor visitor = new JSONPathCommonVisitor(json);

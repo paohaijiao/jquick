@@ -1,5 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.bean.JSONPathResult;
+import com.paohaijiao.javelin.obj.JSONArray;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 
@@ -13,24 +15,19 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
    public JSONPathCommonVisitor(Object root) {
        this.rootJsonObject=root;
        this.currentJsonObject = rootJsonObject;
-
    }
 
     @Override
-    public JSONObject visitPath(JQuickJSONPathParser.PathContext ctx) {
-        Object currentContext;
-        if (ctx.root().getText().equals("$")) {
-            currentContext = rootJsonObject;
-        } else {
-            currentContext = currentJsonObject;
+    public JSONPathResult visitPath(JQuickJSONPathParser.PathContext ctx) {
+        if(null!=ctx.root()){
+            this.currentJsonObject= visitRoot(ctx.root());
         }
         for (JQuickJSONPathParser.SegmentContext segment : ctx.segment()) {
-            currentContext = visitSegment(segment);
-            if (currentContext == null) {
-                return null;
-            }
+             visitSegment(segment);
         }
-        return (JSONObject) currentContext;
+        Object obj= this.currentJsonObject;
+        JSONPathResult jsonPathResult=new JSONPathResult(obj);
+        return jsonPathResult;
     }
     @Override
     public Object visitRoot(JQuickJSONPathParser.RootContext ctx) {
@@ -47,24 +44,23 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
      * @return
      */
     @Override
-    public Object visitSegment(JQuickJSONPathParser.SegmentContext ctx) {
-        Object current = currentJsonObject;
+    public Void visitSegment(JQuickJSONPathParser.SegmentContext ctx) {
         // process .
         if (ctx.getChild(0).getText().equals(".")) {
             if (ctx.getChildCount() == 2) {
                 if (ctx.identifier() != null) {
-                    return visitDotField(ctx.identifier(), current);
+                    this.currentJsonObject= visitDotField(ctx.identifier(), this.currentJsonObject);
                 } else if (ctx.getChild(1).getText().equals("*")) {
-                    return visitDotWildcard(current);
+                    this.currentJsonObject=  visitDotWildcard(this.currentJsonObject);
                 }
             }
         }else if (ctx.getChild(0).getText().equals("[")) {
-            return visitBracketNotation(ctx.subscript(), current);
+            this.currentJsonObject= visitBracketNotation(ctx.subscript(), this.currentJsonObject);
         } else if (ctx.getChild(0).getText().equals("..")) {//recurse  ('..' identifier or '..' '[' subscript ']')
             if (ctx.identifier() != null) {
-                return visitRecursiveField(ctx.identifier(), current);
+                this.currentJsonObject= visitRecursiveField(ctx.identifier(), this.currentJsonObject);
             } else if (ctx.subscript() != null) {
-                return visitRecursiveBracketNotation(ctx.subscript(), current);
+                this.currentJsonObject= visitRecursiveBracketNotation(ctx.subscript(), this.currentJsonObject);
             }
         }
         return null;
