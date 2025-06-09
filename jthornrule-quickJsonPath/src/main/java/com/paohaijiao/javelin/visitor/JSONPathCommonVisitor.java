@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class JSONPathCommonVisitor extends JSONPathCoreVisitor {
+public class JSONPathCommonVisitor extends JSONPathRootAndPathVisitor {
 
     public JSONPathCommonVisitor(Object root) {
         this.rootJsonObject = root;
@@ -60,10 +60,10 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor {
         List<Object> results = new ArrayList<>();
         JQuickJSONPathParser.ExprContext exprCtx = ctx.expr();
         for (Object item : list) {
-            Object exprResult = visitExpr(exprCtx);
-            if (isTruthy(exprResult)) {
-                results.add(item);
-            }
+//            Object exprResult = visitExpr(exprCtx);
+//            if (isTruthy(exprResult)) {
+//                results.add(item);
+//            }
         }
         Object obj= results.isEmpty() ? null : results;
         this.currentJsonObject=obj;
@@ -115,42 +115,7 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor {
         return visit(exprCtx);
     }
 
-    @Override
-    public Object visitExpr(JQuickJSONPathParser.ExprContext ctx) {
-        String text=ctx.getText();
-        if (ctx.getChildCount() == 1) {  //literal,identifier or simple
-            if(ctx.getText().equals("@")){
-                return this.currentJsonObject;
-            }
-            if(ctx.getText().equals("$")){
-                return this.rootJsonObject;
-            }
-            if(ctx.getText().equals("-")){
-                return this.rootJsonObject;
-            }
-            if(ctx.getText().equals("!")){
-                return this.rootJsonObject;
-            }
 
-        }
-        if (ctx.getChildCount() == 3) {
-            Object left = visit(ctx.getChild(0));
-            Object right = visit(ctx.getChild(2));
-            String operator = ctx.getChild(1).getText();
-            return evaluateBinaryOperation(left, right, operator);
-        }
-        if (ctx.getChildCount() == 2) {
-            Object operand = visit(ctx.getChild(1));
-            String operator = ctx.getChild(0).getText();
-            return evaluateUnaryOperation(operand, operator);
-        }
-        // Parentheses
-        if (ctx.getChild(0).getText().equals("(")) {
-            return visit(ctx.getChild(1));
-        }
-
-        return null;
-    }
 
     @Override
     public JSONObject visitValueList(JQuickJSONPathParser.ValueListContext ctx) {

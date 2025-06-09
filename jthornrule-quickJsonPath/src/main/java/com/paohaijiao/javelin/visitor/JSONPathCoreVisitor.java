@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.parser.JQuickJSONPathBaseVisitor;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
@@ -10,6 +11,23 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
 
     protected  Object rootJsonObject;
     protected Object currentJsonObject;
+    private Deque<Map<String, Object>> variableStack = new ArrayDeque<>();
+
+    public void pushScope() {
+        variableStack.push(new HashMap<>());
+    }
+
+    public void popScope() {
+        if (!variableStack.isEmpty()) {
+            variableStack.pop();
+        }
+    }
+
+    public void addVariable(String name, Object value) {
+        if (!variableStack.isEmpty()) {
+            variableStack.peek().put(name, value);
+        }
+    }
 
     protected Object visitDotField(JQuickJSONPathParser.IdentifierContext ctx, Object current) {
         String fieldName = ctx.getText();
@@ -266,5 +284,25 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
                 collectBracketMatchesRecursively(item, ctx, results);
             }
         }
+    }
+    protected Object resolveIdentifier(String identifier)  {
+        // 1. 处理字面量常量(true/false/null)
+        if ("true".equals(identifier)) {
+            return true;
+        }
+        if ("false".equals(identifier)) {
+            return false;
+        }
+        if ("null".equals(identifier)) {
+            return null;
+        }
+        if (variableStack != null && !variableStack.isEmpty()) {
+            Map<String, Object> currentScope = variableStack.peek();
+            if (currentScope.containsKey(identifier)) {
+                return currentScope.get(identifier);
+            }
+        }
+        Assert.throwNewException("无法解析标识符 '" + identifier + "'");
+        return null;
     }
 }

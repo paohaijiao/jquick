@@ -52,11 +52,145 @@ public interface JQuickJSONPathVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitScriptExpression(JQuickJSONPathParser.ScriptExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickJSONPathParser#expr}.
+	 * Visit a parse tree produced by the {@code ParenthesizedExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpr(JQuickJSONPathParser.ExprContext ctx);
+	T visitParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AdditiveExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdditiveExpression(JQuickJSONPathParser.AdditiveExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LogicalAndExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDotExpression(JQuickJSONPathParser.DotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LiteralExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LogicalOrExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInExpression(JQuickJSONPathParser.InExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RegexExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotExpression(JQuickJSONPathParser.NotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FunctionCallExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IdentifierExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BracketExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBracketExpression(JQuickJSONPathParser.BracketExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ComparisonExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RootExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRootExpression(JQuickJSONPathParser.RootExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CurrentExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCurrentExpression(JQuickJSONPathParser.CurrentExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EqualityExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualityExpression(JQuickJSONPathParser.EqualityExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NegationExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultiplicativeExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ChainedDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DirectDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickJSONPathParser#valueList}.
 	 * @param ctx the parse tree
@@ -99,4 +233,10 @@ public interface JQuickJSONPathVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNumber(JQuickJSONPathParser.NumberContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(JQuickJSONPathParser.VariableContext ctx);
 }

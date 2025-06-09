@@ -77,15 +77,245 @@ public interface JQuickJSONPathListener extends ParseTreeListener {
 	 */
 	void exitScriptExpression(JQuickJSONPathParser.ScriptExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickJSONPathParser#expr}.
+	 * Enter a parse tree produced by the {@code ParenthesizedExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr(JQuickJSONPathParser.ExprContext ctx);
+	void enterParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickJSONPathParser#expr}.
+	 * Exit a parse tree produced by the {@code ParenthesizedExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr(JQuickJSONPathParser.ExprContext ctx);
+	void exitParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AdditiveExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdditiveExpression(JQuickJSONPathParser.AdditiveExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AdditiveExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdditiveExpression(JQuickJSONPathParser.AdditiveExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LogicalAndExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LogicalAndExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterDotExpression(JQuickJSONPathParser.DotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDotExpression(JQuickJSONPathParser.DotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LiteralExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LiteralExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LogicalOrExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LogicalOrExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterInExpression(JQuickJSONPathParser.InExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitInExpression(JQuickJSONPathParser.InExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RegexExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RegexExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotExpression(JQuickJSONPathParser.NotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotExpression(JQuickJSONPathParser.NotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FunctionCallExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionCallExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdentifierExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdentifierExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BracketExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBracketExpression(JQuickJSONPathParser.BracketExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BracketExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBracketExpression(JQuickJSONPathParser.BracketExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ComparisonExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ComparisonExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RootExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRootExpression(JQuickJSONPathParser.RootExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RootExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRootExpression(JQuickJSONPathParser.RootExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CurrentExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterCurrentExpression(JQuickJSONPathParser.CurrentExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CurrentExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitCurrentExpression(JQuickJSONPathParser.CurrentExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EqualityExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualityExpression(JQuickJSONPathParser.EqualityExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EqualityExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualityExpression(JQuickJSONPathParser.EqualityExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NegationExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NegationExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultiplicativeExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultiplicativeExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ChainedDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ChainedDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DirectDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DirectDotExpression}
+	 * labeled alternative in {@link JQuickJSONPathParser#dotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickJSONPathParser#valueList}.
 	 * @param ctx the parse tree
@@ -156,4 +386,14 @@ public interface JQuickJSONPathListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumber(JQuickJSONPathParser.NumberContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(JQuickJSONPathParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(JQuickJSONPathParser.VariableContext ctx);
 }
