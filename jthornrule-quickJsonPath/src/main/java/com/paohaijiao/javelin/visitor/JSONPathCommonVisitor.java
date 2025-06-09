@@ -10,61 +10,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
+public class JSONPathCommonVisitor extends JSONPathCoreVisitor {
 
-   public JSONPathCommonVisitor(Object root) {
-       this.rootJsonObject=root;
-       this.currentJsonObject = rootJsonObject;
-   }
-
-    @Override
-    public JSONPathResult visitPath(JQuickJSONPathParser.PathContext ctx) {
-        if(null!=ctx.root()){
-            this.currentJsonObject= visitRoot(ctx.root());
-        }
-        for (JQuickJSONPathParser.SegmentContext segment : ctx.segment()) {
-             visitSegment(segment);
-        }
-        Object obj= this.currentJsonObject;
-        JSONPathResult jsonPathResult=new JSONPathResult(obj);
-        return jsonPathResult;
-    }
-    @Override
-    public Object visitRoot(JQuickJSONPathParser.RootContext ctx) {
-        if (ctx.getText().equals("$")) {
-            return this.rootJsonObject;
-        } else {
-            return currentJsonObject;
-        }
+    public JSONPathCommonVisitor(Object root) {
+        this.rootJsonObject = root;
+        this.currentJsonObject = rootJsonObject;
     }
 
-    /**
-     * parse JSONPath express path Segment
-     * @param ctx the parse tree
-     * @return
-     */
-    @Override
-    public Void visitSegment(JQuickJSONPathParser.SegmentContext ctx) {
-        // process .
-        if (ctx.getChild(0).getText().equals(".")) {
-            if (ctx.getChildCount() == 2) {
-                if (ctx.identifier() != null) {
-                    this.currentJsonObject= visitDotField(ctx.identifier(), this.currentJsonObject);
-                } else if (ctx.getChild(1).getText().equals("*")) {
-                    this.currentJsonObject=  visitDotWildcard(this.currentJsonObject);
-                }
-            }
-        }else if (ctx.getChild(0).getText().equals("[")) {
-            this.currentJsonObject= visitBracketNotation(ctx.subscript(), this.currentJsonObject);
-        } else if (ctx.getChild(0).getText().equals("..")) {//recurse  ('..' identifier or '..' '[' subscript ']')
-            if (ctx.identifier() != null) {
-                this.currentJsonObject= visitRecursiveField(ctx.identifier(), this.currentJsonObject);
-            } else if (ctx.subscript() != null) {
-                this.currentJsonObject= visitRecursiveBracketNotation(ctx.subscript(), this.currentJsonObject);
-            }
-        }
-        return null;
-   }
 
     @Override
     public Object visitSubscript(JQuickJSONPathParser.SubscriptContext ctx) {
@@ -99,7 +51,7 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
     }
 
     @Override
-    public Object visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
+    public Void visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
         Object current = currentJsonObject;
         if (!(current instanceof List)) {
             return null;
@@ -108,19 +60,14 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
         List<Object> results = new ArrayList<>();
         JQuickJSONPathParser.ExprContext exprCtx = ctx.expr();
         for (Object item : list) {
-            Object previousContext = currentJsonObject;
-            currentJsonObject = item;
-            try {
-                Object exprResult = visit(exprCtx);
-                if (isTruthy(exprResult)) {
-                    results.add(item);
-                }
-            } finally {
-                currentJsonObject = previousContext;
+            Object exprResult = visitExpr(exprCtx);
+            if (isTruthy(exprResult)) {
+                results.add(item);
             }
         }
-
-        return results.isEmpty() ? null : results;
+        Object obj= results.isEmpty() ? null : results;
+        this.currentJsonObject=obj;
+        return null;
     }
 
     @Override
@@ -158,6 +105,7 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
 
     /**
      * ()
+     *
      * @param ctx the parse tree
      * @return
      */
@@ -168,9 +116,22 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
     }
 
     @Override
-    public Object  visitExpr(JQuickJSONPathParser.ExprContext ctx) {
+    public Object visitExpr(JQuickJSONPathParser.ExprContext ctx) {
+        String text=ctx.getText();
         if (ctx.getChildCount() == 1) {  //literal,identifier or simple
-            return visit(ctx.getChild(0));
+            if(ctx.getText().equals("@")){
+                return this.currentJsonObject;
+            }
+            if(ctx.getText().equals("$")){
+                return this.rootJsonObject;
+            }
+            if(ctx.getText().equals("-")){
+                return this.rootJsonObject;
+            }
+            if(ctx.getText().equals("!")){
+                return this.rootJsonObject;
+            }
+
         }
         if (ctx.getChildCount() == 3) {
             Object left = visit(ctx.getChild(0));
@@ -215,9 +176,15 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
         if (!flags.isEmpty()) {
             for (char flag : flags.toCharArray()) {
                 switch (flag) {
-                    case 'i': javaFlags |= Pattern.CASE_INSENSITIVE; break;
-                    case 'm': javaFlags |= Pattern.MULTILINE; break;
-                    case 's': javaFlags |= Pattern.DOTALL; break;
+                    case 'i':
+                        javaFlags |= Pattern.CASE_INSENSITIVE;
+                        break;
+                    case 'm':
+                        javaFlags |= Pattern.MULTILINE;
+                        break;
+                    case 's':
+                        javaFlags |= Pattern.DOTALL;
+                        break;
                 }
             }
         }
@@ -238,6 +205,7 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
         }
         return results;
     }
+
     @Override
     public Object visitIdentifier(JQuickJSONPathParser.IdentifierContext ctx) {
         String identifier = ctx.getText();
@@ -246,16 +214,16 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
         }
         return handleIdentifierAccess(identifier);
     }
+
     @Override
-    public Object  visitLiteral(JQuickJSONPathParser.LiteralContext ctx) {
+    public Object visitLiteral(JQuickJSONPathParser.LiteralContext ctx) {
         if (ctx.stringLiteral() != null) {
             String text = ctx.stringLiteral().getText();
             return text.substring(1, text.length() - 1);
-        }
-        else if (ctx.number() != null) {
+        } else if (ctx.number() != null) {
             String numText = ctx.number().getText();
             try {
-                if (numText.contains(".")){
+                if (numText.contains(".")) {
                     return Double.parseDouble(numText);
                 } else {
                     return Integer.parseInt(numText);
@@ -263,26 +231,23 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
             } catch (NumberFormatException e) {
                 return null;
             }
-        }
-        else if (ctx.getText().equals("true")) {
+        } else if (ctx.getText().equals("true")) {
             return true;
-        }
-        else if (ctx.getText().equals("false")) {
+        } else if (ctx.getText().equals("false")) {
             return false;
-        }
-        else if (ctx.getText().equals("null")) {
+        } else if (ctx.getText().equals("null")) {
             return null;
         }
         return null;
     }
+
     @Override
     public Object visitStringLiteral(JQuickJSONPathParser.StringLiteralContext ctx) {
         Object current = currentJsonObject;
         String key = ctx.getText().replaceAll("^[\"']|[\"']$", "");
         if (current instanceof JSONObject) {
             return ((JSONObject) current).has(key) ? ((JSONObject) current).get(key) : null;
-        }
-        else if (current instanceof List) {
+        } else if (current instanceof List) {
             List<Object> results = new ArrayList<>();
             for (Object item : (List<?>) current) {
                 if (item instanceof JSONObject && ((JSONObject) item).has(key)) {
@@ -293,6 +258,7 @@ public class JSONPathCommonVisitor extends JSONPathCoreVisitor{
         }
         return null;
     }
+
     @Override
     public Object visitNumber(JQuickJSONPathParser.NumberContext ctx) {
         Object current = currentJsonObject;
