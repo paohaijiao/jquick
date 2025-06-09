@@ -3,6 +3,7 @@ package com.paohaijiao.javelin.visitor;
 import com.paohaijiao.javelin.bean.JFormParam;
 import com.paohaijiao.javelin.bean.JHeaderParam;
 import com.paohaijiao.javelin.bean.JProxryBean;
+import com.paohaijiao.javelin.bean.JResult;
 import com.paohaijiao.javelin.enums.JHttpMethod;
 import com.paohaijiao.javelin.enums.JProxryType;
 import com.paohaijiao.javelin.exception.Assert;
@@ -10,12 +11,15 @@ import com.paohaijiao.javelin.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import com.paohaijiao.javelin.parser.JThornRuleQuickRestParser;
+import okio.ByteString;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Arrays;
@@ -29,7 +33,7 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     }
 
     @Override
-    public Object visitCurlCommand(JThornRuleQuickRestParser.CurlCommandContext ctx) {
+    public JResult visitCurlCommand(JThornRuleQuickRestParser.CurlCommandContext ctx) {
         for (JThornRuleQuickRestParser.OptionContext option : ctx.option()) {
             visitOption(option);
         }
@@ -82,7 +86,20 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
             if (downLoadFileName != null) {
                 downLoadFile(responseData);
             }
-            return responseData.string();
+            MediaType contentType = body.contentType();
+            if(contentType != null && contentType.type().equals("text/plain")) {
+                return null;
+            }
+            JResult result=new JResult();
+            result.setMediaType(contentType);
+            result.setString(responseData.string());
+            result.setBytes(responseData.bytes());
+            result.setByteStream(responseData.byteStream());
+            result.setCharStream(responseData.charStream());
+            result.setByteString(responseData.byteString());
+            result.setContentLength(responseData.contentLength());
+            result.setSource(responseData.source());
+            return result;
         }catch (IOException e){
             e.printStackTrace();
         }
