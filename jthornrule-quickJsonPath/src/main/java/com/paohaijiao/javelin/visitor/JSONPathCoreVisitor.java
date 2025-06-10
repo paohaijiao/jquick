@@ -5,6 +5,7 @@ import com.paohaijiao.javelin.parser.JQuickJSONPathBaseVisitor;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
@@ -12,21 +13,30 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
     protected  Object rootJsonObject;
     protected Object currentJsonObject;
     private Deque<Map<String, Object>> variableStack = new ArrayDeque<>();
-
-    public void pushScope() {
-        variableStack.push(new HashMap<>());
+    protected   List<?> getList(Object current){
+        List<?> list = (List<?>) current;
+        return list;
     }
-
-    public void popScope() {
-        if (!variableStack.isEmpty()) {
-            variableStack.pop();
+    protected static <T> List<T> slice(List<T> list, Integer start, Integer end, Integer step) {
+        if (list == null) return Collections.emptyList();
+        int size = list.size();
+        int actualStart = start != null ? (start >= 0 ? start : size + start) : 0;
+        int actualEnd = end != null ? (end >= 0 ? end : size + end) : size;
+        int actualStep = step != null ? step : 1;
+        if (actualStep == 0) throw new IllegalArgumentException("Step cannot be zero");
+        if (actualStart < 0) actualStart = 0;
+        if (actualEnd > size) actualEnd = size;
+        List<T> result = new ArrayList<>();
+        if (actualStep > 0) {
+            for (int i = actualStart; i < actualEnd; i += actualStep) {
+                result.add(list.get(i));
+            }
+        } else {
+            for (int i = actualStart; i > actualEnd; i += actualStep) {
+                result.add(list.get(i));
+            }
         }
-    }
-
-    public void addVariable(String name, Object value) {
-        if (!variableStack.isEmpty()) {
-            variableStack.peek().put(name, value);
-        }
+        return result;
     }
     public Object getValueByKey(Object obj, String fieldName){
         if (obj instanceof JSONObject) {
@@ -43,6 +53,16 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
                 }
             }
             return results.isEmpty() ? null : results;
+        }
+        return null;
+    }
+    public Object getValueByIndex(Object obj, Integer index){
+        if (obj instanceof JSONObject) {
+          //  JSONObject jsonObj = (JSONObject) obj;
+           // return jsonObj.has(fieldName) ? jsonObj.get(fieldName) : null;
+        } else if (obj instanceof List) {
+            List<?> list = (List<?>) obj;
+            return list.get(index);
         }
         return null;
     }
@@ -69,7 +89,6 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         return true;
     }
     protected Object evaluateBinaryOperation(Object left, Object right, String operator) {
-        // Handle null values
         if (left == null || right == null) {
             return handleNullComparison(left, right, operator);
         }
@@ -237,5 +256,37 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
     }
     public Object getResult(){
         return this.currentJsonObject;
+    }
+    protected Object getProperty(Object obj, String property) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof Map) {
+            return ((Map<?, ?>) obj).get(property);
+        }
+        if (obj instanceof JSONObject) {
+            return ((JSONObject) obj).get(property);
+        }
+        try {
+            Field field = obj.getClass().getField(property);
+            return field.get(obj);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
+        }
+    }
+
+    protected Object getAllProperties(Object obj) {
+        List<Object> results = new ArrayList<>();
+        if (obj instanceof Map) {
+            results.addAll(((Map<?, ?>) obj).values());
+        } else {
+            for (Field field : obj.getClass().getFields()) {
+                try {
+                    results.add(field.get(obj));
+                } catch (IllegalAccessException e) {
+                }
+            }
+        }
+        return results;
     }
 }

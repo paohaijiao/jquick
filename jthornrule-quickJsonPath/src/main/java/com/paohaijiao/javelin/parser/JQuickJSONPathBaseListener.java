@@ -40,13 +40,49 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSegment(JQuickJSONPathParser.SegmentContext ctx) { }
+	@Override public void enterIdentifierSegment(JQuickJSONPathParser.IdentifierSegmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSegment(JQuickJSONPathParser.SegmentContext ctx) { }
+	@Override public void exitIdentifierSegment(JQuickJSONPathParser.IdentifierSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubscriptSegment(JQuickJSONPathParser.SubscriptSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubscriptSegment(JQuickJSONPathParser.SubscriptSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChildIdentifierSegment(JQuickJSONPathParser.ChildIdentifierSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChildIdentifierSegment(JQuickJSONPathParser.ChildIdentifierSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChildSubscriptSegment(JQuickJSONPathParser.ChildSubscriptSegmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChildSubscriptSegment(JQuickJSONPathParser.ChildSubscriptSegmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -100,13 +136,13 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx) { }
+	@Override public void enterNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx) { }
+	@Override public void exitNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -124,73 +160,13 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx) { }
+	@Override public void enterIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDotExpression(JQuickJSONPathParser.DotExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDotExpression(JQuickJSONPathParser.DotExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInExpression(JQuickJSONPathParser.InExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInExpression(JQuickJSONPathParser.InExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx) { }
+	@Override public void exitIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -208,25 +184,49 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx) { }
+	@Override public void enterComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx) { }
+	@Override public void exitComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx) { }
+	@Override public void enterMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdentifierExpression(JQuickJSONPathParser.IdentifierExpressionContext ctx) { }
+	@Override public void exitMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogicalOrExpression(JQuickJSONPathParser.LogicalOrExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNetestDotExpr(JQuickJSONPathParser.NetestDotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNetestDotExpr(JQuickJSONPathParser.NetestDotExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -244,18 +244,6 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComparisonExpression(JQuickJSONPathParser.ComparisonExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterRootExpression(JQuickJSONPathParser.RootExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -263,6 +251,30 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRootExpression(JQuickJSONPathParser.RootExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInExpression(JQuickJSONPathParser.InExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInExpression(JQuickJSONPathParser.InExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParenthesizedExpression(JQuickJSONPathParser.ParenthesizedExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -292,25 +304,49 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx) { }
+	@Override public void enterLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNegationExpression(JQuickJSONPathParser.NegationExpressionContext ctx) { }
+	@Override public void exitLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void enterFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplicativeExpression(JQuickJSONPathParser.MultiplicativeExpressionContext ctx) { }
+	@Override public void exitFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRegexExpression(JQuickJSONPathParser.RegexExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteralExpression(JQuickJSONPathParser.LiteralExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -15,25 +15,7 @@ public class JSONPathCommonVisitor extends JRootAndPathVisitor {
         this.currentJsonObject = rootJsonObject;
     }
 
-    @Override
-    public Void visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
-        Object current = currentJsonObject;
-        if (!(current instanceof List)) {
-            return null;
-        }
-        List<?> list = (List<?>) current;
-        List<Object> results = new ArrayList<>();
-        JQuickJSONPathParser.ExprContext exprCtx = ctx.expr();
-        for (Object item : list) {
-//            Object exprResult = visitExpr(exprCtx);
-//            if (isTruthy(exprResult)) {
-//                results.add(item);
-//            }
-        }
-        Object obj= results.isEmpty() ? null : results;
-        this.currentJsonObject=obj;
-        return null;
-    }
+
 
 
 

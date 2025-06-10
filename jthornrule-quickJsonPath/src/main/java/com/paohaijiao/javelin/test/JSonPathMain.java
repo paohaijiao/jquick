@@ -42,6 +42,12 @@ public class JSonPathMain {
         array.add("a");
         array.add("b");
         array.add("c");
+        array.add("d");
+        array.add("e");
+        array.add("f");
+        array.add("g");
+        array.add("h");
+        array.add("i");
         return array;
     }
 }
