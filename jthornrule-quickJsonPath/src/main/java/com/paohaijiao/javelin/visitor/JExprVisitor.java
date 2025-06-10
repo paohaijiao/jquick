@@ -1,6 +1,5 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -8,10 +7,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-public class JSONPathExprVisitor extends JSONPathRootAndPathVisitor {
+public class JExprVisitor extends JValueVisitor {
     @Override
     public Object visitDotExpression(JQuickJSONPathParser.DotExpressionContext ctx) {
         try {

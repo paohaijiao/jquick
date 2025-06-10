@@ -28,16 +28,13 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
             variableStack.peek().put(name, value);
         }
     }
-
-    protected Object visitDotField(JQuickJSONPathParser.IdentifierContext ctx, Object current) {
-        String fieldName = ctx.getText();
-        if (current instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) current;
+    public Object getValueByKey(Object obj, String fieldName){
+        if (obj instanceof JSONObject) {
+            JSONObject jsonObj = (JSONObject) obj;
             return jsonObj.has(fieldName) ? jsonObj.get(fieldName) : null;
-        }
-        else if (current instanceof List) {
+        } else if (obj instanceof List) {
             List<Object> results = new ArrayList<>();
-            for (Object item : (List<?>) current) {
+            for (Object item : (List<?>) obj) {
                 if (item instanceof JSONObject) {
                     JSONObject jsonObj = (JSONObject) item;
                     if (jsonObj.has(fieldName)) {
@@ -49,22 +46,7 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         return null;
     }
-    protected Object visitDotWildcard(Object current) {
-        if (current instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) current;
-            return new ArrayList<>(jsonObj.toMap().values());
-        }
-        else if (current instanceof List) {
-            List<Object> results = new ArrayList<>();
-            for (Object item : (List<?>) current) {
-                if (item instanceof JSONObject) {
-                    results.addAll(((JSONObject) item).toMap().values());
-                }
-            }
-            return results.isEmpty() ? null : results;
-        }
-        return null;
-    }
+
     protected boolean isTruthy(Object value) {
         if (value == null) {
             return false;
@@ -174,37 +156,8 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         return null;
     }
-    protected Object handleIdentifierAccess(String identifier) {
-        if (currentJsonObject instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) currentJsonObject;
-            return jsonObj.has(identifier) ? jsonObj.get(identifier) : null;
-        }
-        else if (currentJsonObject instanceof List) {
-            List<Object> results = new ArrayList<>();
-            for (Object item : (List<?>) currentJsonObject) {
-                if (item instanceof JSONObject) {
-                    JSONObject jsonItem = (JSONObject) item;
-                    if (jsonItem.has(identifier)) {
-                        results.add(jsonItem.get(identifier));
-                    }
-                }
-            }
-            return results.isEmpty() ? null : results;
-        }
-        return null;
-    }
-    protected Object visitBracketNotation(JQuickJSONPathParser.SubscriptContext ctx, Object current) {
-        if (current == null) {
-            return null;
-        }
-        if (current instanceof JSONObject) {
-            return visitSubscript(ctx);
-        }
-        else if (current instanceof List) {
-            return visitSubscript(ctx);
-        }
-        return null;
-    }
+
+
     protected Object visitWildcard() {
         return visitWildcard(this.currentJsonObject);
     }
@@ -225,31 +178,8 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         return Collections.emptyList();
     }
-    protected Object visitRecursiveField(JQuickJSONPathParser.IdentifierContext ctx, Object current) {
-        String fieldName = ctx.getText();
-        List<Object> results = new ArrayList<>();
-        collectFieldValuesRecursively(current, fieldName, results);
-        return results.isEmpty() ? null : results;
-    }
-    private void collectFieldValuesRecursively(Object node, String fieldName, List<Object> results) {
-        if (node == null) {
-            return;
-        }
-        if (node instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) node;
-            if (jsonObj.has(fieldName)) {
-                results.add(jsonObj.get(fieldName));
-            }
-            for (Object value : jsonObj.toMap().values()) {
-                collectFieldValuesRecursively(value, fieldName, results);
-            }
-        }
-        else if (node instanceof List) {
-            for (Object item : (List<?>) node) {
-                collectFieldValuesRecursively(item, fieldName, results);
-            }
-        }
-    }
+
+
     protected Object visitRecursiveBracketNotation(JQuickJSONPathParser.SubscriptContext ctx, Object current) {
         List<Object> results = new ArrayList<>();
         collectBracketMatchesRecursively(current, ctx, results);
@@ -304,5 +234,8 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         Assert.throwNewException("无法解析标识符 '" + identifier + "'");
         return null;
+    }
+    public Object getResult(){
+        return this.currentJsonObject;
     }
 }

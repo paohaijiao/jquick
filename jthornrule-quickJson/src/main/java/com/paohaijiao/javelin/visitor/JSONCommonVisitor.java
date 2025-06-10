@@ -1,10 +1,12 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.obj.JSONArray;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.obj.JSonKeyValue;
+import com.paohaijiao.javelin.obj.JsonResponse;
 import com.paohaijiao.javelin.parser.JSONBaseVisitor;
 import com.paohaijiao.javelin.parser.JSONParser;
-import com.paohaijiao.javelin.util.ObjectConverter;
+import com.paohaijiao.javelin.util.BeanCopyUtils;
 import com.paohaijiao.javelin.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -12,14 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 public class JSONCommonVisitor extends JSONBaseVisitor {
     @Override
-    public JSONObject visitJson(JSONParser.JsonContext ctx) {
-        JSONObject jsonObject = new JSONObject();
+    public JsonResponse visitJson(JSONParser.JsonContext ctx) {
+        JsonResponse response = new JsonResponse();
         Object result = null;
         if(null!=ctx.value()) {
             result=visitValue(ctx.value());
-            jsonObject= ObjectConverter.assign(result, JSONObject.class);
+            if (result instanceof JSONObject) {
+                response.setData((JSONObject)result);
+                response.setType("object");
+            } else {
+                List<JSONObject> list= BeanCopyUtils.copyList((List)result,JSONObject.class);
+                response.setData(new JSONArray(list));
+                response.setType("array");
+            }
         }
-        return jsonObject;
+        return response;
     }
 
     @Override

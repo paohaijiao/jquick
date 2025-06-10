@@ -3,7 +3,6 @@ package com.paohaijiao.javelin.executor;
 import com.paohaijiao.javelin.antlr.impl.AbstractAntlrExecutor;
 import com.paohaijiao.javelin.bean.JSONPathResult;
 import com.paohaijiao.javelin.exception.AntlrExecutionException;
-import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import com.paohaijiao.javelin.visitor.JSONPathCommonVisitor;
@@ -13,8 +12,8 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.TokenStream;
 
 public class JSONPathExecutor extends AbstractAntlrExecutor<String, JSONPathResult> {
-    private JSONObject json=null;
-    public JSONPathExecutor(JSONObject json) {
+    private Object json=null;
+    public JSONPathExecutor(Object json) {
         this.json=json;
     }
     protected Lexer createLexer(CharStream input) {
