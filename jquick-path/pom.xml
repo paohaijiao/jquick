@@ -29,12 +29,10 @@
         <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>javelin-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>jquick-base</artifactId>
-            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

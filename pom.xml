@@ -41,6 +41,8 @@
         <javelin.version>1.0.0</javelin.version>
         <poi.version>5.2.3</poi.version>
         <batik.version>1.16</batik.version>
+        <itext.svg.version>7.2.5</itext.svg.version>
+        <itext.version>8.0.3</itext.version>
 
     </properties>
     <dependencyManagement>
@@ -255,6 +257,37 @@
                 <groupId>org.apache.xmlgraphics</groupId>
                 <artifactId>batik-all</artifactId>
                 <version>${batik.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itext7-svg</artifactId>
+                <version>${itext.svg.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>kernel</artifactId>
+                <version>${itext.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>layout</artifactId>
+                <version>${itext.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>svg</artifactId>
+                <version>${itext.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>font-asian</artifactId>
+                <version>${itext.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.9</version>
             </dependency>
         </dependencies>
 
