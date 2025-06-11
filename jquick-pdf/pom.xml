@@ -8,6 +8,10 @@
     </parent>
     <artifactId>jquick-pdf</artifactId>
     <name>pdf</name>
+    <modules>
+        <module>jquick-pdf-echart</module>
+        <module>jquick-pdf-data</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>
@@ -39,10 +43,6 @@
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itext7-svg</artifactId>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
