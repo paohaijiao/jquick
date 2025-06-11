@@ -7,6 +7,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>jquick-path</artifactId>
+    <name>jquick-path</name>
     <dependencies>
         <dependency>
             <groupId>org.antlr</groupId>

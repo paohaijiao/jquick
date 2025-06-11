@@ -5,9 +5,8 @@
         <groupId>com.paohaijiao.javelin</groupId>
         <artifactId>jquick</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>jquick-pdf-echart</artifactId>
-    <name>Archetype - jquick-pdf-echart</name>
+    <name>pdf-echart</name>
     <url>http://maven.apache.org</url>
 </project>

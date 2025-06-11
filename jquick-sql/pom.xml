@@ -7,6 +7,6 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>jquick-sql</artifactId>
-    <name>sql</name>
+    <name>jquick-sql</name>
     <url>http://maven.apache.org</url>
 </project>
