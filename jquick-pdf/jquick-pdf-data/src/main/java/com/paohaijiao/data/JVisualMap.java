@@ -1,6 +1,5 @@
 package com.paohaijiao.data;
 
-import com.github.abel533.echarts.code.*;
 import com.paohaijiao.data.code.*;
 import com.paohaijiao.data.style.JTextStyle;
 import lombok.Getter;
