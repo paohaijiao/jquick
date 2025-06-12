@@ -16,8 +16,16 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <scope>compile</scope>
-            <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.abelsu7</groupId>-->
+<!--            <artifactId>echarts-for-java</artifactId>-->
+<!--            <version>3.1.0</version>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

@@ -17,7 +17,6 @@
 package com.paohaijiao.data.json;
 
 import com.paohaijiao.data.code.JSeriesType;
-import com.github.abel533.echarts.series.*;
 import com.google.gson.*;
 import com.paohaijiao.data.series.*;
 

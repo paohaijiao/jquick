@@ -40,10 +40,11 @@
         <junit.version>4.11</junit.version>
         <javelin.version>1.0.0</javelin.version>
         <poi.version>5.2.3</poi.version>
-        <batik.version>1.16</batik.version>
+        <batik.version>1.12</batik.version>
         <itext.svg.version>7.2.5</itext.svg.version>
         <itext.version>8.0.3</itext.version>
         <gson.version>2.10.1</gson.version>
+        <jfree.svg.version>5.0.3</jfree.svg.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -259,6 +260,33 @@
                 <version>${batik.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-svg-dom</artifactId>
+                <version>${batik.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-dom</artifactId>
+                <version>${batik.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-svggen</artifactId>
+                <version>${batik.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId> batik-util</artifactId>
+                <version>${batik.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jfree</groupId>
+                <artifactId>org.jfree.svg</artifactId>
+                <version>${jfree.svg.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.itextpdf</groupId>
                 <artifactId>itext7-svg</artifactId>
                 <version>${itext.svg.version}</version>
@@ -295,6 +323,11 @@
                 <version>${gson.version}</version>
                 <scope>compile</scope>
                 <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>com.paohaijiao.javelin</groupId>
+                <artifactId>jquick-pdf-data</artifactId>
+                <version>${javelin.version}</version>
             </dependency>
         </dependencies>
 

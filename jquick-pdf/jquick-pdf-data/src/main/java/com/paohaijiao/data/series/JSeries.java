@@ -19,7 +19,6 @@ package com.paohaijiao.data.series;
 import com.paohaijiao.data.JAbstractData;
 import com.paohaijiao.data.JChart;
 import com.paohaijiao.data.JTooltip;
-import com.github.abel533.echarts.code.*;
 import com.paohaijiao.data.code.*;
 import com.paohaijiao.data.style.JItemStyle;
 import lombok.Getter;
