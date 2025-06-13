@@ -30,7 +30,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.*;
 
-import static com.paohaijiao.echart.test.PureBatikEChartsRenderer.renderEChartToSVG;
+import static com.paohaijiao.echart.generate.JBarChartsRenderer.renderEChartToSVG;
 
 /**
  * @ClassName BarCharTest

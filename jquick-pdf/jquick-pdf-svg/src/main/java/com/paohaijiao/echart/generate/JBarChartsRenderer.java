@@ -13,11 +13,9 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.test;
+package com.paohaijiao.echart.generate;
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.axis.JCategoryAxis;
-import com.paohaijiao.data.axis.JValueAxis;
-import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.series.JBar;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
@@ -39,7 +37,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class PureBatikEChartsRenderer {
+public class JBarChartsRenderer {
 
     public static void renderEChartToSVG(JOption option, String outputPath) throws IOException {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
