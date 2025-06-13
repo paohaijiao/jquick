@@ -53,7 +53,6 @@ public class JBarChartsRenderer {
         }
     }
 
-    // 核心渲染方法 - 手动实现ECharts图表渲染
     private static void renderEChartToGraphics2D(JOption option, SVGGraphics2D g2d, int width, int height) {
         // 设置字体
         Font titleFont = new Font("Microsoft YaHei", Font.BOLD, 18);
@@ -104,10 +103,7 @@ public class JBarChartsRenderer {
             int barHeight = (int)((double)value/maxValue * chartHeight);
             int x = chartX + (i+1)*barWidth;
             int y = chartY - barHeight;
-
             g2d.fillRect(x, y, barWidth - 5, barHeight);
-
-            // 显示数值标签
             g2d.setPaint(Color.BLACK);
             String valueLabel = String.valueOf(value);
             g2d.drawString(valueLabel, x + barWidth/2 - g2d.getFontMetrics().stringWidth(valueLabel)/2, y - 5);
@@ -115,7 +111,6 @@ public class JBarChartsRenderer {
         }
     }
 
-    // 辅助方法：获取数据最大值
     private static int getMaxValue(List<Object> data) {
         int max = 0;
         for (Object item : data) {
