@@ -40,19 +40,6 @@ import java.util.List;
  * @Version: 1.0
  */
 public class PureBatikEChartsRenderer {
-    public static JOption createBarChart() {
-        JOption option = new JOption();
-        option.title().text("销售数据").subtext("2023年度");
-        option.tooltip().trigger(JTrigger.axis);
-        JCategoryAxis xAxis = new JCategoryAxis();
-        xAxis.data("衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子");
-        option.xAxis(xAxis);
-        option.yAxis(new JValueAxis());
-        JBar bar = new JBar();
-        bar.name("销量").data(5, 20, 36, 10, 10, 20);
-        option.series(bar);
-        return option;
-    }
 
     public static void renderEChartToSVG(JOption option, String outputPath) throws IOException {
         DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
@@ -63,8 +50,6 @@ public class PureBatikEChartsRenderer {
         svgGenerator.setPaint(Color.WHITE);
         svgGenerator.fillRect(0, 0, width, height);
         renderEChartToGraphics2D(option, svgGenerator, width, height);
-
-        // 5. 输出SVG文件
         try (Writer out = new FileWriter(outputPath)) {
             svgGenerator.stream(out, true);
         }
@@ -75,8 +60,6 @@ public class PureBatikEChartsRenderer {
         // 设置字体
         Font titleFont = new Font("Microsoft YaHei", Font.BOLD, 18);
         Font labelFont = new Font("Microsoft YaHei", Font.PLAIN, 12);
-
-        // 绘制标题
         g2d.setFont(titleFont);
         g2d.setPaint(Color.BLACK);
         String title = option.title().text();
@@ -84,14 +67,11 @@ public class PureBatikEChartsRenderer {
         g2d.drawString(title, width/2 - g2d.getFontMetrics().stringWidth(title)/2, 40);
         g2d.setFont(labelFont);
         g2d.drawString(subTitle, width/2 - g2d.getFontMetrics().stringWidth(subTitle)/2, 60);
-
-        // 计算绘图区域
         int padding = 60;
         int chartWidth = width - 2*padding;
         int chartHeight = height - 2*padding;
         int chartX = padding;
         int chartY = height - padding;
-
         g2d.setPaint(Color.BLACK);
         g2d.drawLine(chartX, chartY, chartX + chartWidth, chartY); // X轴
         g2d.drawLine(chartX, chartY, chartX, chartY - chartHeight); // Y轴
@@ -150,8 +130,6 @@ public class PureBatikEChartsRenderer {
     }
 
     public static void main(String[] args) throws IOException {
-        JOption option = createBarChart();
-        renderEChartToSVG(option, "D://test//echart-output.svg");
-        System.out.println("SVG文件已生成: echart-output.svg");
+
     }
 }
