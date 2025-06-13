@@ -19,13 +19,10 @@ import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.series.JCandlestick;
-import com.paohaijiao.data.series.JLine;
 import com.paohaijiao.echart.generate.JKChartsRenderer;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import static com.paohaijiao.echart.generate.JLineChartsRenderer.generateSVGFromOption;
 
 /**
  * @ClassName BarCharTest

@@ -4,16 +4,16 @@ package com.paohaijiao.echart.generate;
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
-import com.paohaijiao.data.data.JData;
 import com.paohaijiao.data.series.JLine;
-import com.paohaijiao.data.series.JScatter;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
 import java.awt.*;
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 public class JLineChartsRenderer {

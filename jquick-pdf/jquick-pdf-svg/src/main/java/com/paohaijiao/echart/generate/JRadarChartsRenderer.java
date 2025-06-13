@@ -3,31 +3,15 @@ package com.paohaijiao.echart.generate;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.JRadar;
-import com.paohaijiao.data.axis.JCategoryAxis;
-import com.paohaijiao.data.code.JSeriesType;
-import com.paohaijiao.data.data.JData;
-import com.paohaijiao.data.json.JGsonOption;
-import com.paohaijiao.data.json.JGsonUtil;
-import com.paohaijiao.data.series.JCandlestick;
 import com.paohaijiao.data.series.JRadarSeries;
-import com.paohaijiao.data.series.JSeries;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
-import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class JRadarChartsRenderer {
     public static void renderRadarChart(JOption option, String outputPath) throws IOException {

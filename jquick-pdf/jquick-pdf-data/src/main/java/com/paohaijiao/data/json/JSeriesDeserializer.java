@@ -16,8 +16,8 @@
 
 package com.paohaijiao.data.json;
 
-import com.paohaijiao.data.code.JSeriesType;
 import com.google.gson.*;
+import com.paohaijiao.data.code.JSeriesType;
 import com.paohaijiao.data.series.*;
 
 import java.lang.reflect.Type;

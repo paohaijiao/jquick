@@ -16,13 +16,13 @@
 
 package com.paohaijiao.data.json;
 
-import com.paohaijiao.data.JOption;
-import com.paohaijiao.data.axis.JAxis;
-import com.paohaijiao.data.series.JSeries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.paohaijiao.data.JOption;
+import com.paohaijiao.data.axis.JAxis;
+import com.paohaijiao.data.series.JSeries;
 
 /**
  * @author martin

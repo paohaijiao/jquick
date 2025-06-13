@@ -18,13 +18,11 @@ import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.data.JData;
-import com.paohaijiao.data.series.JPie;
 import com.paohaijiao.data.series.JScatter;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.generate.JPieChartsRenderer.renderPieChartToSVG;
 import static com.paohaijiao.echart.generate.JScatterChartsRenderer.renderScatterToSvg;
 
 /**

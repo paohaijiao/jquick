@@ -15,26 +15,13 @@
  */
 
 import com.paohaijiao.data.JOption;
-import com.paohaijiao.data.JTitle;
-import com.paohaijiao.data.axis.JCategoryAxis;
-import com.paohaijiao.data.axis.JValueAxis;
-import com.paohaijiao.data.code.JAxisType;
-import com.paohaijiao.data.code.JSeriesType;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.data.JData;
-import com.paohaijiao.data.json.JGsonOption;
-import com.paohaijiao.data.series.JBar;
 import com.paohaijiao.data.series.JPie;
-import com.paohaijiao.data.series.JSeries;
-import com.paohaijiao.data.style.JItemStyle;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import static com.paohaijiao.echart.generate.JBarChartsRenderer.renderEChartToSVG;
 import static com.paohaijiao.echart.generate.JPieChartsRenderer.renderPieChartToSVG;
 
 /**

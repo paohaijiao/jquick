@@ -18,15 +18,12 @@ import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
-import com.paohaijiao.data.data.JData;
 import com.paohaijiao.data.series.JLine;
-import com.paohaijiao.data.series.JPie;
 import org.junit.Test;
 
 import java.io.IOException;
 
 import static com.paohaijiao.echart.generate.JLineChartsRenderer.generateSVGFromOption;
-import static com.paohaijiao.echart.generate.JPieChartsRenderer.renderPieChartToSVG;
 
 /**
  * @ClassName BarCharTest

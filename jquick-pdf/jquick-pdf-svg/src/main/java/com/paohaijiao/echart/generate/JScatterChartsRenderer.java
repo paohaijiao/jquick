@@ -3,7 +3,6 @@ package com.paohaijiao.echart.generate;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.data.JData;
-import com.paohaijiao.data.series.JPie;
 import com.paohaijiao.data.series.JScatter;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;

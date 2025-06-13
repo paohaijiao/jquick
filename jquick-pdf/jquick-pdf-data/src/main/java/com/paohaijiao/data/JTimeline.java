@@ -18,12 +18,12 @@ package com.paohaijiao.data;
 
 import com.paohaijiao.data.code.JAxisType;
 import com.paohaijiao.data.code.JControlPosition;
-import com.paohaijiao.data.code.JTimeLineType;
 import com.paohaijiao.data.code.JSymbol;
+import com.paohaijiao.data.code.JTimeLineType;
+import com.paohaijiao.data.series.JSeries;
 import com.paohaijiao.data.style.JCheckpointStyle;
 import com.paohaijiao.data.style.JControlStyle;
 import com.paohaijiao.data.style.JLineStyle;
-import com.paohaijiao.data.series.JSeries;
 import lombok.Getter;
 import lombok.Setter;
 
