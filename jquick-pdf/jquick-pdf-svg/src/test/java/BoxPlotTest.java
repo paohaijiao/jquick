@@ -1,11 +1,4 @@
-import com.paohaijiao.data.JOption;
-import com.paohaijiao.data.JRadar;
-import com.paohaijiao.data.code.JSeriesType;
-import com.paohaijiao.data.code.JTrigger;
-import com.paohaijiao.data.series.JRadarSeries;
-import com.paohaijiao.data.style.JTextStyle;
 import com.paohaijiao.echart.generate.JBoxPlotChartRenderer;
-import com.paohaijiao.echart.generate.JRadarChartsRenderer;
 import org.junit.Test;
 
 import javax.xml.parsers.ParserConfigurationException;
