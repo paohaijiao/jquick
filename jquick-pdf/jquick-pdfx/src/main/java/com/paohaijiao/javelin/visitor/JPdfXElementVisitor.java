@@ -39,7 +39,7 @@ import java.io.IOException;
  * @date 2025/6/14
  * @description
  */
-public class JPdfXElementVisitor extends JPdfXHeadingVisitor {
+public class JPdfXElementVisitor extends JPdfXTableVisitor {
 
 
 
@@ -69,31 +69,6 @@ public class JPdfXElementVisitor extends JPdfXHeadingVisitor {
 
 
 
-    @Override
-    public Table visitTable(JQuickPDFParser.TableContext ctx) {
-        int colNum = 1;
-        if(ctx.number() != null) {
-            colNum=visitNumber(ctx.number()).intValue();
-        }
-        Table table = new Table(colNum);
-
-        for (JQuickPDFParser.TableRowContext rowCtx : ctx.tableRow()) {
-            for (JQuickPDFParser.TableCellContext cellCtx : rowCtx.tableCell()) {
-                Cell cell = new Cell();
-
-                for (JQuickPDFParser.ElementContext elementCtx : cellCtx.element()) {
-                    IElement element = visitElement(elementCtx);
-                    if (element instanceof BlockElement) {
-                        cell.add((BlockElement) element);
-                    }
-                }
-
-                table.addCell(cell);
-            }
-        }
-
-        return table;
-    }
 
     @Override
     public Image visitImage(JQuickPDFParser.ImageContext ctx) {

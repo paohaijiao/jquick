@@ -95,6 +95,18 @@ public interface JQuickPDFVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTableCell(JQuickPDFParser.TableCellContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickPDFParser#colspan}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColspan(JQuickPDFParser.ColspanContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickPDFParser#rowspan}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRowspan(JQuickPDFParser.RowspanContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickPDFParser#image}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

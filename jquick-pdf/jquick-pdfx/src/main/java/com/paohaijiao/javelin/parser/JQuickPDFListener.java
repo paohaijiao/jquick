@@ -148,6 +148,26 @@ public interface JQuickPDFListener extends ParseTreeListener {
 	 */
 	void exitTableCell(JQuickPDFParser.TableCellContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickPDFParser#colspan}.
+	 * @param ctx the parse tree
+	 */
+	void enterColspan(JQuickPDFParser.ColspanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickPDFParser#colspan}.
+	 * @param ctx the parse tree
+	 */
+	void exitColspan(JQuickPDFParser.ColspanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickPDFParser#rowspan}.
+	 * @param ctx the parse tree
+	 */
+	void enterRowspan(JQuickPDFParser.RowspanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickPDFParser#rowspan}.
+	 * @param ctx the parse tree
+	 */
+	void exitRowspan(JQuickPDFParser.RowspanContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickPDFParser#image}.
 	 * @param ctx the parse tree
 	 */
