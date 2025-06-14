@@ -13,8 +13,9 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.model;
+package com.paohaijiao.javelin.model.style;
 
+import com.paohaijiao.javelin.model.JNumberUnitModel;
 import lombok.Data;
 
 /**
@@ -27,7 +28,7 @@ import lombok.Data;
  * @description
  */
 @Data
-public class JTextStyleModel {
+public class JStyleModel {
 
     private String font;
     private Integer size;
@@ -37,4 +38,6 @@ public class JTextStyleModel {
     private Boolean italic;
     private Boolean underline;
     private String align;
+
+    private JNumberUnitModel numberUnit;
 }

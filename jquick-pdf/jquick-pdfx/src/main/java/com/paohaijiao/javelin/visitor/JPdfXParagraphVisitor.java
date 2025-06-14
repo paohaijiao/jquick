@@ -17,7 +17,8 @@ package com.paohaijiao.javelin.visitor;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
-import com.paohaijiao.javelin.model.JTextStyleModel;
+import com.paohaijiao.javelin.model.style.JStyleDataModel;
+import com.paohaijiao.javelin.model.style.JStyleModel;
 import com.paohaijiao.javelin.model.paragraph.JParagraphModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;
 
@@ -34,23 +35,25 @@ import com.paohaijiao.javelin.parser.JQuickPDFParser;
 public class JPdfXParagraphVisitor extends JPdfXLayOutVisitor {
     @Override
     public Paragraph visitParagraph(JQuickPDFParser.ParagraphContext ctx) {
+        this.cleanTemp();
         String text = ctx.string().getText().replaceAll("^\"|\"$", "");
-        JTextStyleModel style=new JTextStyleModel();
         if(null!=ctx.paragraphStyle()){
             visitParagraphStyle(ctx.paragraphStyle());
         }
         JParagraphModel model=new JParagraphModel();
         model.setText(text);
-        model.setStyle(null);
+        model.setStyle(style);
+        model.setStyle(style);
+//        model.setAlign(align);
+//        model.setSpacing(spacingModel);
         Paragraph paragraph=this.buildParagraph(model);
         return paragraph;
     }
     @Override
-    public JTextStyleModel visitParagraphStyle(JQuickPDFParser.ParagraphStyleContext ctx) {
-        JTextStyleModel jTextStyleModel=new JTextStyleModel();
+    public JStyleDataModel visitParagraphStyle(JQuickPDFParser.ParagraphStyleContext ctx) {
         for(JQuickPDFParser.ParagraphStyleTypeContext context:ctx.paragraphStyleType()){
             if(null!=context.textStyle() ){
-               visit(context.textStyle());
+                visit(context.textStyle());
             }
             if(null!=context.alignment() ){
                 visit(context.alignment());
@@ -59,20 +62,14 @@ public class JPdfXParagraphVisitor extends JPdfXLayOutVisitor {
                 visit(context.spacing());
             }
         }
-        return jTextStyleModel;
+        return  null;
     }
-    @Override
-    public String visitTextStylefont(JQuickPDFParser.TextStylefontContext ctx) {
-        if(null!=ctx.string()){
-            return visitString(ctx.string());
-        }
-        return null;
-    }
+
 
     private Paragraph buildParagraph(JParagraphModel data)  {
         try{
             Paragraph paragraph = new Paragraph(data.getText());
-            JTextStyleModel model=data.getStyle();
+            JStyleModel model=data.getStyle();
             if(null!=model){
                 if(null!=model.getFont()){
                     paragraph.setFont(PdfFontFactory.createFont(model.getFont())); // 字体

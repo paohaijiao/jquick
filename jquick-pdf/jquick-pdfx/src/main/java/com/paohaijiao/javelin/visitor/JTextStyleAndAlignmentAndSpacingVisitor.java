@@ -17,9 +17,10 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.enums.JAlign;
 import com.paohaijiao.javelin.enums.JUnit;
-import com.paohaijiao.javelin.model.JColorModel;
 import com.paohaijiao.javelin.model.JNumberUnitModel;
-import com.paohaijiao.javelin.model.textStyle.JTextStyleFont;
+import com.paohaijiao.javelin.model.style.JStyleAlignModel;
+import com.paohaijiao.javelin.model.style.JStyleModel;
+import com.paohaijiao.javelin.model.style.JStyleSpacingModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;
 
 import java.math.BigDecimal;
@@ -35,50 +36,54 @@ import java.math.BigDecimal;
  */
 public class JTextStyleAndAlignmentAndSpacingVisitor extends JPdfXLayOutVisitor{
     @Override
-    public JTextStyleFont visitTextStylefont(JQuickPDFParser.TextStylefontContext ctx) {
+    public JStyleModel visitTextStylefont(JQuickPDFParser.TextStylefontContext ctx) {
         String font=visitString(ctx.string());
-        JTextStyleFont jTextStyleFont=new JTextStyleFont();
-        jTextStyleFont.setFontName(font);
-        return jTextStyleFont;
+        style.setFont(font);
+        return style;
     }
     @Override
-    public JTextStyleFont visitTextStyleSize(JQuickPDFParser.TextStyleSizeContext ctx) {
+    public JStyleModel visitTextStyleSize(JQuickPDFParser.TextStyleSizeContext ctx) {
         BigDecimal number=visitNumber(ctx.number());
         JUnit unit=visitUnit(ctx.unit());
         JNumberUnitModel numberUnitModel=new JNumberUnitModel();
         numberUnitModel.setNumber(number.intValue());
         numberUnitModel.setUnit(unit);
-        JTextStyleFont jTextStyleFont=new JTextStyleFont();
-        jTextStyleFont.setNumberUnit(numberUnitModel);
-        return jTextStyleFont;
+        style.setNumberUnit(numberUnitModel);
+        return style;
     }
     @Override
-    public JColorModel visitTextStyleColor(JQuickPDFParser.TextStyleColorContext ctx) {
+    public JStyleModel visitTextStyleColor(JQuickPDFParser.TextStyleColorContext ctx) {
         String color=visitColor(ctx.color());
-        JColorModel jColorModel=new JColorModel();
-        jColorModel.setColor(color);
-        return jColorModel;
+        style.setColor(color);
+        return style;
     }
     @Override
-    public String visitTextStyleBold(JQuickPDFParser.TextStyleBoldContext ctx) {
-
-        return "bold";
+    public JStyleModel visitTextStyleBold(JQuickPDFParser.TextStyleBoldContext ctx) {
+        style.setBold(Boolean.TRUE);
+        return style;
     }
     @Override
-    public String visitTextStyleItalic(JQuickPDFParser.TextStyleItalicContext ctx) {
-        return "italic";
+    public JStyleModel visitTextStyleItalic(JQuickPDFParser.TextStyleItalicContext ctx) {
+        style.setItalic(Boolean.TRUE);
+        return style;
     }
     @Override
-    public String visitTextStyleUnderline(JQuickPDFParser.TextStyleUnderlineContext ctx) {
-        return "underline";
+    public JStyleModel visitTextStyleUnderline(JQuickPDFParser.TextStyleUnderlineContext ctx) {
+        style.setUnderline(Boolean.TRUE);
+        return style;
     }
     @Override
-    public String visitTextStyleAlign(JQuickPDFParser.TextStyleAlignContext ctx) {
-        return ctx.ID().getText();
+    public JStyleModel visitTextStyleAlign(JQuickPDFParser.TextStyleAlignContext ctx) {
+        style.setAlign(ctx.ID().getText());
+        return style;
     }
     @Override
     public JAlign visitAlignment(JQuickPDFParser.AlignmentContext ctx) {
-        return visitAlignmentLocation(ctx.alignmentLocation());
+        JAlign align= visitAlignmentLocation(ctx.alignmentLocation());
+        JStyleAlignModel styleAlignModel=new JStyleAlignModel();
+        styleAlignModel.setDirection(align.getCode());
+        this.align=styleAlignModel;
+        return align;
     }
 
     @Override
@@ -86,6 +91,38 @@ public class JTextStyleAndAlignmentAndSpacingVisitor extends JPdfXLayOutVisitor{
         String text=ctx.getText();
         return JAlign.codeOf(text);
     }
+    @Override
+    public JStyleSpacingModel visitSpacing(JQuickPDFParser.SpacingContext ctx) {
+        JStyleSpacingModel thisSpacingModel=new JStyleSpacingModel();
+        if(ctx.marginOrPadding()!=null){
+            String type=visitMarginOrPadding(ctx.marginOrPadding());
+            thisSpacingModel.setType(type);
+        }
+        JNumberUnitModel left=new JNumberUnitModel();
+        if(ctx.number(0)!=null){
+            left.setNumber(visitNumber(ctx.number(0)).intValue());
+        }
+        if(ctx.unit(0)!=null){
+            left.setUnit(visitUnit(ctx.unit(0)));
+        }
+        JNumberUnitModel right=new JNumberUnitModel();
+        if(ctx.number(1)!=null){
+            right.setNumber(visitNumber(ctx.number(1)).intValue());
+        }
+        if(ctx.unit(1)!=null){
+            right.setUnit(visitUnit(ctx.unit(1)));
+        }
+        thisSpacingModel.setLeftSpacing(left);
+        thisSpacingModel.setRightSpacing(right);
+        this.spacingModel=thisSpacingModel;
+        return spacingModel;
+    }
+    @Override
+    public String visitMarginOrPadding(JQuickPDFParser.MarginOrPaddingContext ctx) {
+        return ctx.getText();
+    }
+
+
 
 
 

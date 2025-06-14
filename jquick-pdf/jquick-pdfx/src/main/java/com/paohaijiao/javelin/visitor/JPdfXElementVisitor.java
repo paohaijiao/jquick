@@ -39,7 +39,7 @@ import java.io.IOException;
  * @date 2025/6/14
  * @description
  */
-public class JPdfXElementVisitor extends JPdfXLayOutVisitor {
+public class JPdfXElementVisitor extends JPdfXHeadingVisitor {
 
 
 
@@ -50,7 +50,7 @@ public class JPdfXElementVisitor extends JPdfXLayOutVisitor {
         } else if (ctx.heading() != null) {
             return visitHeading(ctx.heading());
         } else if (ctx.list() != null) {
-            return visitList(ctx.list());
+//            return visitList(ctx.list());
         } else if (ctx.table() != null) {
             return visitTable(ctx.table());
         } else if (ctx.image() != null) {
@@ -65,46 +65,9 @@ public class JPdfXElementVisitor extends JPdfXLayOutVisitor {
         return null;
     }
 
-    @Override
-    public Paragraph visitParagraph(JQuickPDFParser.ParagraphContext ctx) {
-        String text = ctx.string().getText().replaceAll("^\"|\"$", "");
-        Paragraph paragraph = new Paragraph(text);
-        if (ctx.paragraphStyle() != null) {
-            visitParagraphStyle(ctx.paragraphStyle());
-        }
-        //todo
-        return paragraph;
-    }
-    @Override
-    public Void visitParagraphStyle(JQuickPDFParser.ParagraphStyleContext ctx) {
-        for (JQuickPDFParser.ParagraphStyleTypeContext styleCtx : ctx.paragraphStyleType()) {
-            if (styleCtx.textStyle() != null) {
-                visit(styleCtx.textStyle());
-            } else if (styleCtx.alignment() != null) {
-                visitAlignment(styleCtx.alignment());
-            } else if (styleCtx.spacing() != null) {
-                visitSpacing(styleCtx.spacing());
-            }
-        }
-        return null;
-    }
 
-    @Override
-    public Paragraph  visitHeading(JQuickPDFParser.HeadingContext ctx) {
-        String level = ctx.getChild(1).getText();
-        String text = ctx.string().getText().replaceAll("\"", "");
-        Paragraph heading = new Paragraph(text);
-        switch (level) {
-            case "h1": heading.setFontSize(24); break;
-            case "h2": heading.setFontSize(22); break;
-            case "h3": heading.setFontSize(20); break;
-            case "h4": heading.setFontSize(18); break;
-            case "h5": heading.setFontSize(16); break;
-            case "h6": heading.setFontSize(14); break;
-        }
 
-        return heading;
-    }
+
 
     @Override
     public Table visitTable(JQuickPDFParser.TableContext ctx) {
@@ -139,6 +102,7 @@ public class JPdfXElementVisitor extends JPdfXLayOutVisitor {
     }
     @Override
     public Image visitSvg(JQuickPDFParser.SvgContext ctx) {
+        return null;
 
     }
 

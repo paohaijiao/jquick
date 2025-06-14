@@ -13,25 +13,23 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.model.paragraph;
+package com.paohaijiao.javelin.model.style;
 
-import com.paohaijiao.javelin.model.style.JStyleModel;
 import lombok.Data;
 
 /**
- * packageName com.paohaijiao.javelin.model.paragraph
+ * packageName com.paohaijiao.javelin.model.style
  *
  * @author Martin
  * @version 1.0.0
- * @className JParagraphModel
+ * @className JStyleDataModel
  * @date 2025/6/14
  * @description
  */
 @Data
-public class JParagraphModel {
-
-    private String text;
+public class JStyleDataModel {
 
     private JStyleModel style;
-
+    private JStyleAlignModel align;
+    private JStyleSpacingModel spacing;
 }

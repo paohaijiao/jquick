@@ -13,26 +13,25 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.model.textStyle;
+package com.paohaijiao.javelin.model.heading;
 
-import com.paohaijiao.javelin.model.JNumberUnitModel;
+import com.paohaijiao.javelin.model.style.JStyleModel;
 import lombok.Data;
 
 /**
- * packageName com.paohaijiao.javelin.model.textStyle
+ * packageName com.paohaijiao.javelin.model.paragraph
  *
  * @author Martin
  * @version 1.0.0
- * @className JTextStyleFont
+ * @className JParagraphModel
  * @date 2025/6/14
  * @description
  */
 @Data
-public class JTextStyleFont {
+public class JHeadingModel {
 
-    private String fontName;
-
-    private Integer fontsize;
-
-    private JNumberUnitModel numberUnit;
+    private String text;
+    private String level;
+    private JStyleModel style;
+    
 }

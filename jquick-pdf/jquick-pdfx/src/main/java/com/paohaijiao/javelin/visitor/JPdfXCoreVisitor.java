@@ -16,33 +16,18 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.paohaijiao.javelin.parser.JQuickPDFBaseListener;
-import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.Color;
-import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.element.*;
-import com.itextpdf.layout.properties.HorizontalAlignment;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.UnitValue;
+import com.paohaijiao.javelin.model.style.JStyleAlignModel;
+import com.paohaijiao.javelin.model.style.JStyleModel;
+import com.paohaijiao.javelin.model.style.JStyleSpacingModel;
 import com.paohaijiao.javelin.parser.JQuickPDFBaseVisitor;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 /**
  * packageName com.paohaijiao.javelin.visitor
@@ -56,6 +41,9 @@ import java.util.Stack;
 public class JPdfXCoreVisitor extends JQuickPDFBaseVisitor {
     protected PdfDocument pdfDoc;
     protected Document document;
+    protected JStyleModel style=new JStyleModel();
+    protected JStyleAlignModel align=new JStyleAlignModel();
+    protected JStyleSpacingModel spacingModel=new JStyleSpacingModel();
     protected Map<String, Template> templates = new HashMap<>();
     protected PageSize currentPageSize = PageSize.A4;
     protected float[] currentMargins = new float[]{72, 72, 72, 72}; // default 1 inch margins // top, right, bottom, left
@@ -95,5 +83,13 @@ public class JPdfXCoreVisitor extends JQuickPDFBaseVisitor {
             // Named colors
             return new DeviceRgb(0, 0, 0); // default black
         }
+    }
+    protected void cleanTemp(){
+        JStyleModel styleModel=new JStyleModel();
+        this.style=styleModel;
+        JStyleAlignModel alignModel=new JStyleAlignModel();
+        this.align=alignModel;
+        JStyleSpacingModel newSpacingModel=new JStyleSpacingModel();
+        this.spacingModel=newSpacingModel;
     }
 }
