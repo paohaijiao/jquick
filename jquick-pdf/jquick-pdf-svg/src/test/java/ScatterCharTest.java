@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.generate.JScatterChartsRenderer.renderScatterToSvg;
+import static com.paohaijiao.echart.scatter.JScatterChartsRenderer.renderScatterToSvg;
 
 /**
  * @ClassName BarCharTest

@@ -13,7 +13,7 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.heatMap;
 
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.Document;

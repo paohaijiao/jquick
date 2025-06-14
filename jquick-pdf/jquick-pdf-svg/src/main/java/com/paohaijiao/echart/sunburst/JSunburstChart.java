@@ -13,7 +13,7 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.sunburst;
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.Document;
@@ -22,7 +22,6 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import java.awt.geom.Point2D;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -40,7 +39,7 @@ import java.util.List;
  * @date 2025/6/14
  * @description
  */
-public class SunburstChart {
+public class JSunburstChart {
     private static class SunburstNode {
         String name;
         Color color;

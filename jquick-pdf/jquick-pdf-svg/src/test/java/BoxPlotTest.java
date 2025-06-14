@@ -1,4 +1,4 @@
-import com.paohaijiao.echart.generate.JBoxPlotChartRenderer;
+import com.paohaijiao.echart.boxPlot.JBoxPlotChartRenderer;
 import org.junit.Test;
 
 import javax.xml.parsers.ParserConfigurationException;

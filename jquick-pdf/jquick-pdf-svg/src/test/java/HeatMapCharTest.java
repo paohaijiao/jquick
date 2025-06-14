@@ -1,4 +1,4 @@
-import com.paohaijiao.echart.generate.JHeatMapChartRenderer;
+import com.paohaijiao.echart.heatMap.JHeatMapChartRenderer;
 import org.junit.Test;
 
 import javax.xml.parsers.ParserConfigurationException;

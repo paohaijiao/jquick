@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.generate.JLineChartsRenderer.generateSVGFromOption;
+import static com.paohaijiao.echart.line.JLineChartsRenderer.generateSVGFromOption;
 
 /**
  * @ClassName BarCharTest

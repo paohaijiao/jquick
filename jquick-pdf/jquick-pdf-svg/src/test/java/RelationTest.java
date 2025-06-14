@@ -1,9 +1,5 @@
 import com.paohaijiao.data.JOption;
-import com.paohaijiao.data.code.JLayout;
-import com.paohaijiao.data.series.JGraph;
-import com.paohaijiao.data.series.force.JLink;
-import com.paohaijiao.echart.generate.JBoxPlotChartRenderer;
-import com.paohaijiao.echart.generate.JRelationChartRenderer;
+import com.paohaijiao.echart.relation.JRelationChartRenderer;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.junit.Test;

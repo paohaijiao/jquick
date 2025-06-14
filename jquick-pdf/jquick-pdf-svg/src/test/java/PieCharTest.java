@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.generate.JPieChartsRenderer.renderPieChartToSVG;
+import static com.paohaijiao.echart.pie.JPieChartsRenderer.renderPieChartToSVG;
 
 /**
  * @ClassName BarCharTest

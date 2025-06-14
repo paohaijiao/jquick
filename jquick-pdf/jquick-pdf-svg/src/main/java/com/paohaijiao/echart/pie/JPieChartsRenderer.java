@@ -1,4 +1,4 @@
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.pie;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.data.JData;

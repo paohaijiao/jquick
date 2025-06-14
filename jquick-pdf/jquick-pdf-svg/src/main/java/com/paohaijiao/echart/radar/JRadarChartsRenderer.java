@@ -1,5 +1,5 @@
 
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.radar;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.JRadar;

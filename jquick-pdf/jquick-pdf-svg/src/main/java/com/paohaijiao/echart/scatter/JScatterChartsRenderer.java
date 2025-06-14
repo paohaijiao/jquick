@@ -1,5 +1,5 @@
 
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.scatter;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.data.JData;

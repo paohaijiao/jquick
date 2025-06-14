@@ -13,7 +13,7 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.generate;
+package com.paohaijiao.echart.bar;
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.series.JBar;

@@ -19,7 +19,7 @@ import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.series.JCandlestick;
-import com.paohaijiao.echart.generate.JKChartsRenderer;
+import com.paohaijiao.echart.k.JKChartsRenderer;
 import org.junit.Test;
 
 import java.io.IOException;
