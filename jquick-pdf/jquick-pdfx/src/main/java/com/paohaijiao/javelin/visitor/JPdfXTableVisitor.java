@@ -15,7 +15,9 @@
  */
 package com.paohaijiao.javelin.visitor;
 
-import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.paohaijiao.javelin.model.paragraph.JParagraphModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;

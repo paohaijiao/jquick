@@ -20,11 +20,8 @@ import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.paohaijiao.javelin.model.heading.JHeadingModel;
-import com.paohaijiao.javelin.model.paragraph.JParagraphModel;
-import com.paohaijiao.javelin.model.style.JStyleDataModel;
 import com.paohaijiao.javelin.model.style.JStyleModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;
-import com.sun.prism.paint.Color;
 
 
 /**

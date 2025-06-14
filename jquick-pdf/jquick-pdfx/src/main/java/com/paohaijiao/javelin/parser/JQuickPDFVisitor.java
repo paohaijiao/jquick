@@ -71,6 +71,12 @@ public interface JQuickPDFVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitList(JQuickPDFParser.ListContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickPDFParser#orderType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrderType(JQuickPDFParser.OrderTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickPDFParser#listItem}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

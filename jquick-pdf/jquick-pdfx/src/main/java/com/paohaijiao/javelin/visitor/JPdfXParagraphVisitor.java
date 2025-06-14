@@ -14,12 +14,13 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.paohaijiao.javelin.visitor;
+
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.paohaijiao.javelin.model.paragraph.JParagraphModel;
 import com.paohaijiao.javelin.model.style.JStyleDataModel;
 import com.paohaijiao.javelin.model.style.JStyleModel;
-import com.paohaijiao.javelin.model.paragraph.JParagraphModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;
 
 

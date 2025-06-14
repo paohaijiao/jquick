@@ -13,24 +13,27 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.model.style;
+package com.paohaijiao.javelin.model.list;
 
-import com.paohaijiao.javelin.model.JNumberUnitModel;
+import com.paohaijiao.javelin.model.style.JStyleModel;
 import lombok.Data;
 
 /**
- * packageName com.paohaijiao.javelin.model.style
+ * packageName com.paohaijiao.javelin.model.paragraph
  *
  * @author Martin
  * @version 1.0.0
- * @className JStyleDataModel
+ * @className JParagraphModel
  * @date 2025/6/14
  * @description
  */
 @Data
-public class JStyleSpacingModel {
+public class JListModel {
 
-    private String type;
-    private JNumberUnitModel leftSpacing;
-    private JNumberUnitModel rightSpacing;
+    private float symbolIndent;
+    private String  symbol="\u2022";
+    private float fontSize=12f;
+    private JStyleModel style;
+    java.util.List<String> list;
+    
 }

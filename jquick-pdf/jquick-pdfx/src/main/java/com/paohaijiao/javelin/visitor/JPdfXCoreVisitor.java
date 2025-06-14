@@ -15,10 +15,10 @@
  */
 package com.paohaijiao.javelin.visitor;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.paohaijiao.javelin.model.style.JStyleAlignModel;
 import com.paohaijiao.javelin.model.style.JStyleModel;

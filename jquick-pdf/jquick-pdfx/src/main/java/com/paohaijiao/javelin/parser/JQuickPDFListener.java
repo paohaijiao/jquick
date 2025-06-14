@@ -108,6 +108,16 @@ public interface JQuickPDFListener extends ParseTreeListener {
 	 */
 	void exitList(JQuickPDFParser.ListContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickPDFParser#orderType}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrderType(JQuickPDFParser.OrderTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickPDFParser#orderType}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrderType(JQuickPDFParser.OrderTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickPDFParser#listItem}.
 	 * @param ctx the parse tree
 	 */
