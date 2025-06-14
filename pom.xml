@@ -21,6 +21,8 @@
         <module>jquick-pdf</module>
         <module>jquick-sql</module>
         <module>jquick-xml</module>
+
+
     </modules>
     <properties>
         <jquick.version>1.0.0</jquick.version>
