@@ -285,17 +285,45 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
     public JSONObject fromMap(Map<String, Object> map) {
         return new JSONObject(map);
     }
-
     private Map<String, Object> deepCopyMap(Map<String, Object> original) {
+        return deepCopyMap(original, new IdentityHashMap<>());
+    }
+
+    private Map<String, Object> deepCopyMap(Map<String, Object> original, IdentityHashMap<Object, Object> processed) {
+        // 如果已经处理过这个对象，直接返回null或原始值（根据需求决定）
+        if (processed.containsKey(original)) {
+            return null; // 或者返回 original，根据你的需求决定如何处理循环引用
+        }
+        processed.put(original, null); // 标记为已处理
+
         Map<String, Object> copy = new LinkedHashMap<>();
         for (Map.Entry<String, Object> entry : original.entrySet()) {
             Object value = entry.getValue();
             if (value instanceof Map) {
-                copy.put(entry.getKey(), deepCopyMap((Map<String, Object>) value));
+                copy.put(entry.getKey(), deepCopyMap((Map<String, Object>) value, processed));
             } else if (value instanceof List) {
-                copy.put(entry.getKey(), new ArrayList<>((List<?>) value));
+                copy.put(entry.getKey(), deepCopyList((List<?>) value, processed));
             } else {
                 copy.put(entry.getKey(), value);
+            }
+        }
+        return copy;
+    }
+
+    private List<Object> deepCopyList(List<?> original, IdentityHashMap<Object, Object> processed) {
+        if (processed.containsKey(original)) {
+            return null;
+        }
+        processed.put(original, null);
+
+        List<Object> copy = new ArrayList<>();
+        for (Object item : original) {
+            if (item instanceof Map) {
+                copy.add(deepCopyMap((Map<String, Object>) item, processed));
+            } else if (item instanceof List) {
+                copy.add(deepCopyList((List<?>) item, processed));
+            } else {
+                copy.add(item);
             }
         }
         return copy;

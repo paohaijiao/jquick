@@ -15,31 +15,15 @@ public class JSubscriptVisitor extends JExprVisitor {
         if (ctx.number() != null) {//pass
             BigDecimal numberDecimal = visitNumber(ctx.number());
             Integer number = numberDecimal.intValue();
-            if (number >= 0) {
-                Object result = getValueByIndex(this.currentJsonObject, number);
-                this.currentJsonObject=result;
-                return result;
-            } else {
-                List<?> list = getList(this.currentJsonObject);
-                Collections.reverse(list);
-                number = Math.abs(number);
-                Object result = getValueByIndex(list, number);
-                this.currentJsonObject=result;
-                return result;
-            }
+            return number;
 
         } else if (ctx.stringLiteral() != null) {//pass
             String fields = visitStringLiteral(ctx.stringLiteral());
             String fieldName = StringUtils.trim(fields);
-            Object result = getValueByKey(this.currentJsonObject, fieldName);
-            this.currentJsonObject=result;
-            return result;
-        } else if (ctx.slice() != null) {
+            return fieldName;
+        } else if (ctx.slice() != null) {//pass
             JSlice slice = visitSlice(ctx.slice());
-            List<?> newList=slice(this.getList(this.currentJsonObject), slice.getStart(), slice.getEnd(), slice.getStep());
-            this.currentJsonObject=newList;
-            return newList;
-
+            return slice;
         } else if (ctx.filterExpression() != null) {
             return visitFilterExpression(ctx.filterExpression());
         } else if (ctx.scriptExpression() != null) {
