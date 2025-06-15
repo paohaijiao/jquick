@@ -45,21 +45,16 @@ public class Jpath06Test {
         System.out.println("结果: " + jsonObject.getRawData());
     }
     @Test
-    public void test52() throws IOException {
-        JSONObject b1=new JSONObject();
-        b1.put("b","2");
-
-        JSONObject b2=new JSONObject();
-        b2.put("b","3");
+    public void test62() throws IOException {
+        JSONObject b=new JSONObject();
+        b.put("price",5);
+        b.put("inStock",true);
         JSONObject a=new JSONObject();
-        a.put("a", Arrays.asList(b1,b2));
-        JSONObject d=new JSONObject();
-        d.put("d","3");
-        a.put("c", Arrays.asList(d));
-
-        JSONPathExecutor executor = new JSONPathExecutor(a);
+        a.put("price",8);
+        a.put("inStock",true);
+        JSONPathExecutor executor = new JSONPathExecutor(Arrays.asList(a,b));
         executor.addErrorListener(error -> {});
-        JSONPathResult jsonObject = executor.execute("$..[0]");
+        JSONPathResult jsonObject = executor.execute("$[?(@.price < 10 && @.inStock)]");
         System.out.println("结果: " + jsonObject.getRawData());
     }
 

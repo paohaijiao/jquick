@@ -13,9 +13,6 @@ import java.util.stream.Collectors;
 
 public class JSubscriptVisitor extends JExprVisitor {
 
-
-
-
     @Override
     public Object visitSubscript(JQuickJSONPathParser.SubscriptContext ctx) {
         if (ctx.number() != null) {//pass

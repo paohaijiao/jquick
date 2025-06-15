@@ -12,10 +12,10 @@ public class JRootAndPathVisitor extends JSegmentVisitor {
         if (null != ctx.root()) {
             this.currentJsonObject = visitRoot(ctx.root());
         }
+        Object obj=null;
         for (JQuickJSONPathParser.SegmentContext segment : ctx.segment()) {
-            visit(segment);
+            obj=visit(segment);
         }
-        Object obj = this.currentJsonObject;
         JSONPathResult jsonPathResult = new JSONPathResult(obj);
         return jsonPathResult;
     }
