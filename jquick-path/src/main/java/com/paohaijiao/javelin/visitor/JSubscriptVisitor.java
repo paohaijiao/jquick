@@ -20,16 +20,27 @@ public class JSubscriptVisitor extends JExprVisitor {
     public Object visitSubscript(JQuickJSONPathParser.SubscriptContext ctx) {
         if (ctx.number() != null) {//pass
             BigDecimal numberDecimal = visitNumber(ctx.number());
-            Integer number = numberDecimal.intValue();
-            return number;
-
+            Integer index = numberDecimal.intValue();
+            if (index >= 0) {
+                Object result = getValueByIndex(this.currentJsonObject, (Integer) index);
+                return result;
+            } else {
+                index = Math.abs(index);
+                List<?> list = this.getList(this.currentJsonObject);
+                Collections.reverse(list);
+                Object result = getValueByIndex(list, index);
+                return result;
+            }
         } else if (ctx.stringLiteral() != null) {//pass
             String fields = visitStringLiteral(ctx.stringLiteral());
             String fieldName = StringUtils.trim(fields);
-            return fieldName;
+            Object result = getValueByKey(this.currentJsonObject, fieldName);
+            return result;
         } else if (ctx.slice() != null) {//pass
             JSlice slice = visitSlice(ctx.slice());
-            return slice;
+            List<?> list = this.getList(this.currentJsonObject);
+            List<?> data = slice(list, slice.getStart(), slice.getEnd(), slice.getStep());
+            return data;
         } else if (ctx.filterExpression() != null) {//pass
             return visitFilterExpression(ctx.filterExpression());
         } else if (ctx.scriptExpression() != null) {
