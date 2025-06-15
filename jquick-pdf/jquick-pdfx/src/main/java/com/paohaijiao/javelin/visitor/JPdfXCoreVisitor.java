@@ -21,6 +21,7 @@ import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.paohaijiao.javelin.model.style.JStyleAlignModel;
+import com.paohaijiao.javelin.model.style.JStyleDimensionModel;
 import com.paohaijiao.javelin.model.style.JStyleModel;
 import com.paohaijiao.javelin.model.style.JStyleSpacingModel;
 import com.paohaijiao.javelin.parser.JQuickPDFBaseVisitor;
@@ -44,6 +45,7 @@ public class JPdfXCoreVisitor extends JQuickPDFBaseVisitor {
     protected JStyleModel style=new JStyleModel();
     protected JStyleAlignModel align=new JStyleAlignModel();
     protected JStyleSpacingModel spacingModel=new JStyleSpacingModel();
+    protected JStyleDimensionModel dimension=new JStyleDimensionModel();
     protected Map<String, Template> templates = new HashMap<>();
     protected PageSize currentPageSize = PageSize.A4;
     protected float[] currentMargins = new float[]{72, 72, 72, 72}; // default 1 inch margins // top, right, bottom, left
@@ -85,11 +87,9 @@ public class JPdfXCoreVisitor extends JQuickPDFBaseVisitor {
         }
     }
     protected void cleanTemp(){
-        JStyleModel styleModel=new JStyleModel();
-        this.style=styleModel;
-        JStyleAlignModel alignModel=new JStyleAlignModel();
-        this.align=alignModel;
-        JStyleSpacingModel newSpacingModel=new JStyleSpacingModel();
-        this.spacingModel=newSpacingModel;
+        this.style=new JStyleModel();
+        this.align=new JStyleAlignModel();
+        this.spacingModel=new JStyleSpacingModel();
+        this.dimension=new JStyleDimensionModel();
     }
 }

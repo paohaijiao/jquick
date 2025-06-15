@@ -30,7 +30,7 @@ import com.paohaijiao.javelin.parser.JQuickPDFParser;
  * @date 2025/6/14
  * @description
  */
-public class JPdfXElementVisitor extends JPdfXListVisitor {
+public class JPdfXElementVisitor extends JPdfXImageVisitor {
 
 
 
@@ -61,11 +61,7 @@ public class JPdfXElementVisitor extends JPdfXListVisitor {
 
 
 
-    @Override
-    public Image visitImage(JQuickPDFParser.ImageContext ctx) {
 
-        return null;
-    }
     @Override
     public Image visitSvg(JQuickPDFParser.SvgContext ctx) {
         return null;

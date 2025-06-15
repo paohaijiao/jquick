@@ -33,7 +33,7 @@ import java.io.IOException;
  * @date 2025/6/14
  * @description
  */
-public class JPdfXCommonVisitor extends JPdfXLayOutVisitor {
+public class JPdfXCommonVisitor extends JPdfXElementVisitor {
     public JPdfXCommonVisitor(String outputPath) throws IOException {
         PdfWriter writer = new PdfWriter(outputPath);
         this.pdfDoc = new PdfDocument(writer);
@@ -67,13 +67,13 @@ public class JPdfXCommonVisitor extends JPdfXLayOutVisitor {
         float marginTop = 72;
         float marginBottom = 72;
         if (ctx.margins() != null) {
-            marginLeft = convertToPoints(Float.parseFloat(ctx.margins().NUMBER(0).getText()),
+            marginLeft = convertToPoints(Float.parseFloat(ctx.margins().number(0).getText()),
                     ctx.margins().unit(0).getText());
-            marginTop = convertToPoints(Float.parseFloat(ctx.margins().NUMBER(1).getText()),
+            marginTop = convertToPoints(Float.parseFloat(ctx.margins().number(1).getText()),
                     ctx.margins().unit(1).getText());
-            marginRight = convertToPoints(Float.parseFloat(ctx.margins().NUMBER(2).getText()),
+            marginRight = convertToPoints(Float.parseFloat(ctx.margins().number(2).getText()),
                     ctx.margins().unit(2).getText());
-            marginBottom = convertToPoints(Float.parseFloat(ctx.margins().NUMBER(3).getText()),
+            marginBottom = convertToPoints(Float.parseFloat(ctx.margins().number(3).getText()),
                     ctx.margins().unit(3).getText());
         }
         if (document == null) {
@@ -104,10 +104,10 @@ public class JPdfXCommonVisitor extends JPdfXLayOutVisitor {
 
     @Override
     public Void visitMargins(JQuickPDFParser.MarginsContext ctx) {
-        currentMargins[0] = convertToPoints(Float.parseFloat(ctx.NUMBER(0).getText()), ctx.unit(0).getText());
-        currentMargins[1] = convertToPoints(Float.parseFloat(ctx.NUMBER(1).getText()), ctx.unit(1).getText());
-        currentMargins[2] = convertToPoints(Float.parseFloat(ctx.NUMBER(2).getText()), ctx.unit(2).getText());
-        currentMargins[3] = convertToPoints(Float.parseFloat(ctx.NUMBER(3).getText()), ctx.unit(3).getText());
+        currentMargins[0] = convertToPoints(Float.parseFloat(ctx.number(0).getText()), ctx.unit(0).getText());
+        currentMargins[1] = convertToPoints(Float.parseFloat(ctx.number(1).getText()), ctx.unit(1).getText());
+        currentMargins[2] = convertToPoints(Float.parseFloat(ctx.number(2).getText()), ctx.unit(2).getText());
+        currentMargins[3] = convertToPoints(Float.parseFloat(ctx.number(3).getText()), ctx.unit(3).getText());
         return null;
     }
 

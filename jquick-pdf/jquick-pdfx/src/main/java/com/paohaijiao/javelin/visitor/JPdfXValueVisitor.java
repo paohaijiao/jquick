@@ -18,6 +18,7 @@ package com.paohaijiao.javelin.visitor;
 import com.paohaijiao.javelin.enums.JDirect;
 import com.paohaijiao.javelin.enums.JUnit;
 import com.paohaijiao.javelin.model.*;
+import com.paohaijiao.javelin.model.style.JStyleDimensionModel;
 import com.paohaijiao.javelin.parser.JQuickPDFParser;
 
 import java.math.BigDecimal;
@@ -111,38 +112,39 @@ public class JPdfXValueVisitor extends JPdfXCoreVisitor {
 
     @Override
     public JNumberUnitModel visitDimensionWidth(JQuickPDFParser.DimensionWidthContext ctx) {
-        JNumberUnitModel jNumberUnitModel=new JNumberUnitModel();
         BigDecimal number=visitNumber(ctx.number());
-        jNumberUnitModel.setNumber(number.intValue());
         JUnit unit=visitUnit(ctx.unit());
+        JNumberUnitModel jNumberUnitModel=new JNumberUnitModel();
+        jNumberUnitModel.setNumber(number.intValue());
         jNumberUnitModel.setUnit(unit);
+        this.dimension.setWidth(jNumberUnitModel);
         return jNumberUnitModel;
     }
     @Override
     public JNumberUnitModel visitDimensionHeight(JQuickPDFParser.DimensionHeightContext ctx) {
-        JNumberUnitModel jNumberUnitModel=new JNumberUnitModel();
         BigDecimal number=visitNumber(ctx.number());
-        jNumberUnitModel.setNumber(number.intValue());
         JUnit unit=visitUnit(ctx.unit());
+        JNumberUnitModel jNumberUnitModel=new JNumberUnitModel();
+        jNumberUnitModel.setNumber(number.intValue());
         jNumberUnitModel.setUnit(unit);
+        this.dimension.setHeight(jNumberUnitModel);
         return jNumberUnitModel;
     }
     @Override
-    public JDimensionSizeModel visitDimensionSize(JQuickPDFParser.DimensionSizeContext ctx) {
-        JDimensionSizeModel jDimensionSizeModel=new JDimensionSizeModel();
-        JNumberUnitModel leftModel=new JNumberUnitModel();
+    public JStyleDimensionModel visitDimensionSize(JQuickPDFParser.DimensionSizeContext ctx) {
         BigDecimal leftNumber=visitNumber(ctx.number(0));
-        leftModel.setNumber(leftNumber.intValue());
         JUnit leftUnit=visitUnit(ctx.unit(0));
-        leftModel.setUnit(leftUnit);
-        jDimensionSizeModel.setLeft(leftModel);
-        JNumberUnitModel rightModel=new JNumberUnitModel();
-        BigDecimal rightNumber=visitNumber(ctx.number(1));
-        rightModel.setNumber(rightNumber.intValue());
-        JUnit rightUnit=visitUnit(ctx.unit(1));
-        rightModel.setUnit(rightUnit);
-        jDimensionSizeModel.setRight(rightModel);
-        return jDimensionSizeModel;
+        JNumberUnitModel left=new JNumberUnitModel();
+        left.setNumber(leftNumber.intValue());
+        left.setUnit(leftUnit);
+        this.dimension.setLeftSize(left);
+        BigDecimal rightNumber=visitNumber(ctx.number(0));
+        JUnit rightUnit=visitUnit(ctx.unit(0));
+        JNumberUnitModel right=new JNumberUnitModel();
+        right.setNumber(rightNumber.intValue());
+        right.setUnit(rightUnit);
+        this.dimension.setRightSize(left);
+        return dimension;
     }
 
 
