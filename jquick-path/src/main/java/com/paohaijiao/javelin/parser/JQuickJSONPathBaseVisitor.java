@@ -248,6 +248,20 @@ public class JQuickJSONPathBaseVisitor<T> extends AbstractParseTreeVisitor<T> im
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitValueList(JQuickJSONPathParser.ValueListContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

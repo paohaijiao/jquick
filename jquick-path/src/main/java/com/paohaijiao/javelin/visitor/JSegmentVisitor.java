@@ -71,7 +71,6 @@ public class JSegmentVisitor extends JSubscriptVisitor {
 
     @Override
     public Object visitChildSubscriptSegment(JQuickJSONPathParser.ChildSubscriptSegmentContext ctx) {
-
         if (null != ctx.subscript()) {//pass
             Object result = visitSubscript(ctx.subscript());
             List<Object> results = new ArrayList<>();

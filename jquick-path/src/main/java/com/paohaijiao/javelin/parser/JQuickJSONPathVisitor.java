@@ -232,6 +232,18 @@ public interface JQuickJSONPathVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#leftDotExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#rightDotExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickJSONPathParser#valueList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

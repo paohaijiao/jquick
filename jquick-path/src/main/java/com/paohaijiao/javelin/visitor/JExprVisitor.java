@@ -192,6 +192,7 @@ public class JExprVisitor extends JValueVisitor {
     }
     @Override
     public Object visitRootExpression(JQuickJSONPathParser.RootExpressionContext ctx) {
+        this.currentJsonObject=this.rootJsonObject;
         return this.rootJsonObject;
     }
     @Override
@@ -260,28 +261,44 @@ public class JExprVisitor extends JValueVisitor {
     public Object visitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx) {
        // e.g., obj.property, $.*, @.field
         Object leftValue=new Object();
-        if (ctx.identifier() != null) {
-          //  leftValue = visitIdentifier(ctx.identifier());
-        } else if (ctx.literal() != null) {
-            leftValue = visit(ctx.literal());
-        } else if (ctx.expr() != null) {
-            leftValue = visit(ctx.expr());
-        } else {
-            // Handle $ or @ cases
-            leftValue = ctx.getChild(0).getText().equals("$") ? rootJsonObject : currentJsonObject;
+        String rightValue="";
+        if (ctx.leftDotExpr() != null) {
+            leftValue = visitLeftDotExpr(ctx.leftDotExpr());
         }
-        String property = ctx.getChild(ctx.getChildCount() - 1).getText();
-        if (property.equals("*")) {
+        if (ctx.rightDotExpr() != null) {
+            rightValue = visitRightDotExpr(ctx.rightDotExpr());
+        }
+        if (rightValue.equals("*")) {
             return getAllProperties(leftValue);
         }
-        return getProperty(leftValue, property);
+        return getProperty(leftValue, rightValue);
+    }
+    @Override
+    public Object visitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) {
+        if(null!=ctx.identifier()){
+           return visitIdentifier(ctx.identifier());
+        }else if("$".equals(ctx.getText())){
+            return rootJsonObject;
+        }else if("@".equals(ctx.getText())){
+            return currentJsonObject;
+        }else if(null!=ctx.literal()){
+            return visitLiteral(ctx.literal());
+        }else if(null!=ctx.expr()){
+            return visit(ctx.expr());
+        }
+        Assert.throwNewException("Invalid expression");
+        return null;
+    }
+    @Override
+    public String visitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx) {
+        return ctx.getText();
     }
 
     @Override
     public Object visitChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx) {
         //e.g., obj.property.subproperty
         Object currentValue = visit(ctx.dotExpr());
-        String property = ctx.getChild(ctx.getChildCount() - 1).getText();
+        String property = visitRightDotExpr(ctx.rightDotExpr());
         if (property.equals("*")) {
             return getAllProperties(currentValue);
         }

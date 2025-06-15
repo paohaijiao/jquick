@@ -2,6 +2,7 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JScriptContext;
 import com.paohaijiao.javelin.bean.JSlice;
+import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import com.paohaijiao.javelin.util.StringUtils;
 
@@ -10,6 +11,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class JSubscriptVisitor extends JExprVisitor {
+    @Override
+    public Void visitNetestDotExpr(JQuickJSONPathParser.NetestDotExprContext ctx) {
+        if(ctx.dotExpr() != null) {
+            visit(ctx.dotExpr());
+        }
+        return null;
+    }
+    @Override
+    public Void visitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx) {
+        if(ctx.leftDotExpr() != null) {
+            visit(ctx.leftDotExpr());
+        }
+        return null;
+    }
+    @Override
+    public Void visitChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx) {
+        return null;
+    }
+
+
     @Override
     public Object visitSubscript(JQuickJSONPathParser.SubscriptContext ctx) {
         if (ctx.number() != null) {//pass
@@ -24,7 +45,7 @@ public class JSubscriptVisitor extends JExprVisitor {
         } else if (ctx.slice() != null) {//pass
             JSlice slice = visitSlice(ctx.slice());
             return slice;
-        } else if (ctx.filterExpression() != null) {
+        } else if (ctx.filterExpression() != null) {//pass
             return visitFilterExpression(ctx.filterExpression());
         } else if (ctx.scriptExpression() != null) {
             return visitScriptExpression(ctx.scriptExpression());
@@ -68,16 +89,11 @@ public class JSubscriptVisitor extends JExprVisitor {
 
     @Override
     public List<Object> visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
-        JQuickJSONPathParser.ExprContext filterCondition = ctx.expr();
-        List<?> list = this.getList(this.currentJsonObject);
-        List<Object> result = new ArrayList<>();
-        for (Object item : list) {
-            Object conditionResult = visit(filterCondition);
-            if (conditionResult instanceof Boolean && (Boolean) conditionResult) {
-                result.add(item);
-            }
+        if(ctx.expr()!=null){
+            visit((ctx.expr()));
         }
-        return result;
+        Assert.throwNewException("illegal filter expression");
+        return null;
     }
 
     @Override

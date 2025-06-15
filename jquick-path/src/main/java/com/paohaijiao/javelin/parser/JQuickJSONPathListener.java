@@ -385,6 +385,26 @@ public interface JQuickJSONPathListener extends ParseTreeListener {
 	 */
 	void exitDirectDotExpression(JQuickJSONPathParser.DirectDotExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#leftDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#leftDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#rightDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#rightDotExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickJSONPathParser#valueList}.
 	 * @param ctx the parse tree
 	 */

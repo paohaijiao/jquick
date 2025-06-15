@@ -412,6 +412,30 @@ public class JQuickJSONPathBaseListener implements JQuickJSONPathListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterValueList(JQuickJSONPathParser.ValueListContext ctx) { }
 	/**
 	 * {@inheritDoc}
