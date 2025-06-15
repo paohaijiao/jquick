@@ -68,6 +68,24 @@ public interface JQuickJSONPathVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSlice(JQuickJSONPathParser.SliceContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#start}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStart(JQuickJSONPathParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#end}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnd(JQuickJSONPathParser.EndContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickJSONPathParser#step}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStep(JQuickJSONPathParser.StepContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickJSONPathParser#scriptExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

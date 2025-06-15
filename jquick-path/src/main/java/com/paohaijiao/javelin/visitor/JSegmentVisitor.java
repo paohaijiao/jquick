@@ -11,8 +11,8 @@ public class JSegmentVisitor extends JSubscriptVisitor {
 
     @Override
     public Object visitIdentifierSegment(JQuickJSONPathParser.IdentifierSegmentContext ctx) {
-        if (ctx.identifier() != null) {
-            String fieldName = ctx.getText();
+        if (ctx.identifier() != null) {//pass
+            String fieldName = ctx.identifier().getText();
             Object result =getValueByKey(this.currentJsonObject, fieldName);
             this.currentJsonObject=result;
         }else if (ctx.getChild(1).getText().equals("*")) {

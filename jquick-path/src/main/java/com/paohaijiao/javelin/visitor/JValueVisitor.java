@@ -19,7 +19,11 @@ public class JValueVisitor extends JSONPathCoreVisitor{
     }
     @Override
     public BigDecimal visitNumber(JQuickJSONPathParser.NumberContext ctx) {
-        return new BigDecimal(ctx.NUMBER().getText());
+        if(null==ctx||null==ctx.NUMBER()){
+            return null;
+        }else{
+            return new BigDecimal(ctx.NUMBER().getText());
+        }
     }
     @Override
     public String visitStringLiteral(JQuickJSONPathParser.StringLiteralContext ctx) {

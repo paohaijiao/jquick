@@ -3,32 +3,48 @@ package com.paohaijiao.javelin.visitor;
 import com.paohaijiao.javelin.bean.JScriptContext;
 import com.paohaijiao.javelin.bean.JSlice;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
+import com.paohaijiao.javelin.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class JSubscriptVisitor extends JExprVisitor{
+public class JSubscriptVisitor extends JExprVisitor {
     @Override
     public Object visitSubscript(JQuickJSONPathParser.SubscriptContext ctx) {
-        if (ctx.number() != null) {
-            BigDecimal numberDecimal= visitNumber(ctx.number());
-            Integer number=numberDecimal.intValue();
-            return number;
-        } else if (ctx.stringLiteral() != null) {
-            String fields= visitStringLiteral(ctx.stringLiteral());
-            return fields;
+        if (ctx.number() != null) {//pass
+            BigDecimal numberDecimal = visitNumber(ctx.number());
+            Integer number = numberDecimal.intValue();
+            if (number >= 0) {
+                Object result = getValueByIndex(this.currentJsonObject, number);
+                this.currentJsonObject=result;
+                return result;
+            } else {
+                List<?> list = getList(this.currentJsonObject);
+                Collections.reverse(list);
+                number = Math.abs(number);
+                Object result = getValueByIndex(list, number);
+                this.currentJsonObject=result;
+                return result;
+            }
+
+        } else if (ctx.stringLiteral() != null) {//pass
+            String fields = visitStringLiteral(ctx.stringLiteral());
+            String fieldName = StringUtils.trim(fields);
+            Object result = getValueByKey(this.currentJsonObject, fieldName);
+            this.currentJsonObject=result;
+            return result;
         } else if (ctx.slice() != null) {
-            JSlice slice= visitSlice(ctx.slice());
-            return slice;
+            JSlice slice = visitSlice(ctx.slice());
+            List<?> newList=slice(this.getList(this.currentJsonObject), slice.getStart(), slice.getEnd(), slice.getStep());
+            this.currentJsonObject=newList;
+            return newList;
+
         } else if (ctx.filterExpression() != null) {
             return visitFilterExpression(ctx.filterExpression());
         } else if (ctx.scriptExpression() != null) {
             return visitScriptExpression(ctx.scriptExpression());
-        } else if (ctx.getText().equals("*")) {
+        } else if (ctx.getText().equals("*")) {//pass
             return visitWildcard();
         } else if (ctx.subscript() != null && ctx.getChild(0).getText().equals(",")) {
             // mutiple subscript（ like [1,2,3]）
@@ -47,25 +63,29 @@ public class JSubscriptVisitor extends JExprVisitor{
         }
         return null;
     }
+
     @Override
     public JSlice visitSlice(JQuickJSONPathParser.SliceContext ctx) {
-        List<Integer> numbers = ctx.number().stream()
-                .map(num -> Integer.parseInt(num.getText()))
-                .collect(Collectors.toList());
-        Integer start = !numbers.isEmpty() ? numbers.get(0) : null;
-        Integer end = numbers.size() > 1 ? numbers.get(1) : null;
-        Integer step = numbers.size() > 2 ? numbers.get(2) : null;
-        JSlice slice=new JSlice();
-        slice.setStart(start);
-        slice.setEnd(end);
-        slice.setStep(step);
+       JSlice slice = new JSlice();
+        if(null!=ctx.start()){
+            Integer number=visitStart(ctx.start());
+            slice.setStart(number);
+        }
+        if(null!=ctx.end()){
+            Integer number=visitEnd(ctx.end());
+            slice.setEnd(number);
+        }
+        if(null!=ctx.step()){
+            Integer number=visitStep(ctx.step());
+            slice.setStep(number);
+        }
         return slice;
     }
 
     @Override
-    public  List<Object> visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
+    public List<Object> visitFilterExpression(JQuickJSONPathParser.FilterExpressionContext ctx) {
         JQuickJSONPathParser.ExprContext filterCondition = ctx.expr();
-        List<?> list=this.getList(this.currentJsonObject);
+        List<?> list = this.getList(this.currentJsonObject);
         List<Object> result = new ArrayList<>();
         for (Object item : list) {
             Object conditionResult = visit(filterCondition);
@@ -75,6 +95,7 @@ public class JSubscriptVisitor extends JExprVisitor{
         }
         return result;
     }
+
     @Override
     public Object visitScriptExpression(JQuickJSONPathParser.ScriptExpressionContext ctx) {
         JQuickJSONPathParser.ExprContext exprCtx = ctx.expr();
@@ -82,6 +103,7 @@ public class JSubscriptVisitor extends JExprVisitor{
         return visit(exprCtx);
 
     }
+
     private JScriptContext createScriptContext() {
         JScriptContext context = new JScriptContext();
         context.addVariable("$", this.rootJsonObject);
@@ -99,5 +121,23 @@ public class JSubscriptVisitor extends JExprVisitor{
 
         return context;
     }
+    @Override
+    public Integer visitStart(JQuickJSONPathParser.StartContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
+    @Override
+    public Integer visitEnd(JQuickJSONPathParser.EndContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
+    @Override
+    public Integer visitStep(JQuickJSONPathParser.StepContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
+
+
+
 
 }

@@ -21,14 +21,14 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         if (list == null) return Collections.emptyList();
         int size = list.size();
         int actualStart = start != null ? (start >= 0 ? start : size + start) : 0;
-        int actualEnd = end != null ? (end >= 0 ? end : size + end) : size;
+        int actualEnd = end != null ? (end >= 0 ? end : size + end) : size-1;
         int actualStep = step != null ? step : 1;
         if (actualStep == 0) throw new IllegalArgumentException("Step cannot be zero");
         if (actualStart < 0) actualStart = 0;
         if (actualEnd > size) actualEnd = size;
         List<T> result = new ArrayList<>();
         if (actualStep > 0) {
-            for (int i = actualStart; i < actualEnd; i += actualStep) {
+            for (int i = actualStart; i <= actualEnd; i += actualStep) {
                 result.add(list.get(i));
             }
         } else {

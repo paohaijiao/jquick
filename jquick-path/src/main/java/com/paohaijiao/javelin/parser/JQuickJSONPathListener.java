@@ -105,6 +105,36 @@ public interface JQuickJSONPathListener extends ParseTreeListener {
 	 */
 	void exitSlice(JQuickJSONPathParser.SliceContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void enterStart(JQuickJSONPathParser.StartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void exitStart(JQuickJSONPathParser.StartContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnd(JQuickJSONPathParser.EndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#end}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnd(JQuickJSONPathParser.EndContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickJSONPathParser#step}.
+	 * @param ctx the parse tree
+	 */
+	void enterStep(JQuickJSONPathParser.StepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickJSONPathParser#step}.
+	 * @param ctx the parse tree
+	 */
+	void exitStep(JQuickJSONPathParser.StepContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickJSONPathParser#scriptExpression}.
 	 * @param ctx the parse tree
 	 */
