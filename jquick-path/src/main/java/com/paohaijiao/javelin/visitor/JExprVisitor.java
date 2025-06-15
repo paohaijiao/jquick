@@ -18,7 +18,9 @@ import java.util.regex.Pattern;
 public class JExprVisitor extends JValueVisitor {
     @Override
     public Object visitNetestDotExpr(JQuickJSONPathParser.NetestDotExprContext ctx) {
-        if(ctx.dotExpr() != null) return visit(ctx.dotExpr());
+        if(ctx.dotExpr() != null) {
+            return visit(ctx.dotExpr());
+        }
         return null;
     }
     @Override
@@ -271,7 +273,7 @@ public class JExprVisitor extends JValueVisitor {
         if (rightValue.equals("*")) {
             return getAllProperties(leftValue);
         }
-        return getProperty(leftValue, rightValue);
+        return getValueByKey(leftValue, rightValue);
     }
     @Override
     public Object visitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) {

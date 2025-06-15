@@ -235,7 +235,6 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
     }
     protected Object resolveIdentifier(String identifier)  {
-        // 1. 处理字面量常量(true/false/null)
         if ("true".equals(identifier)) {
             return true;
         }

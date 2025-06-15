@@ -28,33 +28,31 @@ public class JSegmentVisitor extends JSubscriptVisitor {
     @Override
     public Object visitSubscriptSegment(JQuickJSONPathParser.SubscriptSegmentContext ctx) {
         if (null != ctx.subscript()) {
-            Object key = visitSubscript(ctx.subscript());
-            if (key instanceof String) {//pass
-                Object result = getProperty(this.currentJsonObject, key.toString());
-                this.currentJsonObject = result;
-                return this.currentJsonObject;
-            } else if (key instanceof Integer) {//pass
-                Integer index = (Integer) key;
+            Object value = visitSubscript(ctx.subscript());
+            if (value instanceof String) {//pass
+                Object result = getProperty(this.currentJsonObject, value.toString());
+                return result;
+            } else if (value instanceof Integer) {//pass
+                Integer index = (Integer) value;
                 if (index >= 0) {
                     Object result = getValueByIndex(this.currentJsonObject, (Integer) index);
-                    this.currentJsonObject = result;
+                    return result;
                 } else {
                     index = Math.abs(index);
                     List<?> list = this.getList(this.currentJsonObject);
                     Collections.reverse(list);
                     Object result = getValueByIndex(list, index);
-                    this.currentJsonObject = result;
+                    return result;
                 }
-                return this.currentJsonObject;
-            } else if (key instanceof JSlice) {
-                JSlice slice = (JSlice) key;
+            } else if (value instanceof JSlice) {
+                JSlice slice = (JSlice) value;
                 List<?> list = this.getList(this.currentJsonObject);
                 List<?> data = slice(list, slice.getStart(), slice.getEnd(), slice.getStep());
-                this.currentJsonObject = data;
-                return this.currentJsonObject;
+                return data;
             }
+            return value;
         }
-        Assert.throwNewException("visitSubscriptSegment exception");
+        //Assert.throwNewException("visitSubscriptSegment exception");
         return null;
     }
 

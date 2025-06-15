@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.bean.JSlice;
 import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
@@ -72,7 +73,38 @@ public class JValueVisitor extends JSONPathCoreVisitor{
         }
         return null;
     }
-
+    @Override
+    public JSlice visitSlice(JQuickJSONPathParser.SliceContext ctx) {
+        JSlice slice = new JSlice();
+        if(null!=ctx.start()){
+            Integer number=visitStart(ctx.start());
+            slice.setStart(number);
+        }
+        if(null!=ctx.end()){
+            Integer number=visitEnd(ctx.end());
+            slice.setEnd(number);
+        }
+        if(null!=ctx.step()){
+            Integer number=visitStep(ctx.step());
+            slice.setStep(number);
+        }
+        return slice;
+    }
+    @Override
+    public Integer visitStart(JQuickJSONPathParser.StartContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
+    @Override
+    public Integer visitEnd(JQuickJSONPathParser.EndContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
+    @Override
+    public Integer visitStep(JQuickJSONPathParser.StepContext ctx) {
+        BigDecimal number=visitNumber(ctx.number());
+        return null==number?null:number.intValue();
+    }
 
 
 

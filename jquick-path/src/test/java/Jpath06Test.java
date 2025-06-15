@@ -34,14 +34,14 @@ import java.util.Arrays;
 public class Jpath06Test {
 
     @Test
-    public void test51() throws IOException {
+    public void test61() throws IOException {
         JSONObject b=new JSONObject();
         b.put("price",5);
         JSONObject a=new JSONObject();
         a.put("price",15);
         JSONPathExecutor executor = new JSONPathExecutor(Arrays.asList(a,b));
         executor.addErrorListener(error -> {});
-        JSONPathResult jsonObject = executor.execute("$[?(@.price < 10)]");
+        JSONPathResult jsonObject = executor.execute("$[?(@.price > 10)]");
         System.out.println("结果: " + jsonObject.getRawData());
     }
     @Test
