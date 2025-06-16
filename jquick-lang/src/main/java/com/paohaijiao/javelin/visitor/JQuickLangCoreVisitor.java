@@ -1,13 +1,13 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.parser.JThornRuleQuickLangBaseVisitor;
-import com.paohaijiao.javelin.parser.JThornRuleQuickLangParser;
+import com.paohaijiao.javelin.parser.JQuickLangBaseVisitor;
+import com.paohaijiao.javelin.parser.JQuickLangParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class JThornRuleQuickLangCoreVisitor extends JThornRuleQuickLangBaseVisitor {
+public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     // 辅助方法
     protected String removeQuotes(String quotedString) {
         return quotedString.substring(1, quotedString.length() - 1);
@@ -41,7 +41,7 @@ public class JThornRuleQuickLangCoreVisitor extends JThornRuleQuickLangBaseVisit
         return sdf.parse(datetimeWithZoneStr.replaceFirst("([+-]\\d{2}):(\\d{2})$", "$1$2"));
     }
 
-    protected Date parseDateExpression(JThornRuleQuickLangParser.DateContext ctx) throws ParseException {
+    protected Date parseDateExpression(JQuickLangParser.DateContext ctx) throws ParseException {
         if (ctx.TIME() != null) {
             return parseDateTime(ctx.TIME().getText());
         } else if (ctx.DATE() != null) {

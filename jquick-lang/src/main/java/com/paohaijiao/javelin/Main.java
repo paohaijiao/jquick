@@ -2,13 +2,13 @@ package com.paohaijiao.javelin;
 
 import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
 import com.paohaijiao.javelin.exception.AntlrExecutionException;
-import com.paohaijiao.javelin.executor.JThornRuleQuickLangExecutor;
+import com.paohaijiao.javelin.executor.JQuickLangExecutor;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
 import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
 
 public class Main {
     public static void main(String[] args) {
-        JThornRuleQuickLangExecutor executor = new JThornRuleQuickLangExecutor();
+        JQuickLangExecutor executor = new JQuickLangExecutor();
         executor.addErrorListener(error -> {
             System.err.printf("错误: 行%d:%d - %s%n",
                     error.getLine(), error.getCharPosition(), error.getMessage());

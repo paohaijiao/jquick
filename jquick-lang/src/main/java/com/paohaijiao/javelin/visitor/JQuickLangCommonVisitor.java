@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.parser.JThornRuleQuickLangParser;
+import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -10,17 +10,11 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVisitor {
+public class JQuickLangCommonVisitor extends JQuickLangCoreVisitor {
+
 
     @Override
-    public Object visitRules(JThornRuleQuickLangParser.RulesContext ctx) {
-        for(int i=0;i<ctx.rule_().size();i++){
-            visitRule(ctx.rule_().get(i));
-        }
-        return null;
-    }
-    @Override
-    public Object visitRule(JThornRuleQuickLangParser.RuleContext ctx) {
+    public Object visitRule(JQuickLangParser.RuleContext ctx) {
         if(null!=ctx.assignment()){
             return visitAssignment(ctx.assignment());
         }
@@ -28,35 +22,35 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Object visitAssignment(JThornRuleQuickLangParser.AssignmentContext ctx) {
+    public Object visitAssignment(JQuickLangParser.AssignmentContext ctx) {
         if(null!=ctx.booleanExpr()){
             return visitBooleanExpr(ctx.booleanExpr());
         }
         return null;
     }
     @Override
-    public Object visitElseIfStatment(JThornRuleQuickLangParser.ElseIfStatmentContext ctx) {
+    public Object visitElseIfStatment(JQuickLangParser.ElseIfStatmentContext ctx) {
         return visitChildren(ctx); }
 
     @Override
-    public Object visitElseAction(JThornRuleQuickLangParser.ElseActionContext ctx) {
+    public Object visitElseAction(JQuickLangParser.ElseActionContext ctx) {
         return visitChildren(ctx); }
 
 
     @Override
-    public Object visitAction(JThornRuleQuickLangParser.ActionContext ctx) {
+    public Object visitAction(JQuickLangParser.ActionContext ctx) {
         return visitChildren(ctx);
     }
 
     @Override
-    public Boolean visitBooleanExpr(JThornRuleQuickLangParser.BooleanExprContext ctx) {
+    public Boolean visitBooleanExpr(JQuickLangParser.BooleanExprContext ctx) {
         Boolean left = (Boolean) visit(ctx.singgelBool(0));
         for (int i = 1; i < ctx.singgelBool().size(); i++) {
             Token op = ctx.getChild(TerminalNode.class, i * 2 - 1).getSymbol();
             Boolean right = (Boolean) visit(ctx.singgelBool(i));
-            if (op.getType() == JThornRuleQuickLangParser.AND) {
+            if (op.getType() == JQuickLangParser.AND) {
                 left = left && right;
-            } else if (op.getType() == JThornRuleQuickLangParser.OR) {
+            } else if (op.getType() == JQuickLangParser.OR) {
                 left = left || right;
             }
         }
@@ -64,7 +58,7 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Boolean visitSinggelBool(JThornRuleQuickLangParser.SinggelBoolContext ctx) {
+    public Boolean visitSinggelBool(JQuickLangParser.SinggelBoolContext ctx) {
         if (ctx.bool() != null) {
             return visitBool(ctx.bool());
         } else if (ctx.numberBool() != null) {
@@ -78,13 +72,13 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Boolean visitBool(JThornRuleQuickLangParser.BoolContext ctx) {
+    public Boolean visitBool(JQuickLangParser.BoolContext ctx) {
         return ctx.TRUE() != null; // 如果是TRUE返回true，否则返回false
 
     }
 
     @Override
-    public Boolean visitNumberBool(JThornRuleQuickLangParser.NumberBoolContext ctx) {
+    public Boolean visitNumberBool(JQuickLangParser.NumberBoolContext ctx) {
         // 实现数字比较逻辑
         double left = Double.parseDouble(ctx.number(0).getText());
         double right = Double.parseDouble(ctx.number(1).getText());
@@ -110,7 +104,7 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Boolean visitStringBool(JThornRuleQuickLangParser.StringBoolContext ctx) {
+    public Boolean visitStringBool(JQuickLangParser.StringBoolContext ctx) {
         String left = removeQuotes(ctx.string(0).getText());
         String right = removeQuotes(ctx.string(1).getText());
         if (null!=ctx.CONTAIN()) {
@@ -132,7 +126,7 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Boolean visitDateBool(JThornRuleQuickLangParser.DateBoolContext ctx) {
+    public Boolean visitDateBool(JQuickLangParser.DateBoolContext ctx) {
         // 1. 解析左右日期
         Date leftDate = parseDate(ctx.date(0).getText());
         Date rightDate = parseDate(ctx.date(1).getText());
@@ -159,7 +153,7 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Object visitNumber(JThornRuleQuickLangParser.NumberContext ctx) {
+    public Object visitNumber(JQuickLangParser.NumberContext ctx) {
         // 情况 1: 直接是数字（INT 或 FLOAT）
         if (ctx.NUMBER() != null) {
             String numText = ctx.NUMBER().getText();
@@ -169,17 +163,12 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
                 return Integer.parseInt(numText);   // 整数
             }
         }
-        if (ctx.variables() != null) {
-            String varName = ctx.variables().id().getText();
-            // 从运行时环境获取变量值（示例伪代码）
-            //return resolveVariable(varName); // 需实现 resolveVariable 方法
-        }
 
         throw new RuntimeException("Unsupported number format: " + ctx.getText());
     }
 
     @Override
-    public Object visitString(JThornRuleQuickLangParser.StringContext ctx) {
+    public Object visitString(JQuickLangParser.StringContext ctx) {
         // 情况 1: 字符串字面量（如 "hello"）
         if (ctx.STRING() != null) {
             String text = ctx.STRING().getText();
@@ -190,17 +179,11 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
                     .replace("\\\"", "\"");
         }
 
-        // 情况 2: 变量（如 ${var}）
-        if (ctx.variables() != null) {
-            String varName = ctx.variables().id().getText();
-          //  return resolveVariable(varName); // 从变量存储中获取值
-        }
-
         throw new RuntimeException("Invalid string: " + ctx.getText());
     }
 
     @Override
-    public Object visitDate(JThornRuleQuickLangParser.DateContext ctx) {
+    public Object visitDate(JQuickLangParser.DateContext ctx) {
         // 情况 1: 日期字面量（如 2023-10-05）
         if (ctx.DATE() != null) {
             String dateText = ctx.DATE().getText();
@@ -233,11 +216,11 @@ public class JThornRuleQuickLangCommonVisitor extends JThornRuleQuickLangCoreVis
     }
 
     @Override
-    public Object visitVariables(JThornRuleQuickLangParser.VariablesContext ctx) {
+    public Object visitVariables(JQuickLangParser.VariablesContext ctx) {
         return visitChildren(ctx);
     }
     @Override
-    public Object visitId(JThornRuleQuickLangParser.IdContext ctx) {
+    public Object visitId(JQuickLangParser.IdContext ctx) {
         return ctx.ID().getText();
     }
 }
