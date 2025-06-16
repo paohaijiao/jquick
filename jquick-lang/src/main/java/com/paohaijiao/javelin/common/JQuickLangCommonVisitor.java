@@ -1,7 +1,8 @@
-package com.paohaijiao.javelin.visitor;
+package com.paohaijiao.javelin.common;
 
 import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
+import com.paohaijiao.javelin.visitor.JQuickLangValueVisitor;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import java.time.LocalDate;
@@ -189,33 +190,6 @@ public class JQuickLangCommonVisitor extends JQuickLangValueVisitor {
 
     @Override
     public Object visitDate(JQuickLangParser.DateContext ctx) {
-        // 情况 1: 日期字面量（如 2023-10-05）
-        if (ctx.DATE() != null) {
-            String dateText = ctx.DATE().getText();
-            return LocalDate.parse(dateText, DateTimeFormatter.ISO_LOCAL_DATE);
-        }
-
-        // 情况 2: 时间字面量（如 14:30+08:00）
-        if (ctx.TIME() != null) {
-            String timeText = ctx.TIME().getText();
-            // 解析时间（可能包含时区）
-            if (timeText.contains("+") || timeText.contains("-")) {
-                return ZonedDateTime.parse(timeText, DateTimeFormatter.ISO_OFFSET_TIME);
-            } else {
-                return LocalTime.parse(timeText, DateTimeFormatter.ISO_LOCAL_TIME);
-            }
-        }
-
-        // 情况 3: 变量（如 ${dateVar}）
-        if (ctx.variables() != null) {
-            String varName = ctx.variables().id().getText();
-//            Object value = resolveVariable(varName);
-            // 确保变量是日期/时间类型
-//            if (value instanceof LocalDate || value instanceof LocalTime || value instanceof ZonedDateTime) {
-//                return value;
-//            }
-            throw new RuntimeException("Variable '" + varName + "' is not a date/time.");
-        }
 
         throw new RuntimeException("Invalid date format: " + ctx.getText());
     }

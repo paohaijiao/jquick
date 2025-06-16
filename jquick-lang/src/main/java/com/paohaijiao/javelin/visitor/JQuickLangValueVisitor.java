@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.core.JQuickLangCoreVisitor;
 import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 

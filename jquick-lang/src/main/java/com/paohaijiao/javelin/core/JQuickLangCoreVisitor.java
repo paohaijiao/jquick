@@ -1,4 +1,4 @@
-package com.paohaijiao.javelin.visitor;
+package com.paohaijiao.javelin.core;
 
 import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangBaseVisitor;

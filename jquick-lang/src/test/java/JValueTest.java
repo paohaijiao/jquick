@@ -17,7 +17,7 @@
 import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
-import com.paohaijiao.javelin.visitor.JQuickLangCommonVisitor;
+import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
