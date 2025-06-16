@@ -4,6 +4,7 @@ import com.paohaijiao.javelin.bean.JSlice;
 import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
+import com.paohaijiao.javelin.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,14 +29,16 @@ public class JValueVisitor extends JSONPathCoreVisitor{
     }
     @Override
     public String visitStringLiteral(JQuickJSONPathParser.StringLiteralContext ctx) {
-        return ctx.STRING().getText();
+        String string= ctx.STRING().getText();
+        return StringUtils.trim(string);
     }
     @Override
     public Object visitLiteral(JQuickJSONPathParser.LiteralContext ctx) {
         if(null!=ctx.stringLiteral()){
             return visitStringLiteral(ctx.stringLiteral());
         }else if(null!=ctx.number()){
-            return visitNumber(ctx.number());
+            BigDecimal bigDecimal= visitNumber(ctx.number());
+            return bigDecimal;
         }else if("null".equals(ctx.getText())){
           return null;
         }else if("true".equals(ctx.getText())){
@@ -47,31 +50,10 @@ public class JValueVisitor extends JSONPathCoreVisitor{
         return null;
     }
     @Override
-    public Object visitIdentifier(JQuickJSONPathParser.IdentifierContext ctx) {
+    public String visitIdentifier(JQuickJSONPathParser.IdentifierContext ctx) {
         String identifier = ctx.getText();
-        if (identifier.equals("*")) {
-            return handleWildcard();
-        }
-        return handleIdentifierAccess(identifier);
-    }
-    protected Object handleIdentifierAccess(String identifier) {
-        if (currentJsonObject instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) currentJsonObject;
-            return jsonObj.has(identifier) ? jsonObj.get(identifier) : null;
-        }
-        else if (currentJsonObject instanceof List) {
-            List<Object> results = new ArrayList<>();
-            for (Object item : (List<?>) currentJsonObject) {
-                if (item instanceof JSONObject) {
-                    JSONObject jsonItem = (JSONObject) item;
-                    if (jsonItem.has(identifier)) {
-                        results.add(jsonItem.get(identifier));
-                    }
-                }
-            }
-            return results.isEmpty() ? null : results;
-        }
-        return null;
+        //Object object=this.getValue(this.getCurrent(), identifier);
+        return identifier;
     }
     @Override
     public JSlice visitSlice(JQuickJSONPathParser.SliceContext ctx) {
@@ -89,6 +71,26 @@ public class JValueVisitor extends JSONPathCoreVisitor{
             slice.setStep(number);
         }
         return slice;
+    }
+    @Override
+    public List<?> visitValueList(JQuickJSONPathParser.ValueListContext ctx) {
+        List<Object> values = new ArrayList<>();
+        for (JQuickJSONPathParser.LiteralContext literalCtx : ctx.literal()) {
+            Object value = visitLiteral(literalCtx);
+            if (value != null) {
+                values.add(value);
+            }
+        }
+        return values;
+    }
+    @Override
+    public List<Object> visitExprList(JQuickJSONPathParser.ExprListContext ctx) {
+        List<Object> results = new ArrayList<>();
+        for (JQuickJSONPathParser.ExprContext exprCtx : ctx.expr()) {
+            Object result = visit(exprCtx);
+            results.add(result);
+        }
+        return results;
     }
     @Override
     public Integer visitStart(JQuickJSONPathParser.StartContext ctx) {

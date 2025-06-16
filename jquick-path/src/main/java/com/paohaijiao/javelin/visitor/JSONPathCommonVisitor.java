@@ -1,24 +1,22 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class JSONPathCommonVisitor extends JRootAndPathVisitor {
 
+    public JSONPathCommonVisitor(Object root, ContextParams context) {
+        this.rootJsonObject = root;
+        this.currentJsonObject = rootJsonObject;
+        this.context = context;
+    }
     public JSONPathCommonVisitor(Object root) {
         this.rootJsonObject = root;
         this.currentJsonObject = rootJsonObject;
+        this.context = new ContextParams();
     }
-
-
-
-
-
     /**
      * ()
      *
@@ -33,19 +31,7 @@ public class JSONPathCommonVisitor extends JRootAndPathVisitor {
 
 
 
-    @Override
-    public JSONObject visitValueList(JQuickJSONPathParser.ValueListContext ctx) {
-        JSONObject result = new JSONObject();
-        List<Object> values = new ArrayList<>();
-        for (JQuickJSONPathParser.LiteralContext literalCtx : ctx.literal()) {
-            Object value = visitLiteral(literalCtx);
-            if (value != null) {
-                values.add(value);
-            }
-        }
-        result.put("values", values);
-        return result;
-    }
+
 
     @Override
     public Pattern visitRegexLiteral(JQuickJSONPathParser.RegexLiteralContext ctx) {
@@ -77,24 +63,8 @@ public class JSONPathCommonVisitor extends JRootAndPathVisitor {
         }
     }
 
-    @Override
-    public List<Object> visitExprList(JQuickJSONPathParser.ExprListContext ctx) {
-        List<Object> results = new ArrayList<>();
-        for (JQuickJSONPathParser.ExprContext exprCtx : ctx.expr()) {
-            Object result = visit(exprCtx);
-            results.add(result);
-        }
-        return results;
-    }
 
-    @Override
-    public Object visitIdentifier(JQuickJSONPathParser.IdentifierContext ctx) {
-        String identifier = ctx.getText();
-        if (identifier.equals("*")) {
-            return handleWildcard();
-        }
-        return handleIdentifierAccess(identifier);
-    }
+
 
 
 //    @Override

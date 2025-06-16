@@ -1,6 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JSlice;
+import com.paohaijiao.javelin.evalue.JEvaluator;
 import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.function.JCallFunction;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
@@ -30,59 +31,26 @@ public class JExprVisitor extends JValueVisitor {
         Object target = visit(ctx.expr());
         Object subscript = null;
         if(null!=ctx.subscript()){
-            subscript=visit(ctx.subscript());
+            subscript=visitSubscript(ctx.subscript());
         }
-        return handleSubscript(target, subscript);
-    }
-    private Object handleSubscript(Object target,Object subscript) {
-        if (target == null) {
-            return null;
-        }
-        // Handle multiple subscripts case (comma-separated)
-        //todo
-        if (subscript instanceof Integer) {
-            int index = (Integer)subscript;
-            return this.getList(target).get(index);
-        } else if (subscript instanceof String&&!"*".equals(((String)subscript).trim())) {
-            String property =(String)subscript;
-            property = property.substring(1, property.length() - 1); // Remove quotes
-            return getProperty(target, property);
-        } else if (subscript instanceof String&&(subscript).equals("*")) {
-            return getAllProperties(target);
-        } else if (subscript instanceof JSlice) {
-            // Array slice (e.g., 1:3:2)
-            JSlice slice = ObjectConverter.assign(subscript, JSlice.class);
-            List<?> list=slice(getList(this.currentJsonObject),slice.getStart(),slice.getEnd(),slice.getStep());
-            return list;
-        }
-        //else if (ctx.scriptExpression() != null) {
-//            /$.store.books[?( (@.price * $.store.discount) > 15 )]
-            // Script expression - evaluate the expression
-//            return visit(ctx.scriptExpression().expr());
-        //    return  null;
-   //     }
-        else if (subscript instanceof List) {//filter list
-            return subscript;
-        }
-
-        return null;
+        return getValue(target, subscript);
     }
     @Override
     public Object visitFunctionCallExpression(JQuickJSONPathParser.FunctionCallExpressionContext ctx) {
-        String functionName;
-        if (ctx.expr() instanceof JQuickJSONPathParser.IdentifierExpressionContext) {
-            functionName = ctx.expr().getText();
-        } else {
-            Object fnObj = visit(ctx.expr());
-            functionName = fnObj != null ? fnObj.toString() : "";
+        Object function=null;
+        if(null!=ctx.expr()){
+            function=visit(ctx.expr());
         }
+        Assert.notNull(function,"方法不存在");
         List<Object> arguments = new ArrayList<>();
         if (ctx.exprList() != null) {
             for (JQuickJSONPathParser.ExprContext argCtx : ctx.exprList().expr()) {
                 arguments.add(visit(argCtx));
             }
         }
-        return new JCallFunction().callFunction(functionName, arguments.toArray());
+        String functionName=(String)function;
+        Object object=JEvaluator.evaluateFunction(functionName,arguments);
+        return object;
     }
 
     @Override
@@ -147,18 +115,18 @@ public class JExprVisitor extends JValueVisitor {
         }
     }
     @Override
-    public Object visitInExpression(JQuickJSONPathParser.InExpressionContext ctx) {
-        Object searchValue = visit(ctx.expr());
+    public List<Object>  visitInExpression(JQuickJSONPathParser.InExpressionContext ctx) {
+        Object value = visit(ctx.expr());
         List<Object> valueList = parseValueList(ctx.valueList());
-        if (searchValue == null) {
-            return valueList.contains(null);
-        }
-        for (Object listValue : valueList) {
-            if (valuesEqual(searchValue, listValue)) {
-                return true;
+        Assert.notNull(value, "The  value for 'in' operator cannot be null.");
+        List<?> list=ObjectConverter.assign(value,List.class);
+        List<Object> newList=new ArrayList<>();
+        for (Object item : list) {
+            if(valueList.contains(item)){
+                newList.add(item);
             }
         }
-        return false;
+        return newList;
     }
     @Override
     public Object visitLogicalAndExpression(JQuickJSONPathParser.LogicalAndExpressionContext ctx) {
@@ -194,7 +162,6 @@ public class JExprVisitor extends JValueVisitor {
     }
     @Override
     public Object visitRootExpression(JQuickJSONPathParser.RootExpressionContext ctx) {
-        this.currentJsonObject=this.rootJsonObject;
         return this.rootJsonObject;
     }
     @Override
@@ -241,22 +208,7 @@ public class JExprVisitor extends JValueVisitor {
         if (value instanceof Boolean) {
             return !((Boolean) value);
         }
-        if (value instanceof Number) {
-            double num = ((Number) value).doubleValue();
-            return num == 0 || Double.isNaN(num);
-        }
-        if (value instanceof String) {
-            return ((String) value).isEmpty();
-        }
-        if (value instanceof Collection) {
-            return ((Collection<?>) value).isEmpty();
-        }
-        if (value instanceof Map) {
-            return ((Map<?, ?>) value).isEmpty();
-        }
-        if (value == null) {
-            return true;
-        }
+        Assert.throwNewException("not supported for non-boolean value: " + value);
         return false;
     }
     @Override
@@ -271,18 +223,20 @@ public class JExprVisitor extends JValueVisitor {
             rightValue = visitRightDotExpr(ctx.rightDotExpr());
         }
         if (rightValue.equals("*")) {
-            return getAllProperties(leftValue);
+            return visitWildcard(leftValue);
         }
         return getValueByKey(leftValue, rightValue);
     }
     @Override
     public Object visitLeftDotExpr(JQuickJSONPathParser.LeftDotExprContext ctx) {
         if(null!=ctx.identifier()){
-           return visitIdentifier(ctx.identifier());
-        }else if("$".equals(ctx.getText())){
-            return rootJsonObject;
+            String  field=visitIdentifier(ctx.identifier());
+            Object object= this.getValueByKey(this.currentJsonObject,field);
+            return object;
+        }  else if("$".equals(ctx.getText())){
+            return super.getRoot();
         }else if("@".equals(ctx.getText())){
-            return currentJsonObject;
+            return super.getCurrent();
         }else if(null!=ctx.literal()){
             return visitLiteral(ctx.literal());
         }else if(null!=ctx.expr()){
@@ -293,18 +247,24 @@ public class JExprVisitor extends JValueVisitor {
     }
     @Override
     public String visitRightDotExpr(JQuickJSONPathParser.RightDotExprContext ctx) {
-        return ctx.getText();
+        if(null!=ctx.identifier()) {
+          return visitIdentifier(ctx.identifier());
+        }else if("*".equals(ctx.getText())){
+           return "*";
+        }
+        Assert.throwNewException("Invalid expression");
+        return null;
     }
 
     @Override
     public Object visitChainedDotExpression(JQuickJSONPathParser.ChainedDotExpressionContext ctx) {
         //e.g., obj.property.subproperty
         Object currentValue = visit(ctx.dotExpr());
-        String property = visitRightDotExpr(ctx.rightDotExpr());
-        if (property.equals("*")) {
-            return getAllProperties(currentValue);
+        String field = visitRightDotExpr(ctx.rightDotExpr());
+        if (field.equals("*")) {
+            return visitWildcard(this.currentJsonObject);
         }
-        return getProperty(currentValue, property);
+        return getValueByKey(currentValue, field);
     }
     private int parseRegexFlags(String flagsStr) {
         int flags = 0;
@@ -328,17 +288,5 @@ public class JExprVisitor extends JValueVisitor {
         return values;
     }
 
-    private boolean valuesEqual(Object a, Object b) {
-        if (a == null || b == null) {
-            return a == null && b == null;
-        }
-        if (a instanceof Number && b instanceof Number) {
-            return Math.abs(((Number) a).doubleValue() - ((Number) b).doubleValue()) < 1e-10;
-        }
-        if (a instanceof String || b instanceof String) {
-            return a.toString().equals(b.toString());
-        }
-        return a.equals(b);
-    }
 
 }

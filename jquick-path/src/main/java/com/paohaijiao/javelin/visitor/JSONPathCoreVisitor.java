@@ -2,8 +2,10 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickJSONPathBaseVisitor;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
+import com.paohaijiao.javelin.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -12,7 +14,21 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
 
     protected  Object rootJsonObject;
     protected Object currentJsonObject;
+    protected ContextParams context;
+
     private Deque<Map<String, Object>> variableStack = new ArrayDeque<>();
+    protected void setRoot(Object object){
+        this.rootJsonObject = object;
+    }
+    protected void setCurrent(Object object){
+        this.currentJsonObject = object;
+    }
+    protected Object getCurrent(){
+        return this.currentJsonObject;
+    }
+    protected Object getRoot(){
+        return this.rootJsonObject;
+    }
     protected   List<?> getList(Object current){
         List<?> list = (List<?>) current;
         return list;
@@ -38,6 +54,20 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         return result;
     }
+    public Object getValue(Object target, Object obj){
+        if(target == null){
+            return null;
+        }
+        if(obj instanceof String){
+            Object value= getValueByKey(target, (String)obj);
+            return value;
+        }else if(obj instanceof Integer){
+            Object value= getValueByIndex(target, (Integer)obj);
+            return value;
+        }
+        return null;
+
+    }
     public Object getValueByKey(Object obj, String fieldName){
         if (obj instanceof JSONObject) {
             JSONObject jsonObj = (JSONObject) obj;
@@ -53,6 +83,11 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
                 }
             }
             return results.isEmpty() ? null : results;
+        }else if(obj instanceof Map){
+            return ((Map<?, ?>) obj).get(fieldName);
+        }else if (obj instanceof Object) {
+            Object target= ReflectionUtils.getFieldValue(obj,fieldName);
+            return target;
         }
         return null;
     }
@@ -165,21 +200,9 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
 
         return false;
     }
-    protected Object handleWildcard() {
-        if (currentJsonObject instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) currentJsonObject;
-            return new ArrayList<>(jsonObj.toMap().values());
-        }
-        else if (currentJsonObject instanceof List) {
-            return new ArrayList<>((List<?>) currentJsonObject);
-        }
-        return null;
-    }
 
 
-    protected Object visitWildcard() {
-        return visitWildcard(this.currentJsonObject);
-    }
+
 
     protected Object visitWildcard(Object current) {
         if (current == null) {
@@ -194,67 +217,10 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
         else if (current instanceof Map) {
             return new ArrayList<>(((Map<?, ?>) current).values());
+        }else if( current instanceof Object) {
+            return current;
         }
         return Collections.emptyList();
-    }
-
-
-    protected Object visitRecursiveBracketNotation(JQuickJSONPathParser.SubscriptContext ctx, Object current) {
-        List<Object> results = new ArrayList<>();
-        collectBracketMatchesRecursively(current, ctx, results);
-        return results.isEmpty() ? null : results;
-    }
-
-    /**
-     * 递归收集所有匹配方括号表达式的结果
-     */
-    private void collectBracketMatchesRecursively(Object node, JQuickJSONPathParser.SubscriptContext ctx,
-                                                  List<Object> results) {
-        if (node == null) {
-            return;
-        }
-
-        Object matchResult = visitSubscript(ctx);
-        if (matchResult != null) {
-            if (matchResult instanceof List) {
-                results.addAll((List<?>) matchResult);
-            } else {
-                results.add(matchResult);
-            }
-        }
-        if (node instanceof JSONObject) {
-            JSONObject jsonObj = (JSONObject) node;
-            for (Object value : jsonObj.toMap().values()) {
-                collectBracketMatchesRecursively(value, ctx, results);
-            }
-        }
-        else if (node instanceof List) {
-            for (Object item : (List<?>) node) {
-                collectBracketMatchesRecursively(item, ctx, results);
-            }
-        }
-    }
-    protected Object resolveIdentifier(String identifier)  {
-        if ("true".equals(identifier)) {
-            return true;
-        }
-        if ("false".equals(identifier)) {
-            return false;
-        }
-        if ("null".equals(identifier)) {
-            return null;
-        }
-        if (variableStack != null && !variableStack.isEmpty()) {
-            Map<String, Object> currentScope = variableStack.peek();
-            if (currentScope.containsKey(identifier)) {
-                return currentScope.get(identifier);
-            }
-        }
-        Assert.throwNewException("无法解析标识符 '" + identifier + "'");
-        return null;
-    }
-    public Object getResult(){
-        return this.currentJsonObject;
     }
     protected Object getProperty(Object obj, String property) {
         if (obj == null) {
@@ -274,18 +240,4 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }
     }
 
-    protected Object getAllProperties(Object obj) {
-        List<Object> results = new ArrayList<>();
-        if (obj instanceof Map) {
-            results.addAll(((Map<?, ?>) obj).values());
-        } else {
-            for (Field field : obj.getClass().getFields()) {
-                try {
-                    results.add(field.get(obj));
-                } catch (IllegalAccessException e) {
-                }
-            }
-        }
-        return results;
-    }
 }
