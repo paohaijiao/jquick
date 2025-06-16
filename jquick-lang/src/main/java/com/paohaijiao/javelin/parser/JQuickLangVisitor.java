@@ -107,6 +107,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDateBool(JQuickLangParser.DateBoolContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#exprList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprList(JQuickLangParser.ExprListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr(JQuickLangParser.ExprContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

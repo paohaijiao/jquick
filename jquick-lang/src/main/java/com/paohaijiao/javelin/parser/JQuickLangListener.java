@@ -168,6 +168,26 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitDateBool(JQuickLangParser.DateBoolContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#exprList}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprList(JQuickLangParser.ExprListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#exprList}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprList(JQuickLangParser.ExprListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpr(JQuickLangParser.ExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpr(JQuickLangParser.ExprContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#number}.
 	 * @param ctx the parse tree
 	 */

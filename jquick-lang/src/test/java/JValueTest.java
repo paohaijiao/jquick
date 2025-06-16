@@ -46,5 +46,16 @@ public class JValueTest {
         Object object= tv.visit(tree);
         System.out.println(object);
     }
+    @Test
+    public void testValue02() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07 12:00:01"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.DateContext tree = parser.date();
+        ContextParams params = new ContextParams();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object= tv.visit(tree);
+        System.out.println(object);
+    }
 
 }
