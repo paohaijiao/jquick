@@ -5,7 +5,6 @@ import com.paohaijiao.javelin.exception.AntlrExecutionException;
 import com.paohaijiao.javelin.executor.JQuickLangExecutor;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
 import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
-
 public class Main {
     public static void main(String[] args) {
         JQuickLangExecutor executor = new JQuickLangExecutor();
