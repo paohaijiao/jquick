@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangBaseVisitor;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 
@@ -8,7 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
-    // 辅助方法
+    protected ContextParams context;
+
     protected String removeQuotes(String quotedString) {
         return quotedString.substring(1, quotedString.length() - 1);
     }

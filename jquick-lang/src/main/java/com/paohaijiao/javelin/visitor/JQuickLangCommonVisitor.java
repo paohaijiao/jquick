@@ -1,17 +1,22 @@
 package com.paohaijiao.javelin.visitor;
 
+import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class JQuickLangCommonVisitor extends JQuickLangCoreVisitor {
-
+public class JQuickLangCommonVisitor extends JQuickLangValueVisitor {
+    public JQuickLangCommonVisitor(ContextParams context){
+        this.context = context;
+    }
+    public JQuickLangCommonVisitor(){
+        this.context = new ContextParams();
+    }
 
     @Override
     public Object visitRule(JQuickLangParser.RuleContext ctx) {
@@ -215,12 +220,5 @@ public class JQuickLangCommonVisitor extends JQuickLangCoreVisitor {
         throw new RuntimeException("Invalid date format: " + ctx.getText());
     }
 
-    @Override
-    public Object visitVariables(JQuickLangParser.VariablesContext ctx) {
-        return visitChildren(ctx);
-    }
-    @Override
-    public Object visitId(JQuickLangParser.IdContext ctx) {
-        return ctx.ID().getText();
-    }
+
 }
