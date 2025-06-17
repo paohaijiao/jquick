@@ -2,13 +2,12 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.obj.JSONArray;
 import com.paohaijiao.javelin.obj.JSONObject;
-import com.paohaijiao.javelin.parser.JThornRuleQuickXMLLexer;
-import com.paohaijiao.javelin.parser.JThornRuleQuickXMLParser;
-import com.paohaijiao.javelin.parser.JThornRuleQuickXMLParserBaseVisitor;
+import com.paohaijiao.javelin.parser.JQuickXMLParser;
+import com.paohaijiao.javelin.parser.JQuickXMLParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickXMLParserBaseVisitor {
+public class JQuickXmlCoreVisitor extends JQuickXMLParserBaseVisitor {
     protected final String cdata="cdata";
     protected final String text="text";
     protected final String element="element";
@@ -24,14 +23,14 @@ public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickXMLParserBase
     protected static final String pi="pi";
     protected static final String content="content";
     protected static final String reference="reference";
-    protected JSONObject handleText(JThornRuleQuickXMLParser.ChardataContext ctx) {
+    protected JSONObject handleText(JQuickXMLParser.ChardataContext ctx) {
         String text = ctx.getText().trim();
         JSONObject jsonObject=new JSONObject();
         jsonObject.put(text, text);
         return jsonObject;
     }
 
-    protected JSONObject handleElement(JThornRuleQuickXMLParser.ElementContext ctx) {
+    protected JSONObject handleElement(JQuickXMLParser.ElementContext ctx) {
         JSONObject jsonObject = new JSONObject();
         JSONArray array=new JSONArray();
         for (int i = 0; i < ctx.attribute().size(); i++) {
@@ -44,11 +43,10 @@ public class JThornRuleQuickRestCoreVisitor extends JThornRuleQuickXMLParserBase
     private JSONObject handleTerminal(ParseTree node) {
         TerminalNode tn = (TerminalNode) node;
         JSONObject jsonObject = new JSONObject();
-
         switch (tn.getSymbol().getType()) {
-            case JThornRuleQuickXMLLexer.CDATA:
+            case JQuickXMLParser.CDATA:
                 jsonObject.put(cdata, tn.getText());
-            case JThornRuleQuickXMLLexer.COMMENT:
+            case JQuickXMLParser.COMMENT:
                 jsonObject.put(comment, tn.getText());
         }
         return jsonObject;

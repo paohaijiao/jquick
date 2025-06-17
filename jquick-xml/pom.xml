@@ -20,20 +20,22 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>javelin-core</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>jquick-base</artifactId>
-            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>jquick-json</artifactId>
-            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 

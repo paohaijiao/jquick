@@ -1,4 +1,4 @@
-package com.paohaijiao.javelin.parser;// Generated from D:/idea/jthornruleGrammer/xml/JThornRuleQuickXMLLexer.g4 by ANTLR 4.13.2
+package com.paohaijiao.javelin.parser;// Generated from D:/idea/jthornruleGrammer/xml/JQuickXMLLexer.g4 by ANTLR 4.13.2
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.atn.PredictionContextCache;
 import org.antlr.v4.runtime.dfa.DFA;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class JThornRuleQuickXMLLexer extends Lexer {
+public class JQuickXMLLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -87,13 +87,13 @@ public class JThornRuleQuickXMLLexer extends Lexer {
 	}
 
 
-	public JThornRuleQuickXMLLexer(CharStream input) {
+	public JQuickXMLLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "JThornRuleQuickXMLLexer.g4"; }
+	public String getGrammarFileName() { return "JQuickXMLLexer.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

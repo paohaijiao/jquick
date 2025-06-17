@@ -1,4 +1,4 @@
-package com.paohaijiao.javelin.parser;// Generated from D:/idea/jthornruleGrammer/xml/JThornRuleQuickXMLParser.g4 by ANTLR 4.13.2
+package com.paohaijiao.javelin.parser;// Generated from D:/idea/jthornruleGrammer/xml/JQuickXMLParser.g4 by ANTLR 4.13.2
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.List;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class JThornRuleQuickXMLParser extends Parser {
+public class JQuickXMLParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -83,7 +83,7 @@ public class JThornRuleQuickXMLParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "JThornRuleQuickXMLParser.g4"; }
+	public String getGrammarFileName() { return "JQuickXMLParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -94,7 +94,7 @@ public class JThornRuleQuickXMLParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public JThornRuleQuickXMLParser(TokenStream input) {
+	public JQuickXMLParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -104,7 +104,7 @@ public class JThornRuleQuickXMLParser extends Parser {
 		public ElementContext element() {
 			return getRuleContext(ElementContext.class,0);
 		}
-		public TerminalNode EOF() { return getToken(JThornRuleQuickXMLParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(JQuickXMLParser.EOF, 0); }
 		public PrologContext prolog() {
 			return getRuleContext(PrologContext.class,0);
 		}
@@ -120,15 +120,15 @@ public class JThornRuleQuickXMLParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_document; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterDocument(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterDocument(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitDocument(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitDocument(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitDocument(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitDocument(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -197,8 +197,8 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class PrologContext extends ParserRuleContext {
-		public TerminalNode XMLDeclOpen() { return getToken(JThornRuleQuickXMLParser.XMLDeclOpen, 0); }
-		public TerminalNode SPECIAL_CLOSE() { return getToken(JThornRuleQuickXMLParser.SPECIAL_CLOSE, 0); }
+		public TerminalNode XMLDeclOpen() { return getToken(JQuickXMLParser.XMLDeclOpen, 0); }
+		public TerminalNode SPECIAL_CLOSE() { return getToken(JQuickXMLParser.SPECIAL_CLOSE, 0); }
 		public List<AttributeContext> attribute() {
 			return getRuleContexts(AttributeContext.class);
 		}
@@ -211,15 +211,15 @@ public class JThornRuleQuickXMLParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_prolog; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterProlog(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterProlog(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitProlog(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitProlog(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitProlog(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitProlog(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -282,17 +282,17 @@ public class JThornRuleQuickXMLParser extends Parser {
 		public ReferenceContext reference(int i) {
 			return getRuleContext(ReferenceContext.class,i);
 		}
-		public List<TerminalNode> CDATA() { return getTokens(JThornRuleQuickXMLParser.CDATA); }
+		public List<TerminalNode> CDATA() { return getTokens(JQuickXMLParser.CDATA); }
 		public TerminalNode CDATA(int i) {
-			return getToken(JThornRuleQuickXMLParser.CDATA, i);
+			return getToken(JQuickXMLParser.CDATA, i);
 		}
-		public List<TerminalNode> PI() { return getTokens(JThornRuleQuickXMLParser.PI); }
+		public List<TerminalNode> PI() { return getTokens(JQuickXMLParser.PI); }
 		public TerminalNode PI(int i) {
-			return getToken(JThornRuleQuickXMLParser.PI, i);
+			return getToken(JQuickXMLParser.PI, i);
 		}
-		public List<TerminalNode> COMMENT() { return getTokens(JThornRuleQuickXMLParser.COMMENT); }
+		public List<TerminalNode> COMMENT() { return getTokens(JQuickXMLParser.COMMENT); }
 		public TerminalNode COMMENT(int i) {
-			return getToken(JThornRuleQuickXMLParser.COMMENT, i);
+			return getToken(JQuickXMLParser.COMMENT, i);
 		}
 		public ContentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -300,15 +300,15 @@ public class JThornRuleQuickXMLParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_content; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterContent(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterContent(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitContent(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitContent(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitContent(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitContent(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -407,44 +407,44 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ElementContext extends ParserRuleContext {
-		public List<TerminalNode> OPEN() { return getTokens(JThornRuleQuickXMLParser.OPEN); }
+		public List<TerminalNode> OPEN() { return getTokens(JQuickXMLParser.OPEN); }
 		public TerminalNode OPEN(int i) {
-			return getToken(JThornRuleQuickXMLParser.OPEN, i);
+			return getToken(JQuickXMLParser.OPEN, i);
 		}
-		public List<TerminalNode> Name() { return getTokens(JThornRuleQuickXMLParser.Name); }
+		public List<TerminalNode> Name() { return getTokens(JQuickXMLParser.Name); }
 		public TerminalNode Name(int i) {
-			return getToken(JThornRuleQuickXMLParser.Name, i);
+			return getToken(JQuickXMLParser.Name, i);
 		}
-		public List<TerminalNode> CLOSE() { return getTokens(JThornRuleQuickXMLParser.CLOSE); }
+		public List<TerminalNode> CLOSE() { return getTokens(JQuickXMLParser.CLOSE); }
 		public TerminalNode CLOSE(int i) {
-			return getToken(JThornRuleQuickXMLParser.CLOSE, i);
+			return getToken(JQuickXMLParser.CLOSE, i);
 		}
 		public ContentContext content() {
 			return getRuleContext(ContentContext.class,0);
 		}
-		public TerminalNode SLASH() { return getToken(JThornRuleQuickXMLParser.SLASH, 0); }
+		public TerminalNode SLASH() { return getToken(JQuickXMLParser.SLASH, 0); }
 		public List<AttributeContext> attribute() {
 			return getRuleContexts(AttributeContext.class);
 		}
 		public AttributeContext attribute(int i) {
 			return getRuleContext(AttributeContext.class,i);
 		}
-		public TerminalNode SLASH_CLOSE() { return getToken(JThornRuleQuickXMLParser.SLASH_CLOSE, 0); }
+		public TerminalNode SLASH_CLOSE() { return getToken(JQuickXMLParser.SLASH_CLOSE, 0); }
 		public ElementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_element; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterElement(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterElement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitElement(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitElement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitElement(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitElement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -532,23 +532,23 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ReferenceContext extends ParserRuleContext {
-		public TerminalNode EntityRef() { return getToken(JThornRuleQuickXMLParser.EntityRef, 0); }
-		public TerminalNode CharRef() { return getToken(JThornRuleQuickXMLParser.CharRef, 0); }
+		public TerminalNode EntityRef() { return getToken(JQuickXMLParser.EntityRef, 0); }
+		public TerminalNode CharRef() { return getToken(JQuickXMLParser.CharRef, 0); }
 		public ReferenceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_reference; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterReference(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterReference(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitReference(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitReference(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitReference(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitReference(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -585,24 +585,24 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class AttributeContext extends ParserRuleContext {
-		public TerminalNode Name() { return getToken(JThornRuleQuickXMLParser.Name, 0); }
-		public TerminalNode EQUALS() { return getToken(JThornRuleQuickXMLParser.EQUALS, 0); }
-		public TerminalNode STRING() { return getToken(JThornRuleQuickXMLParser.STRING, 0); }
+		public TerminalNode Name() { return getToken(JQuickXMLParser.Name, 0); }
+		public TerminalNode EQUALS() { return getToken(JQuickXMLParser.EQUALS, 0); }
+		public TerminalNode STRING() { return getToken(JQuickXMLParser.STRING, 0); }
 		public AttributeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_attribute; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterAttribute(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterAttribute(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitAttribute(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitAttribute(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitAttribute(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitAttribute(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -634,23 +634,23 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ChardataContext extends ParserRuleContext {
-		public TerminalNode TEXT() { return getToken(JThornRuleQuickXMLParser.TEXT, 0); }
-		public TerminalNode SEA_WS() { return getToken(JThornRuleQuickXMLParser.SEA_WS, 0); }
+		public TerminalNode TEXT() { return getToken(JQuickXMLParser.TEXT, 0); }
+		public TerminalNode SEA_WS() { return getToken(JQuickXMLParser.SEA_WS, 0); }
 		public ChardataContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_chardata; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterChardata(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterChardata(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitChardata(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitChardata(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitChardata(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitChardata(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -687,24 +687,24 @@ public class JThornRuleQuickXMLParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class MiscContext extends ParserRuleContext {
-		public TerminalNode COMMENT() { return getToken(JThornRuleQuickXMLParser.COMMENT, 0); }
-		public TerminalNode PI() { return getToken(JThornRuleQuickXMLParser.PI, 0); }
-		public TerminalNode SEA_WS() { return getToken(JThornRuleQuickXMLParser.SEA_WS, 0); }
+		public TerminalNode COMMENT() { return getToken(JQuickXMLParser.COMMENT, 0); }
+		public TerminalNode PI() { return getToken(JQuickXMLParser.PI, 0); }
+		public TerminalNode SEA_WS() { return getToken(JQuickXMLParser.SEA_WS, 0); }
 		public MiscContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_misc; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).enterMisc(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).enterMisc(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JThornRuleQuickXMLParserListener) ((JThornRuleQuickXMLParserListener)listener).exitMisc(this);
+			if ( listener instanceof JQuickXMLParserListener) ((JQuickXMLParserListener)listener).exitMisc(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JThornRuleQuickXMLParserVisitor) return ((JThornRuleQuickXMLParserVisitor<? extends T>)visitor).visitMisc(this);
+			if ( visitor instanceof JQuickXMLParserVisitor) return ((JQuickXMLParserVisitor<? extends T>)visitor).visitMisc(this);
 			else return visitor.visitChildren(this);
 		}
 	}
