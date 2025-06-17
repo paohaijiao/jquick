@@ -1,3 +1,6 @@
+import com.paohaijiao.data.JOption;
+import com.paohaijiao.data.axis.JCategoryAxis;
+import com.paohaijiao.data.series.JBoxplot;
 import com.paohaijiao.echart.boxPlot.JBoxPlotChartRenderer;
 import org.junit.Test;
 
@@ -7,19 +10,21 @@ import java.io.IOException;
 public class BoxPlotTest {
     @Test
     public void testBarChar1() throws IOException, ParserConfigurationException {
-        // 准备数据
-        double[][] data = {
-                {3.0, 4.0, 5.0, 6.0, 7.0},  // 类别1
-                {2.0, 4.0, 6.0, 8.0, 10.0}, // 类别2
-                {1.0, 3.0, 5.0, 7.0, 9.0},  // 类别3
-                {4.0, 5.0, 5.5, 6.0, 7.0}   // 类别4
-        };
-        String[] categories = {"类别1", "类别2", "类别3", "类别4"};
-        String svgContent = JBoxPlotChartRenderer.generateBoxplotSvg(data, categories, 600, 400);
+        JOption option = new JOption();
+        option.title().text("销售数据分布");
+        option.xAxis(new JCategoryAxis().data("一季度", "二季度", "三季度", "四季度"));
+        option.series(new JBoxplot().data(
+                new Object[]{10, 15, 20, 25, 30},
+                new Object[]{12, 18, 22, 28, 35},
+                new Object[]{8, 14, 19, 26, 32},
+                new Object[]{11, 16, 21, 27, 33}
+        ));
+
+        String svg = JBoxPlotChartRenderer.generateBoxplotSvg(option, 800, 500);
         try {
             java.nio.file.Files.write(
                     java.nio.file.Paths.get("d://test//boxplot_custom.svg"),
-                    svgContent.getBytes()
+                    svg.getBytes()
             );
             System.out.println("SVG文件已保存: boxplot_custom.svg");
         } catch (Exception e) {
