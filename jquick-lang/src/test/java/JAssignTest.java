@@ -14,10 +14,10 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
+import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
 import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
-import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
@@ -33,74 +33,97 @@ import java.io.IOException;
  * @date 2025/6/16
  * @description
  */
-public class JValueTest {
+public class JAssignTest {
+
     @Test
-    public void testValue01() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("${type}"));
+    public void tesstAction() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("{ ${id}=3+(5*10)}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.VariablesContext tree = parser.variables();
-        ContextParams params = new ContextParams();
-        params.put("type", "string");
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
-        System.out.println(object);
-    }
-    @Test
-    public void testValue02() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07 12:00:01"));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.DateContext tree = parser.date();
+        JQuickLangParser.ActionContext tree = parser.action();
         ContextParams params = new ContextParams();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
     }
     @Test
-    public void testValue03() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07"));
+    public void elseAction() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSE { ${id}=3+(5*10)}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.DateContext tree = parser.date();
+        JQuickLangParser.ElseActionContext tree = parser.elseAction();
         ContextParams params = new ContextParams();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
     }
     @Test
-    public void testValue04() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("\"helloworld\""));
+    public void elseIfStatment() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSEIF(false) THEN{ ${id}=3+(5*10)}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.StringContext tree = parser.string();
+        JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
         ContextParams params = new ContextParams();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
     }
     @Test
-    public void testValue05() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3"));
+    public void mutipleElseIfStatment() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.NumberContext tree = parser.number();
+        JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
         ContextParams params = new ContextParams();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
     }
     @Test
-    public void testValue06() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("false"));
+    public void assignment01() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(true) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        JQuickLangParser.BoolContext tree = parser.bool();
+        JQuickLangParser.AssignmentContext tree = parser.assignment();
         ContextParams params = new ContextParams();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
     }
+    @Test
+    public void assignment02() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(true) THEN{ ${id}=3+(5*10)} ELSEIF(false) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.AssignmentContext tree = parser.assignment();
+        ContextParams params = new ContextParams();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object= tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void assignment03() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.AssignmentContext tree = parser.assignment();
+        ContextParams params = new ContextParams();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object= tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void assignment04() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(false) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.AssignmentContext tree = parser.assignment();
+        ContextParams params = new ContextParams();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object= tv.visit(tree);
+        System.out.println(object);
+    }
+
 
 
 }

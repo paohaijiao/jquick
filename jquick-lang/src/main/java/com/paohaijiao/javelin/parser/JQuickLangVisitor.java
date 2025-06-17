@@ -71,6 +71,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFactor(JQuickLangParser.FactorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#composeBoolean}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComposeBoolean(JQuickLangParser.ComposeBooleanContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#booleanExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -82,12 +88,6 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSinggelBool(JQuickLangParser.SinggelBoolContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#bool}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBool(JQuickLangParser.BoolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#numberBool}.
 	 * @param ctx the parse tree
@@ -119,6 +119,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(JQuickLangParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(JQuickLangParser.BoolContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -142,10 +148,4 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariables(JQuickLangParser.VariablesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#id}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitId(JQuickLangParser.IdContext ctx);
 }

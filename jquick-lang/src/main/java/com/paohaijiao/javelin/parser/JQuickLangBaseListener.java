@@ -137,6 +137,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterComposeBoolean(JQuickLangParser.ComposeBooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComposeBoolean(JQuickLangParser.ComposeBooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBooleanExpr(JQuickLangParser.BooleanExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -156,18 +168,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSinggelBool(JQuickLangParser.SinggelBoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBool(JQuickLangParser.BoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBool(JQuickLangParser.BoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -233,6 +233,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBool(JQuickLangParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBool(JQuickLangParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumber(JQuickLangParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -276,18 +288,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariables(JQuickLangParser.VariablesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterId(JQuickLangParser.IdContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitId(JQuickLangParser.IdContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

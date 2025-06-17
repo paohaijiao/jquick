@@ -108,6 +108,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitFactor(JQuickLangParser.FactorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#composeBoolean}.
+	 * @param ctx the parse tree
+	 */
+	void enterComposeBoolean(JQuickLangParser.ComposeBooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#composeBoolean}.
+	 * @param ctx the parse tree
+	 */
+	void exitComposeBoolean(JQuickLangParser.ComposeBooleanContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#booleanExpr}.
 	 * @param ctx the parse tree
 	 */
@@ -127,16 +137,6 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSinggelBool(JQuickLangParser.SinggelBoolContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void enterBool(JQuickLangParser.BoolContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void exitBool(JQuickLangParser.BoolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#numberBool}.
 	 * @param ctx the parse tree
@@ -188,6 +188,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitExpr(JQuickLangParser.ExprContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(JQuickLangParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(JQuickLangParser.BoolContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#number}.
 	 * @param ctx the parse tree
 	 */
@@ -227,14 +237,4 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariables(JQuickLangParser.VariablesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void enterId(JQuickLangParser.IdContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void exitId(JQuickLangParser.IdContext ctx);
 }
