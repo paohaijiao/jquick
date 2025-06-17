@@ -1,9 +1,11 @@
 package com.paohaijiao.javelin.visitor;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.paohaijiao.javelin.model.JKeyValueModel;
 import com.paohaijiao.javelin.obj.JSONArray;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickXMLParser;
+import com.paohaijiao.javelin.util.StringUtils;
 
 public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
 
@@ -45,11 +47,21 @@ public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
         JSONObject json = new JSONObject();
         String key = ctx.Name(0).getText();
         String  name=ctx.getText();
-        Object value = null;
+        JSONArray attrs = new JSONArray();
+        Object value=null;
+        if (ctx.attribute() != null&&!ctx.attribute().isEmpty()) {
+            for (JQuickXMLParser.AttributeContext attrContext:ctx.attribute()){
+                JSONObject att=visitAttribute(attrContext);
+                attrs.add(att);
+            }
+        }
         if (ctx.content() != null) {
             value=visitContent(ctx.content());
         }
-        json.put(key,value);
+        JSONObject result= new JSONObject();
+        result.put("value",value);
+        result.put("attr",attrs);
+        json.put(key,result);
         return json;
     }
 
@@ -67,9 +79,10 @@ public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
     @Override
     public JSONObject visitAttribute(JQuickXMLParser.AttributeContext ctx) {
         JSONObject attribute = new JSONObject();
-        attribute.put(name, ctx.Name().getText());
+        String key= ctx.Name().getText();
         String value = ctx.STRING().getText();
-        attribute.put(string, value.substring(1, value.length() - 1));
+        String val= StringUtils.trim(value);
+        attribute.put(key,val);
         return attribute;
     }
 
