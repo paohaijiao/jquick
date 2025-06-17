@@ -15,6 +15,8 @@
  */
 package com.paohaijiao.echart.heatMap;
 
+import com.paohaijiao.data.JOption;
+import com.paohaijiao.data.series.JHeatmap;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,9 +24,11 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName com.paohaijiao.echart.generate
@@ -36,118 +40,258 @@ import java.io.Writer;
  * @description
  */
 public class JHeatMapChartRenderer {
-    public static void generateHeatmapSVG(double[][] data, String[] xLabels, String[] yLabels, String outputPath) {
+    // Default configuration
+    private static final Color BACKGROUND_COLOR = Color.WHITE;
+    private static final Color AXIS_COLOR = Color.BLACK;
+    private static final Color CELL_BORDER_COLOR = Color.LIGHT_GRAY;
+    private static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 20);
+    private static final Font LABEL_FONT = new Font("Arial", Font.PLAIN, 12);
+    private static final Font VALUE_FONT = new Font("Arial", Font.PLAIN, 10);
+
+    /**
+     * Generate heatmap SVG from ECharts Option
+     *
+     * @param option ECharts configuration option
+     * @param width SVG width
+     * @param height SVG height
+     * @return SVG string
+     */
+    public static String generateHeatmapSvg(JOption option, int width, int height) {
         try {
-            // 创建SVG文档
+            // 1. Extract data from Option
+            HeatmapDataExtractor extractor = new HeatmapDataExtractor(option);
+
+            // 2. Create SVG document
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document document = db.newDocument();
 
-            // 创建SVG根元素
+            // 3. Create SVG root element
             Element svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgRoot.setAttributeNS(null, "width", "800");
-            svgRoot.setAttributeNS(null, "height", "600");
+            svgRoot.setAttributeNS(null, "width", String.valueOf(width));
+            svgRoot.setAttributeNS(null, "height", String.valueOf(height));
             document.appendChild(svgRoot);
 
-            // 创建SVGGraphics2D对象
+            // 4. Create SVGGraphics2D
             SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
 
-            // 绘制热力图
-            drawHeatmap(svgGenerator, data, xLabels, yLabels);
+            // 5. Draw heatmap
+            drawHeatmap(svgGenerator, extractor, width, height);
 
-            // 将图形内容填充到SVG根元素
+            // 6. Fill SVG content
             svgGenerator.getRoot(svgRoot);
 
-            // 输出SVG文件
-            try (Writer out = new OutputStreamWriter(new FileOutputStream(outputPath), "UTF-8")) {
+            // 7. Write to string
+            try (Writer out = new StringWriter()) {
                 svgGenerator.stream(svgRoot, out);
+                return out.toString();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    private static void drawHeatmap(SVGGraphics2D g2d, double[][] data, String[] xLabels, String[] yLabels) {
-        // 设置背景
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, 800, 600);
+    private static void drawHeatmap(SVGGraphics2D g2d, HeatmapDataExtractor extractor,
+                                    int width, int height) {
+        // Draw background
+        g2d.setColor(BACKGROUND_COLOR);
+        g2d.fillRect(0, 0, width, height);
 
-        // 绘制标题
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.BOLD, 20));
-        g2d.drawString("热力图", 350, 30);
+        // Draw title
+        if (extractor.getTitle() != null && !extractor.getTitle().isEmpty()) {
+            g2d.setFont(TITLE_FONT);
+            g2d.setColor(AXIS_COLOR);
+            int titleWidth = g2d.getFontMetrics().stringWidth(extractor.getTitle());
+            g2d.drawString(extractor.getTitle(), (width - titleWidth) / 2, 30);
+        }
 
-        // 计算热力图区域和单元格大小
+        // Calculate dimensions
         int margin = 50;
-        int width = 700;
-        int height = 450;
-        int cellWidth = width / xLabels.length;
-        int cellHeight = height / yLabels.length;
+        int heatmapWidth = width - 2 * margin - 50; // Leave space for legend
+        int heatmapHeight = height - 2 * margin;
+        int cellWidth = heatmapWidth / extractor.getXLabels().size();
+        int cellHeight = heatmapHeight / extractor.getYLabels().size();
 
-        // 绘制x轴标签
-        g2d.setFont(new Font("Arial", Font.PLAIN, 12));
-        for (int i = 0; i < xLabels.length; i++) {
-            g2d.drawString(xLabels[i], margin + i * cellWidth + cellWidth/2 - 10, margin + height + 20);
+        // Draw x-axis labels
+        g2d.setFont(LABEL_FONT);
+        for (int i = 0; i < extractor.getXLabels().size(); i++) {
+            String label = extractor.getXLabels().get(i);
+            int labelWidth = g2d.getFontMetrics().stringWidth(label);
+            g2d.drawString(label,
+                    margin + i * cellWidth + (cellWidth - labelWidth) / 2,
+                    margin + heatmapHeight + 20);
         }
 
-        // 绘制y轴标签
-        for (int i = 0; i < yLabels.length; i++) {
-            g2d.drawString(yLabels[i], margin - 40, margin + i * cellHeight + cellHeight/2 + 5);
+        // Draw y-axis labels
+        for (int i = 0; i < extractor.getYLabels().size(); i++) {
+            String label = extractor.getYLabels().get(i);
+            int labelWidth = g2d.getFontMetrics().stringWidth(label);
+            g2d.drawString(label,
+                    margin - labelWidth - 5,
+                    margin + i * cellHeight + cellHeight / 2 + 5);
         }
 
-        // 绘制热力图单元格
-        for (int i = 0; i < xLabels.length; i++) {
-            for (int j = 0; j < yLabels.length; j++) {
-                double value = data[i][j];
-                // 根据值计算颜色（简单示例，实际可能需要更复杂的颜色映射）
-                int red = (int) (255 * (value / 100.0));
-                int green = 0;
-                int blue = (int) (255 * (1 - value / 100.0));
-                Color color = new Color(red, green, blue, 128);
+        // Draw heatmap cells
+        for (int i = 0; i < extractor.getXLabels().size(); i++) {
+            for (int j = 0; j < extractor.getYLabels().size(); j++) {
+                double value = extractor.getValue(i, j);
+                Color color = calculateCellColor(value, extractor.getMinValue(), extractor.getMaxValue());
 
+                // Draw cell
                 g2d.setColor(color);
-                g2d.fillRect(margin + i * cellWidth,
+                g2d.fillRect(
+                        margin + i * cellWidth,
                         margin + j * cellHeight,
                         cellWidth, cellHeight);
 
-                // 绘制边框
-                g2d.setColor(Color.LIGHT_GRAY);
-                g2d.drawRect(margin + i * cellWidth,
+                // Draw border
+                g2d.setColor(CELL_BORDER_COLOR);
+                g2d.drawRect(
+                        margin + i * cellWidth,
                         margin + j * cellHeight,
                         cellWidth, cellHeight);
 
-                // 显示值
-                g2d.setColor(Color.BLACK);
-                g2d.drawString(String.format("%.1f", value),
-                        margin + i * cellWidth + cellWidth/2 - 10,
-                        margin + j * cellHeight + cellHeight/2 + 5);
+                // Draw value
+                if (cellWidth > 30 && cellHeight > 20) { // Only draw if cell is large enough
+                    g2d.setColor(AXIS_COLOR);
+                    g2d.setFont(VALUE_FONT);
+                    String valueStr = String.format("%.1f", value);
+                    int valueWidth = g2d.getFontMetrics().stringWidth(valueStr);
+                    g2d.drawString(valueStr,
+                            margin + i * cellWidth + (cellWidth - valueWidth) / 2,
+                            margin + j * cellHeight + cellHeight / 2 + 5);
+                }
             }
         }
 
-        // 绘制图例
-        drawLegend(g2d, margin + width + 20, margin, 30, height);
+        // Draw legend
+        drawLegend(g2d,
+                margin + heatmapWidth + 20,
+                margin,
+                30,
+                heatmapHeight,
+                extractor.getMinValue(),
+                extractor.getMaxValue());
     }
 
-    private static void drawLegend(SVGGraphics2D g2d, int x, int y, int width, int height) {
-        // 绘制渐变图例
+    private static Color calculateCellColor(double value, double minValue, double maxValue) {
+        // Simple color gradient from blue (low) to red (high)
+        float ratio = (float)((value - minValue) / (maxValue - minValue));
+        ratio = Math.max(0, Math.min(1, ratio)); // Clamp between 0 and 1
+
+        int red = (int)(255 * ratio);
+        int green = 0;
+        int blue = (int)(255 * (1 - ratio));
+
+        return new Color(red, green, blue, 128); // Semi-transparent
+    }
+
+    private static void drawLegend(SVGGraphics2D g2d, int x, int y, int width, int height,
+                                   double minValue, double maxValue) {
+        // Draw gradient legend
         for (int i = 0; i < height; i++) {
-            double ratio = 1 - (double)i / height;
-            int red = (int) (255 * ratio);
+            float ratio = 1 - (float)i / height;
+            int red = (int)(255 * ratio);
             int green = 0;
-            int blue = (int) (255 * (1 - ratio));
+            int blue = (int)(255 * (1 - ratio));
             g2d.setColor(new Color(red, green, blue));
             g2d.drawLine(x, y + i, x + width, y + i);
         }
 
-        // 绘制图例边框
-        g2d.setColor(Color.BLACK);
+        // Draw legend border
+        g2d.setColor(AXIS_COLOR);
         g2d.drawRect(x, y, width, height);
 
-        // 绘制图例标签
-        g2d.setFont(new Font("Arial", Font.PLAIN, 10));
-        g2d.drawString("100", x + width + 5, y + 10);
-        g2d.drawString("50", x + width + 5, y + height/2 + 5);
-        g2d.drawString("0", x + width + 5, y + height - 5);
+        // Draw legend labels
+        g2d.setFont(VALUE_FONT);
+        g2d.drawString(String.format("%.1f", maxValue), x + width + 5, y + 10);
+        g2d.drawString(String.format("%.1f", (maxValue + minValue) / 2), x + width + 5, y + height/2 + 5);
+        g2d.drawString(String.format("%.1f", minValue), x + width + 5, y + height - 5);
+    }
+
+    /**
+     * Helper class to extract data from ECharts Option
+     */
+    private static class HeatmapDataExtractor {
+        private final List<String> xLabels;
+        private final List<String> yLabels;
+        private final double[][] data;
+        private final double minValue;
+        private final double maxValue;
+        private final String title;
+
+        public HeatmapDataExtractor(JOption option) {
+            // Extract x-axis labels
+            this.xLabels = option.getxAxis() != null && !option.getxAxis().isEmpty() ?
+                    (List<String>) option.getxAxis().get(0).getData() :new ArrayList<>();
+
+            // Extract y-axis labels
+            this.yLabels = option.getyAxis() != null && !option.getyAxis().isEmpty() ?
+                    (List<String>) option.getyAxis().get(0).getData() :new ArrayList<>();
+
+            // Initialize data matrix
+            this.data = new double[xLabels.size()][yLabels.size()];
+            double tempMin = Double.MAX_VALUE;
+            double tempMax = Double.MIN_VALUE;
+
+            // Extract heatmap data
+            if (option.getSeries() != null) {
+                for (Object series : option.getSeries()) {
+                    if (series instanceof JHeatmap) {
+                        JHeatmap heatmap = (JHeatmap) series;
+                        List<?> heatmapData = heatmap.getData();
+
+                        for (Object item : heatmapData) {
+                            if (item instanceof Object[]) {
+                                Object[] entry = (Object[]) item;
+                                if (entry.length >= 3) {
+                                    int xIndex = ((Number) entry[0]).intValue();
+                                    int yIndex = ((Number) entry[1]).intValue();
+                                    double value = ((Number) entry[2]).doubleValue();
+
+                                    if (xIndex >= 0 && xIndex < xLabels.size() &&
+                                            yIndex >= 0 && yIndex < yLabels.size()) {
+                                        data[xIndex][yIndex] = value;
+                                        tempMin = Math.min(tempMin, value);
+                                        tempMax = Math.max(tempMax, value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.minValue = tempMin;
+            this.maxValue = tempMax;
+            this.title = option.getTitle() != null && null!=option.getTitle()?
+                    option.getTitle().getText() :
+                    "";
+        }
+
+        public List<String> getXLabels() {
+            return xLabels;
+        }
+
+        public List<String> getYLabels() {
+            return yLabels;
+        }
+
+        public double getValue(int x, int y) {
+            return data[x][y];
+        }
+
+        public double getMinValue() {
+            return minValue;
+        }
+
+        public double getMaxValue() {
+            return maxValue;
+        }
+
+        public String getTitle() {
+            return title;
+        }
     }
 }
