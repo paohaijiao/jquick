@@ -24,14 +24,13 @@ public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
         JSONArray array=new JSONArray();
         String text = ctx.getText();
         System.out.println(text);
-        if(ctx.element() != null) {
+        if(ctx.element() != null&&!ctx.element().isEmpty()) {
             for (JQuickXMLParser.ElementContext ele:ctx.element()){
                JSONObject result= visitElement(ele);
                array.add(result);
             }
             returnValue= array;
-        }else if(ctx.chardata() != null) {
-
+        }else if(ctx.chardata() != null&&!ctx.chardata().isEmpty()) {
             for (JQuickXMLParser.ChardataContext ele:ctx.chardata()){
                 String ctxString = ele.getText();
                 String  result= visitChardata(ele);
