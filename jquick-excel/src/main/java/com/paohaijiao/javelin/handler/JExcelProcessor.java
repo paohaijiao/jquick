@@ -1,5 +1,6 @@
 package com.paohaijiao.javelin.handler;
 
+import com.paohaijiao.javelin.model.JExcelExportModel;
 import com.paohaijiao.javelin.model.JExcelImportModel;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.*;
@@ -59,34 +60,49 @@ public class JExcelProcessor {
             return data;
         }
     }
-
-    public void exportData(List<Map<String, String>> data, String filePath, Map<String, Object> config) throws IOException {
+    public void exportData(List<Map<String, String>> data, String filePath,
+                           JExcelExportModel config) throws IOException {
         workbook = new XSSFWorkbook();
-        String sheetName = (String) config.getOrDefault("sheet", "Sheet1");
-        currentSheet = workbook.createSheet(sheetName);
-        boolean hasHeader = (boolean) config.getOrDefault("header", true);
+        Object sheet = config.getSheet();
+        if (sheet instanceof String) {
+            currentSheet = workbook.createSheet((String)sheet);
+        }else{
+            currentSheet = workbook.createSheet();
+        }
+
+        boolean hasHeader = config.getHeader();
         int rowNum = 0;
         if (hasHeader && !data.isEmpty()) {
             Row headerRow = currentSheet.createRow(rowNum++);
             int colNum = 0;
             for (String header : data.get(0).keySet()) {
-                headerRow.createCell(colNum++).setCellValue(header);
+                Cell cell = headerRow.createCell(colNum++);
+                cell.setCellValue(header);
+                CellStyle headerStyle = workbook.createCellStyle();
+                Font headerFont = workbook.createFont();
+                headerFont.setBold(true);
+                headerStyle.setFont(headerFont);
+                cell.setCellStyle(headerStyle);
             }
         }
         for (Map<String, String> rowData : data) {
             Row row = currentSheet.createRow(rowNum++);
             int colNum = 0;
-            for (String value : rowData.values()) {
+            for (Map.Entry<String, String> entry : rowData.entrySet()) {
                 Cell cell = row.createCell(colNum++);
-                Map<String, String> formats = (Map<String, String>) config.getOrDefault("format", new HashMap<>());
-                String fieldName = new ArrayList<>(rowData.keySet()).get(colNum - 1);
-                if (formats.containsKey(fieldName)) {
-                    applyCellFormat(cell, formats.get(fieldName));
+                @SuppressWarnings("unchecked")
+                Map<String, String> formats = config.getFormat();
+                if (formats.containsKey(entry.getKey())) {
+                    applyCellFormat(cell, formats.get(entry.getKey()));
                 }
-                cell.setCellValue(value);
+
+                setCellValue(cell, entry.getValue());
             }
         }
-        Map<String, String> formulas = (Map<String, String>) config.getOrDefault("formulas", new HashMap<>());
+
+        // 应用公式
+        @SuppressWarnings("unchecked")
+        Map<String, String> formulas =config.getFormulas();
         if (!formulas.isEmpty() && rowNum > 0) {
             Row lastRow = currentSheet.getRow(rowNum - 1);
             for (Map.Entry<String, String> entry : formulas.entrySet()) {
@@ -96,11 +112,38 @@ public class JExcelProcessor {
                 }
             }
         }
+        autoSizeColumns(data.get(0).keySet().size());
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
             workbook.write(fos);
         }
     }
 
+    private void setCellValue(Cell cell, String value) {
+        try {
+            if (value.contains(".")) {
+                cell.setCellValue(Double.parseDouble(value));
+            } else {
+                cell.setCellValue(Integer.parseInt(value));
+            }
+            return;
+        } catch (NumberFormatException e) {
+        }
+
+        // 尝试解析为布尔值
+        if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
+            cell.setCellValue(Boolean.parseBoolean(value));
+            return;
+        }
+
+        // 默认作为字符串处理
+        cell.setCellValue(value);
+    }
+
+    private void autoSizeColumns(int columnCount) {
+        for (int i = 0; i < columnCount; i++) {
+            currentSheet.autoSizeColumn(i);
+        }
+    }
     private void setSheet(Object sheetConfig) {
         if (sheetConfig == null) {
             currentSheet = workbook.getSheetAt(0);
