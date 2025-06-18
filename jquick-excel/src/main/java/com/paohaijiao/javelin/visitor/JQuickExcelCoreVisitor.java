@@ -5,10 +5,13 @@ import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickExcelBaseVisitor;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 import com.paohaijiao.javelin.util.StringUtils;
+import org.apache.poi.ss.usermodel.Cell;
 
 public class JQuickExcelCoreVisitor extends JQuickExcelBaseVisitor {
 
     protected ContextParams context;
+
+    protected Cell cell;
 
     @Override
     public String visitFileName(JQuickExcelParser.FileNameContext ctx) {

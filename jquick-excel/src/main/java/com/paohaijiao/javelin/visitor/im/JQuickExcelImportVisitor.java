@@ -3,12 +3,13 @@ import com.paohaijiao.javelin.model.JExcelImportModel;
 import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.visitor.JFormatSpecVisitor;
 import com.paohaijiao.javelin.visitor.function.JQuickExcelFunctionVisitor;
 import org.apache.poi.ss.usermodel.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JQuickExcelImportVisitor extends JQuickExcelFunctionVisitor {
+public class JQuickExcelImportVisitor extends JFormatSpecVisitor {
     private JExcelImportModel config=new JExcelImportModel();
 
     public JQuickExcelImportVisitor(ContextParams contextParams) {

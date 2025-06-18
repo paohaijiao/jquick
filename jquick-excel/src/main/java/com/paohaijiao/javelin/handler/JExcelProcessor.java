@@ -162,7 +162,6 @@ public class JExcelProcessor {
         return value;
     }
     private void applyCellFormat(Cell cell, String formatSpec) {
-        // 这里实现具体的格式设置逻辑
         CellStyle style = workbook.createCellStyle();
         if (formatSpec.startsWith("DATE")) {
             style.setDataFormat(workbook.createDataFormat().getFormat("yyyy-mm-dd"));
