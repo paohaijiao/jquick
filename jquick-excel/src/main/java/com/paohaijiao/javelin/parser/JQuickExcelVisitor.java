@@ -119,12 +119,6 @@ public interface JQuickExcelVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTransformValue(JQuickExcelParser.TransformValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JQuickExcelParser#excelFormula}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -173,11 +167,17 @@ public interface JQuickExcelVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionArg(JQuickExcelParser.FunctionArgContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickExcelParser#argument}.
+	 * Visit a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgument(JQuickExcelParser.ArgumentContext ctx);
+	T visitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickExcelParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(JQuickExcelParser.VariableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickExcelParser#identifier}.
 	 * @param ctx the parse tree
@@ -185,21 +185,9 @@ public interface JQuickExcelVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifier(JQuickExcelParser.IdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickExcelParser#jsonPath}.
+	 * Visit a parse tree produced by {@link JQuickExcelParser#fileName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitJsonPath(JQuickExcelParser.JsonPathContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickExcelParser#apiCall}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitApiCall(JQuickExcelParser.ApiCallContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickExcelParser#parameter}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParameter(JQuickExcelParser.ParameterContext ctx);
+	T visitFileName(JQuickExcelParser.FileNameContext ctx);
 }

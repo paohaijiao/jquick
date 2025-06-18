@@ -233,18 +233,6 @@ public class JQuickExcelBaseListener implements JQuickExcelListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExcelFormula(JQuickExcelParser.ExcelFormulaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -341,13 +329,25 @@ public class JQuickExcelBaseListener implements JQuickExcelListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgument(JQuickExcelParser.ArgumentContext ctx) { }
+	@Override public void enterQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgument(JQuickExcelParser.ArgumentContext ctx) { }
+	@Override public void exitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariable(JQuickExcelParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariable(JQuickExcelParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -365,37 +365,13 @@ public class JQuickExcelBaseListener implements JQuickExcelListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJsonPath(JQuickExcelParser.JsonPathContext ctx) { }
+	@Override public void enterFileName(JQuickExcelParser.FileNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJsonPath(JQuickExcelParser.JsonPathContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterApiCall(JQuickExcelParser.ApiCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitApiCall(JQuickExcelParser.ApiCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParameter(JQuickExcelParser.ParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParameter(JQuickExcelParser.ParameterContext ctx) { }
+	@Override public void exitFileName(JQuickExcelParser.FileNameContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

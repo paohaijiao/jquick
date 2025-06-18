@@ -188,16 +188,6 @@ public interface JQuickExcelListener extends ParseTreeListener {
 	 */
 	void exitTransformValue(JQuickExcelParser.TransformValueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JQuickExcelParser#excelFormula}.
 	 * @param ctx the parse tree
 	 */
@@ -278,15 +268,25 @@ public interface JQuickExcelListener extends ParseTreeListener {
 	 */
 	void exitFunctionArg(JQuickExcelParser.FunctionArgContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickExcelParser#argument}.
+	 * Enter a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterArgument(JQuickExcelParser.ArgumentContext ctx);
+	void enterQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickExcelParser#argument}.
+	 * Exit a parse tree produced by {@link JQuickExcelParser#quotedFunctionCall}.
 	 * @param ctx the parse tree
 	 */
-	void exitArgument(JQuickExcelParser.ArgumentContext ctx);
+	void exitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickExcelParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariable(JQuickExcelParser.VariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickExcelParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariable(JQuickExcelParser.VariableContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickExcelParser#identifier}.
 	 * @param ctx the parse tree
@@ -298,33 +298,13 @@ public interface JQuickExcelListener extends ParseTreeListener {
 	 */
 	void exitIdentifier(JQuickExcelParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickExcelParser#jsonPath}.
+	 * Enter a parse tree produced by {@link JQuickExcelParser#fileName}.
 	 * @param ctx the parse tree
 	 */
-	void enterJsonPath(JQuickExcelParser.JsonPathContext ctx);
+	void enterFileName(JQuickExcelParser.FileNameContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickExcelParser#jsonPath}.
+	 * Exit a parse tree produced by {@link JQuickExcelParser#fileName}.
 	 * @param ctx the parse tree
 	 */
-	void exitJsonPath(JQuickExcelParser.JsonPathContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickExcelParser#apiCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterApiCall(JQuickExcelParser.ApiCallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickExcelParser#apiCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitApiCall(JQuickExcelParser.ApiCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickExcelParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameter(JQuickExcelParser.ParameterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickExcelParser#parameter}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameter(JQuickExcelParser.ParameterContext ctx);
+	void exitFileName(JQuickExcelParser.FileNameContext ctx);
 }
