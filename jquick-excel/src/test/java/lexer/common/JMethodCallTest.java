@@ -38,7 +38,7 @@ public class JMethodCallTest
     }
     @Test
     public void functionArg() {
-        String input = "id";
+        String input = "${id}";
         JQuickExcelLexer lexer = new JQuickExcelLexer(CharStreams.fromString(input));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
