@@ -15,7 +15,7 @@
  */
 
 import com.paohaijiao.javelin.model.JTypeModel;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import com.paohaijiao.javelin.visitor.JSONPathCommonVisitor;
@@ -24,7 +24,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * packageName PACKAGE_NAME

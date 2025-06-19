@@ -13,8 +13,14 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.resource;
+package com.paohaijiao.javelin.model;
 
-public interface JQuickReader {
-    String getRule();
+import lombok.Data;
+
+@Data
+public class JSonKeyValue {
+
+    private String key;
+
+    private Object value;
 }

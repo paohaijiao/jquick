@@ -1,20 +1,46 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
+ */
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.obj.JSONArray;
-import com.paohaijiao.javelin.obj.JSONObject;
-import com.paohaijiao.javelin.obj.JSonKeyValue;
-import com.paohaijiao.javelin.obj.JsonResponse;
-import com.paohaijiao.javelin.parser.JSONBaseVisitor;
-import com.paohaijiao.javelin.parser.JSONParser;
+import com.paohaijiao.javelin.exception.JAssert;
+import com.paohaijiao.javelin.model.JSONArray;
+import com.paohaijiao.javelin.model.JSONObject;
+import com.paohaijiao.javelin.model.JSonKeyValue;
+import com.paohaijiao.javelin.model.JsonResponse;
+import com.paohaijiao.javelin.param.JContext;
+import com.paohaijiao.javelin.parser.JQuickJSONBaseVisitor;
+import com.paohaijiao.javelin.parser.JQuickJSONParser;
 import com.paohaijiao.javelin.util.JBeanCopyUtils;
 import com.paohaijiao.javelin.util.JStringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-public class JSONCommonVisitor extends JSONBaseVisitor {
+public class JSONCommonVisitor extends JQuickJSONBaseVisitor {
+
+    private JContext context;
+    public JSONCommonVisitor(){
+        this.context=new JContext();
+    }
+    public JSONCommonVisitor(JContext context){
+        this.context=context;
+    }
     @Override
-    public JsonResponse visitJson(JSONParser.JsonContext ctx) {
+    public JsonResponse visitJson(JQuickJSONParser.JsonContext ctx) {
         JsonResponse response = new JsonResponse();
         Object result = null;
         if(null!=ctx.value()) {
@@ -32,7 +58,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     }
 
     @Override
-    public Object visitValue(JSONParser.ValueContext ctx) {
+    public Object visitValue(JQuickJSONParser.ValueContext ctx) {
         if(null!=ctx.object()){
             Object obj=visitObject(ctx.object());
             return obj;
@@ -52,16 +78,33 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
         if(null!=ctx.null_()){
             return visitNull(ctx.null_());
         }
+        if(null!=ctx.variable()){
+            return visitVariable(ctx.variable());
+        }
+        return null;
+    }
+    @Override
+    public Object visitVariable(JQuickJSONParser.VariableContext ctx) {
+        if(ctx.identifier()!=null){
+           String str= visitIdentifier(ctx.identifier());
+           return context.get(str);
+        }
+        JAssert.throwNewException("invalid variable");
         return null;
     }
 
 
+    @Override
+    public String visitIdentifier(JQuickJSONParser.IdentifierContext ctx) {
+        String string=ctx.getText();
+        return StringUtils.trim(string);
+    }
 
 
     @Override
-    public List<Object> visitArray(JSONParser.ArrayContext ctx) {
+    public List<Object> visitArray(JQuickJSONParser.ArrayContext ctx) {
         List<Object> array = new ArrayList<>();
-        for(JSONParser.ValueContext value: ctx.value()) {
+        for(JQuickJSONParser.ValueContext value: ctx.value()) {
             Object  object=visitValue(value);
             array.add(object);
 
@@ -69,9 +112,9 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
         return array;
     }
     @Override
-    public JSONObject visitObject(JSONParser.ObjectContext ctx) {
+    public JSONObject visitObject(JQuickJSONParser.ObjectContext ctx) {
         JSONObject jsonObject=new JSONObject();
-        List<JSONParser.PairContext> pair=ctx.pair();
+        List<JQuickJSONParser.PairContext> pair=ctx.pair();
         for (int i = 0; i < pair.size(); i++) {
             JSonKeyValue keyValue=visitPair(ctx.pair(i));
             jsonObject.put(keyValue.getKey(), keyValue.getValue());
@@ -80,7 +123,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     }
 
     @Override
-    public JSonKeyValue visitPair(JSONParser.PairContext ctx) {
+    public JSonKeyValue visitPair(JQuickJSONParser.PairContext ctx) {
         JSonKeyValue jSonObject=new JSonKeyValue();
         String key=null;
         Object value=null;
@@ -95,19 +138,19 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
         return jSonObject;
     }
     @Override
-    public String visitString(JSONParser.StringContext ctx) {
+    public String visitString(JQuickJSONParser.StringContext ctx) {
         String str= ctx.getText();
         return JStringUtils.trim(str);
     }
 
     @Override
-    public BigDecimal visitNumber(JSONParser.NumberContext ctx) {
+    public BigDecimal visitNumber(JQuickJSONParser.NumberContext ctx) {
         BigDecimal bigDecimal= new BigDecimal(ctx.getText());
         return bigDecimal;
     }
 
     @Override
-    public Boolean visitBool(JSONParser.BoolContext ctx) {
+    public Boolean visitBool(JQuickJSONParser.BoolContext ctx) {
         String str=ctx.getText();
         if(str.equals("true") ) {
             return true;
@@ -119,7 +162,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     }
 
     @Override
-    public JSONObject visitNull(JSONParser.NullContext ctx) {
+    public JSONObject visitNull(JQuickJSONParser.NullContext ctx) {
         return null;
     }
 

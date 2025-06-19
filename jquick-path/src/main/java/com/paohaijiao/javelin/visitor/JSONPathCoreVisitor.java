@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickJSONPathBaseVisitor;
 import com.paohaijiao.javelin.util.JReflectionUtils;

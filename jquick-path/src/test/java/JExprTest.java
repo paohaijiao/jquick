@@ -14,8 +14,7 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
-import com.paohaijiao.javelin.model.JTypeModel;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import com.paohaijiao.javelin.visitor.JSONPathCommonVisitor;

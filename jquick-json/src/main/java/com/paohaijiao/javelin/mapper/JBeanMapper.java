@@ -13,8 +13,19 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.resource;
+package com.paohaijiao.javelin.mapper;
 
-public interface JQuickReader {
-    String getRule();
+import com.paohaijiao.javelin.model.JSONObject;
+
+import java.util.Map;
+
+public interface JBeanMapper {
+
+    public <T> T toBean(Class<T> t);
+
+    public Map toMap();
+
+    public  JSONObject fromBean(Object bean);
+
+    public  JSONObject fromMap(Map<String, Object> map);
 }

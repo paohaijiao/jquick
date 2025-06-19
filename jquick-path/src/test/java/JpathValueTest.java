@@ -14,9 +14,7 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
-import com.paohaijiao.javelin.bean.JSONPathResult;
-import com.paohaijiao.javelin.executor.JSONPathExecutor;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import com.paohaijiao.javelin.visitor.JSONPathCommonVisitor;
@@ -24,7 +22,6 @@ import org.antlr.v4.runtime.*;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 
 /**

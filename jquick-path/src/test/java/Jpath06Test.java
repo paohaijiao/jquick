@@ -16,7 +16,7 @@
 
 import com.paohaijiao.javelin.bean.JSONPathResult;
 import com.paohaijiao.javelin.executor.JSONPathExecutor;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;

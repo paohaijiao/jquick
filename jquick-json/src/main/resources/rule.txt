@@ -8,6 +8,6 @@
     "created": "2023-10-01",
     "modified": "2023-10-02"
   },
-  "active": true,
+  "active": ${name},
   "count": 42
 }

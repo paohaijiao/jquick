@@ -1,9 +1,9 @@
-// Generated from D:/idea/jthornruleGrammer/json/JSON.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/json/JQuickJSON.g4 by ANTLR 4.13.2
 package com.paohaijiao.javelin.parser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
- * This class provides an empty implementation of {@link JSONVisitor},
+ * This class provides an empty implementation of {@link JQuickJSONVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
@@ -11,68 +11,82 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class JSONBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements JSONVisitor<T> {
+public class JQuickJSONBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements JQuickJSONVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJson(JSONParser.JsonContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJson(JQuickJSONParser.JsonContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitValue(JSONParser.ValueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitValue(JQuickJSONParser.ValueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObject(JSONParser.ObjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObject(JQuickJSONParser.ObjectContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPair(JSONParser.PairContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPair(JQuickJSONParser.PairContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArray(JSONParser.ArrayContext ctx) { return visitChildren(ctx); }
+	@Override public T visitArray(JQuickJSONParser.ArrayContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitString(JSONParser.StringContext ctx) { return visitChildren(ctx); }
+	@Override public T visitString(JQuickJSONParser.StringContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumber(JSONParser.NumberContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNumber(JQuickJSONParser.NumberContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBool(JSONParser.BoolContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBool(JQuickJSONParser.BoolContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNull(JSONParser.NullContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNull(JQuickJSONParser.NullContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitVariable(JQuickJSONParser.VariableContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitIdentifier(JQuickJSONParser.IdentifierContext ctx) { return visitChildren(ctx); }
 }

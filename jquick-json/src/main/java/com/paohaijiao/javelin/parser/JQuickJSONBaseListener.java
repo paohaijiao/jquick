@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/json/JSON.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/json/JQuickJSON.g4 by ANTLR 4.13.2
 package com.paohaijiao.javelin.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -6,120 +6,144 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link JSONListener},
+ * This class provides an empty implementation of {@link JQuickJSONListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class JSONBaseListener implements JSONListener {
+public class JQuickJSONBaseListener implements JQuickJSONListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJson(JSONParser.JsonContext ctx) { }
+	@Override public void enterJson(JQuickJSONParser.JsonContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJson(JSONParser.JsonContext ctx) { }
+	@Override public void exitJson(JQuickJSONParser.JsonContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterValue(JSONParser.ValueContext ctx) { }
+	@Override public void enterValue(JQuickJSONParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitValue(JSONParser.ValueContext ctx) { }
+	@Override public void exitValue(JQuickJSONParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject(JSONParser.ObjectContext ctx) { }
+	@Override public void enterObject(JQuickJSONParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject(JSONParser.ObjectContext ctx) { }
+	@Override public void exitObject(JQuickJSONParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPair(JSONParser.PairContext ctx) { }
+	@Override public void enterPair(JQuickJSONParser.PairContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPair(JSONParser.PairContext ctx) { }
+	@Override public void exitPair(JQuickJSONParser.PairContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArray(JSONParser.ArrayContext ctx) { }
+	@Override public void enterArray(JQuickJSONParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArray(JSONParser.ArrayContext ctx) { }
+	@Override public void exitArray(JQuickJSONParser.ArrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString(JSONParser.StringContext ctx) { }
+	@Override public void enterString(JQuickJSONParser.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitString(JSONParser.StringContext ctx) { }
+	@Override public void exitString(JQuickJSONParser.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumber(JSONParser.NumberContext ctx) { }
+	@Override public void enterNumber(JQuickJSONParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNumber(JSONParser.NumberContext ctx) { }
+	@Override public void exitNumber(JQuickJSONParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBool(JSONParser.BoolContext ctx) { }
+	@Override public void enterBool(JQuickJSONParser.BoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBool(JSONParser.BoolContext ctx) { }
+	@Override public void exitBool(JQuickJSONParser.BoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNull(JSONParser.NullContext ctx) { }
+	@Override public void enterNull(JQuickJSONParser.NullContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNull(JSONParser.NullContext ctx) { }
+	@Override public void exitNull(JQuickJSONParser.NullContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariable(JQuickJSONParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariable(JQuickJSONParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentifier(JQuickJSONParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifier(JQuickJSONParser.IdentifierContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

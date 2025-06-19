@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JEnvironmentAwareConfigLoader {
+public class JQuickEnvironmentAware {
     private final Map<String, Object> configMap = new HashMap<>();
     private String activeProfile = "dev"; //default active variable
-    public JEnvironmentAwareConfigLoader() {
+    public JQuickEnvironmentAware() {
         loadConfigurations();
     }
     public void setActiveProfile(String profile) {

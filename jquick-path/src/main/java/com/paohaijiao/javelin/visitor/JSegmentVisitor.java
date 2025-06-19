@@ -2,7 +2,7 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JSlice;
 import com.paohaijiao.javelin.exception.JAssert;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 
 import java.util.ArrayList;

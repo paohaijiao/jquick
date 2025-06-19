@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.obj.JSONArray;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.model.JSONArray;
+import com.paohaijiao.javelin.model.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickXMLParser;
 import com.paohaijiao.javelin.parser.JQuickXMLParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
