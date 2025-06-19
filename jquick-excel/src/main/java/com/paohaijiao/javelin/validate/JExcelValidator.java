@@ -1,12 +1,12 @@
 package com.paohaijiao.javelin.validate;
 
-import com.paohaijiao.javelin.model.JStudent;
+import com.paohaijiao.javelin.model.JStudentModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JExcelValidator {
-    public static List<String> validate(JStudent student) {
+    public static List<String> validate(JStudentModel student) {
         List<String> errors = new ArrayList<>();
 
         if (student.getId() == null || student.getId().isEmpty()) {

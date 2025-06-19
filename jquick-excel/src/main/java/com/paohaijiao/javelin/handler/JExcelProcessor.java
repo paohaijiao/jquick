@@ -1,7 +1,17 @@
 package com.paohaijiao.javelin.handler;
 
+import com.paohaijiao.javelin.evalue.JEvaluator;
 import com.paohaijiao.javelin.model.JExcelExportModel;
 import com.paohaijiao.javelin.model.JExcelImportModel;
+import com.paohaijiao.javelin.model.JMethodCallModel;
+import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.parser.JQuickExcelLexer;
+import com.paohaijiao.javelin.parser.JQuickExcelParser;
+import com.paohaijiao.javelin.util.ObjectConverter;
+import com.paohaijiao.javelin.visitor.JQuickExcelExportVisitor;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,6 +23,13 @@ public class JExcelProcessor {
      private Workbook workbook;
      private Sheet currentSheet;
      private DataFormatter dataFormatter = new DataFormatter();
+     private ContextParams contextParams = new ContextParams();
+     public JExcelProcessor() {
+         this.contextParams=new ContextParams();
+     }
+    public JExcelProcessor(ContextParams contextParams) {
+        this.contextParams=contextParams;
+    }
 
     public List<Map<String, String>> importData(JExcelImportModel config) throws IOException {
         try (FileInputStream fis = new FileInputStream(config.getFileName())) {
@@ -51,7 +68,7 @@ public class JExcelProcessor {
                     Map<String, String> transforms = config.getTransforms();
                     String fieldName = headers.get(colNum);
                     if (transforms.containsKey(fieldName)) {
-                        value = applyTransform(value, transforms.get(fieldName));
+                        value = applyTransform(fieldName,value, transforms.get(fieldName));
                     }
                     rowData.put(headers.get(colNum), value);
                 }
@@ -60,24 +77,22 @@ public class JExcelProcessor {
             return data;
         }
     }
-    public void exportData(List<Map<String, String>> data, String filePath,
-                           JExcelExportModel config) throws IOException {
+    public void exportData(List<Map<String, Object>> data, JExcelExportModel config) throws IOException {
         workbook = new XSSFWorkbook();
         Object sheet = config.getSheet();
-        if (sheet instanceof String) {
+        if (null!= sheet) {
             currentSheet = workbook.createSheet((String)sheet);
-        }else{
-            currentSheet = workbook.createSheet();
         }
-
         boolean hasHeader = config.getHeader();
+        Map<String, String> mappings = config.getMapping();
+        Map<String, String> transforms = config.getTransforms();
         int rowNum = 0;
         if (hasHeader && !data.isEmpty()) {
             Row headerRow = currentSheet.createRow(rowNum++);
             int colNum = 0;
             for (String header : data.get(0).keySet()) {
                 Cell cell = headerRow.createCell(colNum++);
-                cell.setCellValue(header);
+                cell.setCellValue(mappings.getOrDefault(header,header));
                 CellStyle headerStyle = workbook.createCellStyle();
                 Font headerFont = workbook.createFont();
                 headerFont.setBold(true);
@@ -85,22 +100,25 @@ public class JExcelProcessor {
                 cell.setCellStyle(headerStyle);
             }
         }
-        for (Map<String, String> rowData : data) {
+        for (Map<String, Object> rowData : data) {
             Row row = currentSheet.createRow(rowNum++);
             int colNum = 0;
-            for (Map.Entry<String, String> entry : rowData.entrySet()) {
+            for (Map.Entry<String, Object> entry : rowData.entrySet()) {
                 Cell cell = row.createCell(colNum++);
                 @SuppressWarnings("unchecked")
                 Map<String, String> formats = config.getFormat();
                 if (formats.containsKey(entry.getKey())) {
                     applyCellFormat(cell, formats.get(entry.getKey()));
                 }
+                if (transforms.containsKey(entry.getKey())) {
+                    String value=applyTransform(entry.getKey(),entry.getValue(), transforms.get(entry.getKey()));
+                    setCellValue(cell, value);
+                }else{
+                    setCellValue(cell, entry.getValue());
+                }
 
-                setCellValue(cell, entry.getValue());
             }
         }
-
-        // 应用公式
         @SuppressWarnings("unchecked")
         Map<String, String> formulas =config.getFormulas();
         if (!formulas.isEmpty() && rowNum > 0) {
@@ -113,30 +131,13 @@ public class JExcelProcessor {
             }
         }
         autoSizeColumns(data.get(0).keySet().size());
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+        try (FileOutputStream fos = new FileOutputStream(config.getOutputFile())) {
             workbook.write(fos);
         }
     }
 
-    private void setCellValue(Cell cell, String value) {
-        try {
-            if (value.contains(".")) {
-                cell.setCellValue(Double.parseDouble(value));
-            } else {
-                cell.setCellValue(Integer.parseInt(value));
-            }
-            return;
-        } catch (NumberFormatException e) {
-        }
-
-        // 尝试解析为布尔值
-        if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
-            cell.setCellValue(Boolean.parseBoolean(value));
-            return;
-        }
-
-        // 默认作为字符串处理
-        cell.setCellValue(value);
+    private void setCellValue(Cell cell, Object value) {
+        cell.setCellValue(value.toString());
     }
 
     private void autoSizeColumns(int columnCount) {
@@ -159,7 +160,6 @@ public class JExcelProcessor {
 
     private int[] parseRange(String range) {
         if (range == null || range.isEmpty()) return null;
-
         try {
             String[] parts = range.split(":");
             String start = parts[0];
@@ -185,8 +185,6 @@ public class JExcelProcessor {
         int row = Integer.parseInt(rowPart) - 1; // 转换为0-based
         return new int[]{row, col - 1};
     }
-
-    // 辅助方法：获取最大列数
     private int getMaxColumnCount() {
         int maxCols = 0;
         for (Row row : currentSheet) {
@@ -197,12 +195,19 @@ public class JExcelProcessor {
         return maxCols;
     }
 
-    private String applyTransform(String value, String transform) {
-        if (transform.contains("trim")) {
-            return value.trim();
-        }
-        // 其他转换规则...
-        return value;
+    private String applyTransform(String key,Object value, String transform) {
+        this.contextParams.put(key, value);
+        JQuickExcelLexer lexer = new JQuickExcelLexer(CharStreams.fromString(transform));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickExcelParser parser = new JQuickExcelParser(tokens);
+        ParseTree tree = parser.transformValue();
+        List<Map<String, Object>> data = new ArrayList<>();
+        JQuickExcelExportVisitor visitor = new JQuickExcelExportVisitor(this.contextParams,data);
+        @SuppressWarnings("unchecked")
+        JMethodCallModel methodCallModel = (JMethodCallModel)visitor.visit(tree);
+        List<Object> list=methodCallModel.getList();
+        Object object= JEvaluator.evaluateFunction(methodCallModel.getMethod().getMethod(),list);
+        return null==object?"":object.toString();
     }
     private void applyCellFormat(Cell cell, String formatSpec) {
         CellStyle style = workbook.createCellStyle();

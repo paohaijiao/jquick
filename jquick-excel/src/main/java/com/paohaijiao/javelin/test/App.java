@@ -4,7 +4,7 @@ import com.paohaijiao.javelin.excel.ExcelImporter;
 import com.paohaijiao.javelin.excel.JExcelExporter;
 import com.paohaijiao.javelin.listener.JReadListener;
 import com.paohaijiao.javelin.listener.JWriteListener;
-import com.paohaijiao.javelin.model.JStudent;
+import com.paohaijiao.javelin.model.JStudentModel;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,11 +22,11 @@ public class App {
     }
 
     private static void exportExample() {
-        List<JStudent> students = new ArrayList<>();
-        students.add(new JStudent("1001", "张三", 1, 20, new Date(), "计算机1班","true"));
-        students.add(new JStudent("1002", "李四", 0, 21, new Date(), "计算机2班","true"));
-        students.add(new JStudent("1003", "王五", 1, 22, new Date(), "计算机3班","true"));
-        JExcelExporter<JStudent> exporter = new JExcelExporter<>(JStudent.class);
+        List<JStudentModel> students = new ArrayList<>();
+        students.add(new JStudentModel("1001", "张三", 1, 20, new Date(), "计算机1班","true"));
+        students.add(new JStudentModel("1002", "李四", 0, 21, new Date(), "计算机2班","true"));
+        students.add(new JStudentModel("1003", "王五", 1, 22, new Date(), "计算机3班","true"));
+        JExcelExporter<JStudentModel> exporter = new JExcelExporter<>(JStudentModel.class);
         exporter.setListener(new JWriteListener() {
             @Override
             public void onSuccess() {
@@ -47,10 +47,10 @@ public class App {
     }
 
     private static void importExample() {
-        ExcelImporter<JStudent> importer = new ExcelImporter<>(JStudent.class);
-        importer.setListener(new JReadListener<JStudent>() {
+        ExcelImporter<JStudentModel> importer = new ExcelImporter<>(JStudentModel.class);
+        importer.setListener(new JReadListener<JStudentModel>() {
             @Override
-            public void onSuccess(List<JStudent> data) {
+            public void onSuccess(List<JStudentModel> data) {
                 System.out.println("导入成功，共导入 " + data.size() + " 条数据:");
                 data.forEach(System.out::println);
             }
@@ -74,11 +74,11 @@ public class App {
     }
 
     private static void templateExportExample() {
-        List<JStudent> students = new ArrayList<>();
-        students.add(new JStudent("2001", "赵六", 1, 23, new Date(), "软件工程1班","true"));
-        students.add(new JStudent("2002", "钱七", 0, 22, new Date(), "软件工程2班","true"));
+        List<JStudentModel> students = new ArrayList<>();
+        students.add(new JStudentModel("2001", "赵六", 1, 23, new Date(), "软件工程1班","true"));
+        students.add(new JStudentModel("2002", "钱七", 0, 22, new Date(), "软件工程2班","true"));
 
-        JExcelExporter<JStudent> exporter = new JExcelExporter<>(JStudent.class);
+        JExcelExporter<JStudentModel> exporter = new JExcelExporter<>(JStudentModel.class);
         exporter.setListener(new JWriteListener() {
             @Override
             public void onSuccess() {

@@ -19,7 +19,11 @@ public class JExcelExportModel {
     private String range=null;
 
     Map<String, String> format = new HashMap<>();
+
     Map<String, String> formulas = new HashMap<>();
 
+    Map<String, String> mapping = new HashMap<>();
+
+    Map<String, String> transforms = new HashMap<>();
 
 }

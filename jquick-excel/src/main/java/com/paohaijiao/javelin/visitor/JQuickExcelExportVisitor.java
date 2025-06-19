@@ -17,6 +17,8 @@ package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.handler.JExcelProcessor;
 import com.paohaijiao.javelin.model.JExcelExportModel;
+import com.paohaijiao.javelin.model.JKeyValueModel;
+import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 import com.paohaijiao.javelin.util.StringUtils;
 
@@ -34,16 +36,24 @@ import java.util.Map;
  * @date 2025/6/18
  * @description
  */
-public class JQuickExcelExportVisitor extends JFormatSpecVisitor {
+public class JQuickExcelExportVisitor extends JFieldMapping {
     private final JExcelProcessor excelProcessor;
 
-    private final List<Map<String, String>> data;
+    private final List<Map<String, Object>> data;
 
     private JExcelExportModel config = new JExcelExportModel();
 
-    public JQuickExcelExportVisitor(List<Map<String, String>> data) {
-        this.excelProcessor = new JExcelProcessor();
+    public JQuickExcelExportVisitor(List<Map<String, Object>> data) {
+        this.context = new ContextParams();
+        this.excelProcessor = new JExcelProcessor( this.context);
         this.data = data;
+
+    }
+
+    public JQuickExcelExportVisitor(ContextParams context, List<Map<String, Object>> data) {
+        this.excelProcessor = new JExcelProcessor(context);
+        this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -57,12 +67,22 @@ public class JQuickExcelExportVisitor extends JFormatSpecVisitor {
                 visit(option);
             }
         }
-//        try {
-//            excelProcessor.exportData(data, outputFile, config);
-//        } catch (IOException e) {
-//            throw new RuntimeException("导出Excel失败: " + outputFile, e);
-//        }
+        try {
+            excelProcessor.exportData(data,  config);
+        } catch (IOException e) {
+            throw new RuntimeException("导出Excel失败: " + outputFile, e);
+        }
         return config;
+    }
+    @Override
+    public Void visitMappingOption(JQuickExcelParser.MappingOptionContext ctx) {
+        Map<String, String> mapping = new HashMap<>();
+        for (JQuickExcelParser.FieldMappingContext fieldMappingContext : ctx.fieldMapping()) {
+            JKeyValueModel fieldMappings= visitFieldMapping(fieldMappingContext);
+            mapping.put(fieldMappings.getKey(), fieldMappings.getValue().toString());
+        }
+        config.setMapping( mapping);
+        return null;
     }
 
     @Override
@@ -75,7 +95,12 @@ public class JQuickExcelExportVisitor extends JFormatSpecVisitor {
 
     @Override
     public Void visitHeaderOption(JQuickExcelParser.HeaderOptionContext ctx) {
-        config.setHeader(ctx.getText().equalsIgnoreCase("YES"));
+        boolean header=Boolean.FALSE;
+        if (ctx.STRING() != null) {
+            String headerText=ctx.STRING().getText();
+            header=StringUtils.trim(headerText).equalsIgnoreCase("YES");
+        }
+        config.setHeader(header);
         return null;
     }
 
@@ -107,6 +132,17 @@ public class JQuickExcelExportVisitor extends JFormatSpecVisitor {
             formulas.put(cell, formulaText);
         }
         config.setFormulas( formulas);
+        return null;
+    }
+    @Override
+    public Object visitTransformOption(JQuickExcelParser.TransformOptionContext ctx) {
+        Map<String, String> transforms = new HashMap<>();
+        for (JQuickExcelParser.TransformRuleContext rule : ctx.transformRule()) {
+            String field = rule.STRING().getText().replaceAll("\"", "");
+            String transform = rule.transformValue().getText();
+            transforms.put(field, transform);
+        }
+        config.setTransforms(transforms);
         return null;
     }
 }

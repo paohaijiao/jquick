@@ -7,7 +7,7 @@ import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 import com.paohaijiao.javelin.util.StringUtils;
 import com.paohaijiao.javelin.visitor.JQuickExcelCoreVisitor;
-import com.paohaijiao.javelin.visitor.im.JQuickExcelImportVisitor;
+import com.paohaijiao.javelin.visitor.JQuickExcelImportVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -35,6 +35,7 @@ public class JQuickExcelFunctionVisitor extends JQuickExcelCoreVisitor {
            return visitFunctionCall(ctx.functionCall());
         }else if(ctx.variable() != null) {
             Object object= visitVariable(ctx.variable());
+            Assert.notNull(object,"the variable is not initialized");
             return object;
         }
         else if(ctx.quotedFunctionCall() != null) {

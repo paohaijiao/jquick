@@ -4,7 +4,7 @@ import com.paohaijiao.javelin.param.ContextParams;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 
-import com.paohaijiao.javelin.visitor.im.JQuickExcelImportVisitor;
+import com.paohaijiao.javelin.visitor.JQuickExcelImportVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;

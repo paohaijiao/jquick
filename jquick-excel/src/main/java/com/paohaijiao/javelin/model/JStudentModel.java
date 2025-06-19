@@ -12,7 +12,7 @@ import java.util.Date;
 @JExcelSheet(name = "学生信息", headRowNumber = 2)
 @AllArgsConstructor
 @NoArgsConstructor
-public class JStudent {
+public class JStudentModel {
     @JExcelColumn(name = "学号", index = 0)
     private String id;
 

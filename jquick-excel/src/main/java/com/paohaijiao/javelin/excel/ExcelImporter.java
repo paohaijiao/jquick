@@ -6,7 +6,7 @@ import com.paohaijiao.javelin.anno.JExcelSheet;
 import com.paohaijiao.javelin.converter.JConverterRegistry;
 import com.paohaijiao.javelin.converter.JCustomConverter;
 import com.paohaijiao.javelin.listener.JReadListener;
-import com.paohaijiao.javelin.model.JStudent;
+import com.paohaijiao.javelin.model.JStudentModel;
 import com.paohaijiao.javelin.validate.JExcelValidator;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -93,8 +93,8 @@ public class ExcelImporter <T> {
 
             if (hasValue) {
                 // 校验数据
-                if (obj instanceof JStudent) {
-                    errors.addAll(JExcelValidator.validate((JStudent) obj));
+                if (obj instanceof JStudentModel) {
+                    errors.addAll(JExcelValidator.validate((JStudentModel) obj));
                 }
 
                 if (errors.isEmpty()) {

@@ -1,11 +1,9 @@
 package lexer.ex;
 
 import com.paohaijiao.javelin.model.JExcelExportModel;
-import com.paohaijiao.javelin.model.JExcelImportModel;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 import com.paohaijiao.javelin.visitor.JQuickExcelExportVisitor;
-import com.paohaijiao.javelin.visitor.im.JQuickExcelImportVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -22,7 +20,7 @@ public class JImLexerTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.exportConfig();
-        List<Map<String, String>> data=new ArrayList<>();
+        List<Map<String, Object>> data=new ArrayList<>();
         JQuickExcelExportVisitor visitor = new JQuickExcelExportVisitor(data);
         @SuppressWarnings("unchecked")
         JExcelExportModel result = (JExcelExportModel)visitor.visit(tree);
@@ -108,6 +106,24 @@ public class JImLexerTest {
     }
     @Test
     public void testSimpleExport10() {
+        String input = "EXPORT FROM annual_report TO \"output/report_2023.xlsx\" WITH\n" +
+                "    SHEET=\"年度汇总\",\n" +
+                "    HEADER='YES',\n" +
+                "    RANGE=\"A3\",\n" +
+                "    FORMAT = {\n" +
+                "        \"Amount\": NUMBER('¥#,##0.00'),\n" +
+                "        \"Date\": DATE('yyyy年mm月dd日')\n" +
+                "    },\n" +
+                "    FORMULAS = {\n" +
+                "        \"YTDTotal\": \"SUM(D4:D15)\",\n" +
+                "        \"YoYGrowth\": \"TEXT((D15-D4)/D4,\\\"0.00%\\\")\"\n" +
+                "    }\n";
+        System.out.println(input);
+        JExcelExportModel result = parseExportConfig(input);
+        System.out.println(result);
+    }
+    @Test
+    public void export() {
         String input = "EXPORT FROM annual_report TO \"output/report_2023.xlsx\" WITH\n" +
                 "    SHEET=\"年度汇总\",\n" +
                 "    HEADER='YES',\n" +
