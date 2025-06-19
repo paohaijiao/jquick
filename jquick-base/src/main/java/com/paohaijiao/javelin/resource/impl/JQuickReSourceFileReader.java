@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.resource.impl;
 
-import com.paohaijiao.javelin.resource.JThornRuleReader;
+import com.paohaijiao.javelin.resource.JQuickReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,10 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-public class JThornRuleReSourceFileReader implements JThornRuleReader {
+public class JQuickReSourceFileReader implements JQuickReader {
     private String filePath;
 
-    public JThornRuleReSourceFileReader(String filePath) {
+    public JQuickReSourceFileReader(String filePath) {
         this.filePath = filePath;
     }
 
@@ -25,7 +25,7 @@ public class JThornRuleReSourceFileReader implements JThornRuleReader {
         }
     }
     public static String readFileFromClasspath(String filePath) throws IOException {
-        try (InputStream inputStream = JThornRuleReSourceFileReader.class.getClassLoader().getResourceAsStream(filePath);
+        try (InputStream inputStream = JQuickReSourceFileReader.class.getClassLoader().getResourceAsStream(filePath);
              BufferedReader reader = new BufferedReader(
                      new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 

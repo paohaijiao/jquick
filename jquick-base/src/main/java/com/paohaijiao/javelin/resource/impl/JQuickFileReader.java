@@ -1,15 +1,15 @@
 package com.paohaijiao.javelin.resource.impl;
 
-import com.paohaijiao.javelin.resource.JThornRuleReader;
+import com.paohaijiao.javelin.resource.JQuickReader;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JThornRuleFileReader implements JThornRuleReader {
+public class JQuickFileReader implements JQuickReader {
     private String filePath;
 
-    public JThornRuleFileReader(String filePath) {
+    public JQuickFileReader(String filePath) {
         this.filePath = filePath;
     }
 

@@ -1,11 +1,11 @@
 package com.paohaijiao.javelin;
 
-import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
+import com.paohaijiao.javelin.adaptor.JQuickAdaptor;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JSONExecutor;
 import com.paohaijiao.javelin.obj.JsonResponse;
-import com.paohaijiao.javelin.resource.JThornRuleReader;
-import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
+import com.paohaijiao.javelin.resource.JQuickReader;
+import com.paohaijiao.javelin.resource.impl.JQuickReSourceFileReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,8 +21,8 @@ public class Main {
             System.err.println("规则栈: " + error.getRuleStack());
         });
         try {
-            JThornRuleReader fileReader = new JThornRuleReSourceFileReader("rule.txt");
-            JThornRuleAdaptor context = new JThornRuleAdaptor(fileReader);
+            JQuickReader fileReader = new JQuickReSourceFileReader("rule.txt");
+            JQuickAdaptor context = new JQuickAdaptor(fileReader);
             System.out.println(context.getRuleContent());
             JsonResponse jsonObject = executor.execute(context.getRuleContent());
 //            JsonBean jsonBean=jsonObject.toBean(JsonBean.class);

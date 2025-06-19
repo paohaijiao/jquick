@@ -1,10 +1,10 @@
 package com.paohaijiao.javelin;
 
-import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
+import com.paohaijiao.javelin.adaptor.JQuickAdaptor;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JQuickLangExecutor;
-import com.paohaijiao.javelin.resource.JThornRuleReader;
-import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
+import com.paohaijiao.javelin.resource.JQuickReader;
+import com.paohaijiao.javelin.resource.impl.JQuickReSourceFileReader;
 public class Main {
     public static void main(String[] args) {
         JQuickLangExecutor executor = new JQuickLangExecutor();
@@ -14,8 +14,8 @@ public class Main {
             System.err.println("规则栈: " + error.getRuleStack());
         });
         try {
-            JThornRuleReader fileReader = new JThornRuleReSourceFileReader("rule.txt");
-            JThornRuleAdaptor context = new JThornRuleAdaptor(fileReader);
+            JQuickReader fileReader = new JQuickReSourceFileReader("rule.txt");
+            JQuickAdaptor context = new JQuickAdaptor(fileReader);
             System.out.println(context.getRuleContent());
             Object result = executor.execute(context.getRuleContent());
             System.out.println("结果: " + result);

@@ -1,10 +1,10 @@
 package com.paohaijiao.javelin.resource.impl;
 
-import com.paohaijiao.javelin.resource.JThornRuleReader;
+import com.paohaijiao.javelin.resource.JQuickReader;
 
 import java.sql.*;
 
-public class JThornRuleDataBaseReader implements JThornRuleReader {
+public class JQuickDataBaseReader implements JQuickReader {
     private String jdbcUrl;
 
     private String driverClass;
@@ -15,8 +15,8 @@ public class JThornRuleDataBaseReader implements JThornRuleReader {
 
     private String query;
 
-    public JThornRuleDataBaseReader(String jdbcUrl, String driverClass,
-                                    String username, String password, String query) {
+    public JQuickDataBaseReader(String jdbcUrl, String driverClass,
+                                String username, String password, String query) {
         this.jdbcUrl = jdbcUrl;
         this.driverClass = driverClass;
         this.username = username;

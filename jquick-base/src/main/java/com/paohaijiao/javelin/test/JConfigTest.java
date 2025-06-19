@@ -1,10 +1,10 @@
 package com.paohaijiao.javelin.test;
 
-import com.paohaijiao.javelin.env.EnvironmentAwareConfigLoader;
+import com.paohaijiao.javelin.env.JEnvironmentAwareConfigLoader;
 
-public class ConfigTest {
+public class JConfigTest {
     public static void main(String[] args) {
-        EnvironmentAwareConfigLoader configLoader = new EnvironmentAwareConfigLoader();
+        JEnvironmentAwareConfigLoader configLoader = new JEnvironmentAwareConfigLoader();
         System.out.println("Dev Environment:");
         printConfigs(configLoader);
         configLoader.setActiveProfile("prod");
@@ -12,7 +12,7 @@ public class ConfigTest {
         printConfigs(configLoader);
     }
 
-    private static void printConfigs(EnvironmentAwareConfigLoader configLoader) {
+    private static void printConfigs(JEnvironmentAwareConfigLoader configLoader) {
         System.out.println("App Name: " + configLoader.getProperty("app.name"));
         System.out.println("DB URL: " + configLoader.getProperty("database.url"));
         System.out.println("DB Username: " + configLoader.getProperty("database.username"));

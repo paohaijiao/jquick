@@ -1,5 +1,5 @@
 package com.paohaijiao.javelin.resource;
 
-public interface JThornRuleReader {
+public interface JQuickReader {
     String getRule();
 }
