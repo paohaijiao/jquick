@@ -1,8 +1,8 @@
 package com.paohaijiao.javelin.visitor;
 
 
-import com.paohaijiao.javelin.exception.Assert;
-import com.paohaijiao.javelin.math.MathUtil;
+import com.paohaijiao.javelin.exception.JAssert;
+import com.paohaijiao.javelin.math.JMathUtil;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -18,9 +18,9 @@ public class JQuickLangFactorVisitor extends JQuickLangBoolConditionVisitor {
             ParseTree operatorNode = ctx.getChild(i * 2 - 1);
             int operatorType = ((TerminalNode) operatorNode).getSymbol().getType();
             if (operatorType== JQuickLangParser.ADD) {
-                result = MathUtil.op(result, nextValue,"+");
+                result = JMathUtil.op(result, nextValue,"+");
             } else if (operatorType == JQuickLangParser.MINUS) {
-                result = MathUtil.op(result, nextValue,"-");
+                result = JMathUtil.op(result, nextValue,"-");
             }
         }
 
@@ -35,9 +35,9 @@ public class JQuickLangFactorVisitor extends JQuickLangBoolConditionVisitor {
             ParseTree operatorNode = ctx.getChild(i * 2 - 1);
             int operatorType = ((TerminalNode) operatorNode).getSymbol().getType();
             if (operatorType== JQuickLangParser.MUL) {
-                result = MathUtil.op(result, nextValue,"*");
+                result = JMathUtil.op(result, nextValue,"*");
             } else if (operatorType == JQuickLangParser.DIV) {
-                result = MathUtil.op(result, nextValue,"/");
+                result = JMathUtil.op(result, nextValue,"/");
             }
         }
         return result;
@@ -49,7 +49,7 @@ public class JQuickLangFactorVisitor extends JQuickLangBoolConditionVisitor {
         } else if (ctx.expr() != null) {
             return visitExpr(ctx.expr());
         }
-        Assert.throwNewException("invalid expression");
+        JAssert.throwNewException("invalid expression");
         return null;
     }
     @Override
@@ -57,7 +57,7 @@ public class JQuickLangFactorVisitor extends JQuickLangBoolConditionVisitor {
         if(ctx.value()!= null) {
             return visitValue(ctx.value());
         }
-        Assert.throwNewException("invalid return statement");
+        JAssert.throwNewException("invalid return statement");
         return null;
     }
 

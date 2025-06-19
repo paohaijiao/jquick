@@ -1,11 +1,9 @@
 package com.paohaijiao.javelin.visitor;
 
-import cn.hutool.extra.spring.SpringUtil;
-import com.paohaijiao.javelin.model.JKeyValueModel;
 import com.paohaijiao.javelin.obj.JSONArray;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickXMLParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
 
@@ -81,7 +79,7 @@ public class JQuickXMLCommonVisitor extends JQuickXmlCoreVisitor {
         JSONObject attribute = new JSONObject();
         String key= ctx.Name().getText();
         String value = ctx.STRING().getText();
-        String val= StringUtils.trim(value);
+        String val= JStringUtils.trim(value);
         attribute.put(key,val);
         return attribute;
     }

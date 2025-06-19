@@ -6,9 +6,9 @@ import com.paohaijiao.javelin.bean.JProxryBean;
 import com.paohaijiao.javelin.bean.JResult;
 import com.paohaijiao.javelin.enums.JHttpMethod;
 import com.paohaijiao.javelin.enums.JProxryType;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JThornRuleQuickRestParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 import okhttp3.*;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         for (JThornRuleQuickRestParser.UrlContext urlCtx : ctx.url()) {
             this.url = urlCtx.getText().replaceAll("^['\"]|['\"]$", "");
         }
-        Assert.notNull(this.method ,"必须显示指定httpMethod");
+        JAssert.notNull(this.method ,"必须显示指定httpMethod");
         this.client = getOkHttpClient();
         Request.Builder builder  = new Request.Builder().url(url);
         RequestBody body=null;
@@ -51,7 +51,7 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
         MultipartBody.Builder mutiPartBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         for(JFormParam formParam:upLoadFileList){
             if(formParam.isFile()){
-                String fileName=StringUtils.trim(formParam.getValue());
+                String fileName= JStringUtils.trim(formParam.getValue());
                 File file = new File(fileName);
                 RequestBody fileBody = RequestBody.create(file, MediaType.parse("application/octet-stream"));
                 mutiPartBuilder.addFormDataPart(formParam.getKey(), file.getName(), fileBody);
@@ -207,13 +207,13 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     }
     @Override
     public String visitDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx) {
-        String fileName = StringUtils.trim(ctx.STRING().getText());
+        String fileName = JStringUtils.trim(ctx.STRING().getText());
         this.downLoadFileName=fileName;
         return fileName;
     }
     public Object visitUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx) {
         if(null!=ctx.STRING()){
-            String uploadOption = StringUtils.trim(ctx.STRING().getText());
+            String uploadOption = JStringUtils.trim(ctx.STRING().getText());
             if(org.apache.commons.lang3.StringUtils.isNotBlank(uploadOption)){
                 String[] option=uploadOption.split("=");
                 if(option.length==2){
@@ -236,7 +236,7 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     @Override
     public String visitProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx) {
         if(null!=ctx.STRING()){
-            String proxryHost= StringUtils.trim(ctx.STRING().getText());
+            String proxryHost= JStringUtils.trim(ctx.STRING().getText());
             if(org.apache.commons.lang3.StringUtils.isNotBlank(proxryHost)){
                 String[] proxryAddr=proxryHost.trim().split(":");
                 JProxryBean proxryBean=new JProxryBean();
@@ -257,7 +257,7 @@ public class JThornRuleQuickRestCommonVisitor extends JThornRuleQuickRestCoreVis
     @Override
     public String visitSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx) {
         if(null!=ctx.STRING()){
-            String proxryHost= StringUtils.trim(ctx.STRING().getText());
+            String proxryHost= JStringUtils.trim(ctx.STRING().getText());
             if(org.apache.commons.lang3.StringUtils.isNotBlank(proxryHost)){
                 String[] proxryAddr=proxryHost.trim().split(":");
                 JProxryBean proxryBean=new JProxryBean();

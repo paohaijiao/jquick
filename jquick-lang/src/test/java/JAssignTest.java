@@ -15,7 +15,7 @@
  */
 
 import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -41,7 +41,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ActionContext tree = parser.action();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -52,7 +52,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ElseActionContext tree = parser.elseAction();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -63,7 +63,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -74,7 +74,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -85,7 +85,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.AssignmentContext tree = parser.assignment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -96,7 +96,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.AssignmentContext tree = parser.assignment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -107,7 +107,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.AssignmentContext tree = parser.assignment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -118,7 +118,7 @@ public class JAssignTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.AssignmentContext tree = parser.assignment();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);

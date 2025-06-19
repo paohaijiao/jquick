@@ -1,11 +1,10 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.constants.Constants;
+import com.paohaijiao.javelin.constants.JConstants;
 import com.paohaijiao.javelin.core.JQuickLangCoreVisitor;
 import com.paohaijiao.javelin.date.JDateUtil;
-import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 import java.util.Date;
 
@@ -20,11 +19,11 @@ public class JQuickLangValueVisitor extends JQuickLangCoreVisitor {
     public Date visitDate(JQuickLangParser.DateContext ctx) {
         if(null!=ctx.DATE()){
             String dateString=ctx.DATE().getText();
-            Date date= JDateUtil.parse(JDateUtil.getSimpleDateFormat(Constants.date),dateString);
+            Date date= JDateUtil.parse(JDateUtil.getSimpleDateFormat(JConstants.date),dateString);
             return date;
         } else if (null!=ctx.DATETIME()) {
             String dateString=ctx.DATETIME().getText();
-            Date date= JDateUtil.parse(JDateUtil.getSimpleDateFormat(Constants.dateTime),dateString);
+            Date date= JDateUtil.parse(JDateUtil.getSimpleDateFormat(JConstants.dateTime),dateString);
             return date;
         }
         throw new RuntimeException("Invalid date format: " + ctx.getText());
@@ -33,7 +32,7 @@ public class JQuickLangValueVisitor extends JQuickLangCoreVisitor {
     public String visitString(JQuickLangParser.StringContext ctx) {
         if (ctx.STRING() != null) {
             String text = ctx.STRING().getText();
-            String str= StringUtils.trim(text);
+            String str= JStringUtils.trim(text);
             return str;
         }
         throw new RuntimeException("Invalid string: " + ctx.getText());

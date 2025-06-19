@@ -1,6 +1,6 @@
 package lexer.common;
 
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
 
@@ -30,7 +30,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.identifier();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -43,7 +43,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.functionArg();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -56,7 +56,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.functionArg();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -69,7 +69,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.functionArg();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -82,7 +82,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.identifier();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -95,7 +95,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.variable();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -108,7 +108,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.functionArg();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);
@@ -121,7 +121,7 @@ public class JMethodCallTest
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.functionCall();
-        ContextParams contextParams = new ContextParams();
+        JContext contextParams = new JContext();
         contextParams.put("id", "id1");
         JQuickExcelImportVisitor visitor = new JQuickExcelImportVisitor(contextParams);
         Object result = visitor.visit(tree);

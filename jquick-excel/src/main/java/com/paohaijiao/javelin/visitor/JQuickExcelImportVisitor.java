@@ -1,8 +1,8 @@
 package com.paohaijiao.javelin.visitor;
 import com.paohaijiao.javelin.model.JExcelImportModel;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,17 +10,17 @@ import java.util.Map;
 public class JQuickExcelImportVisitor extends JFieldMapping {
     private JExcelImportModel config=new JExcelImportModel();
 
-    public JQuickExcelImportVisitor(ContextParams contextParams) {
+    public JQuickExcelImportVisitor(JContext contextParams) {
         this.context=contextParams;
     }
     public JQuickExcelImportVisitor() {
-        this.context=new ContextParams();
+        this.context=new JContext();
     }
 
     @Override
     public Object visitImportConfig(JQuickExcelParser.ImportConfigContext ctx) {
         if (ctx.fileName() != null) {
-            String fileName = StringUtils.trim(ctx.fileName().getText());
+            String fileName = JStringUtils.trim(ctx.fileName().getText());
             config.setFileName(fileName);
         }
         if (ctx.importOption() != null) {
@@ -47,7 +47,7 @@ public class JQuickExcelImportVisitor extends JFieldMapping {
     @Override
     public Object visitHeaderOption(JQuickExcelParser.HeaderOptionContext ctx) {
         if (ctx.STRING() != null) {
-            String header = StringUtils.trim(ctx.STRING().getText());
+            String header = JStringUtils.trim(ctx.STRING().getText());
             config.setHeader(header.equalsIgnoreCase("YES"));
         }else {
             config.setHeader(false);
@@ -57,7 +57,7 @@ public class JQuickExcelImportVisitor extends JFieldMapping {
 
     @Override
     public Object visitRangeOption(JQuickExcelParser.RangeOptionContext ctx) {
-        String range=StringUtils.trim(ctx.STRING().getText());
+        String range= JStringUtils.trim(ctx.STRING().getText());
         config.setRange(range);
         return null;
     }
@@ -71,8 +71,8 @@ public class JQuickExcelImportVisitor extends JFieldMapping {
     public Object visitMappingOption(JQuickExcelParser.MappingOptionContext ctx) {
         Map<String, String> mappings = new HashMap<>();
         for (JQuickExcelParser.FieldMappingContext mapping : ctx.fieldMapping()) {
-            String source =StringUtils.trim(mapping.STRING(0).getText());
-            String target = mapping.STRING(1) != null ? StringUtils.trim(mapping.STRING(1).getText()): mapping.functionCall().getText();
+            String source = JStringUtils.trim(mapping.STRING(0).getText());
+            String target = mapping.STRING(1) != null ? JStringUtils.trim(mapping.STRING(1).getText()): mapping.functionCall().getText();
             mappings.put(source, target);
         }
         config.setMappings(mappings);

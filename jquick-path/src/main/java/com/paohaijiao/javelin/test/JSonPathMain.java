@@ -2,7 +2,7 @@ package com.paohaijiao.javelin.test;
 
 import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
 import com.paohaijiao.javelin.bean.JSONPathResult;
-import com.paohaijiao.javelin.exception.AntlrExecutionException;
+import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JSONPathExecutor;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
 import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
@@ -26,7 +26,7 @@ public class JSonPathMain {
             System.out.println(context.getRuleContent());
             JSONPathResult jsonObject = executor.execute(context.getRuleContent());
             System.out.println("结果: " + jsonObject.getRawData());
-        } catch (AntlrExecutionException e) {
+        } catch (JAntlrExecutionException e) {
             System.err.println("解析失败: " + e.getMessage());
             e.getErrors().forEach(err ->
                     System.err.println(" - " + err.getMessage()));

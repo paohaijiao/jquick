@@ -4,10 +4,9 @@ import com.paohaijiao.javelin.evalue.JEvaluator;
 import com.paohaijiao.javelin.model.JExcelExportModel;
 import com.paohaijiao.javelin.model.JExcelImportModel;
 import com.paohaijiao.javelin.model.JMethodCallModel;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.ObjectConverter;
 import com.paohaijiao.javelin.visitor.JQuickExcelExportVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -23,11 +22,11 @@ public class JExcelProcessor {
      private Workbook workbook;
      private Sheet currentSheet;
      private DataFormatter dataFormatter = new DataFormatter();
-     private ContextParams contextParams = new ContextParams();
+     private JContext contextParams = new JContext();
      public JExcelProcessor() {
-         this.contextParams=new ContextParams();
+         this.contextParams=new JContext();
      }
-    public JExcelProcessor(ContextParams contextParams) {
+    public JExcelProcessor(JContext contextParams) {
         this.contextParams=contextParams;
     }
 

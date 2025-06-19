@@ -1,18 +1,14 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.bean.JSlice;
 import com.paohaijiao.javelin.evalue.JEvaluator;
-import com.paohaijiao.javelin.exception.Assert;
-import com.paohaijiao.javelin.function.JCallFunction;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
-import com.paohaijiao.javelin.util.ObjectConverter;
+import com.paohaijiao.javelin.util.JObjectConverter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +37,7 @@ public class JExprVisitor extends JValueVisitor {
         if(null!=ctx.expr()){
             function=visit(ctx.expr());
         }
-        Assert.notNull(function,"方法不存在");
+        JAssert.notNull(function,"方法不存在");
         List<Object> arguments = new ArrayList<>();
         if (ctx.exprList() != null) {
             for (JQuickJSONPathParser.ExprContext argCtx : ctx.exprList().expr()) {
@@ -118,8 +114,8 @@ public class JExprVisitor extends JValueVisitor {
     public List<Object>  visitInExpression(JQuickJSONPathParser.InExpressionContext ctx) {
         Object value = visit(ctx.expr());
         List<Object> valueList = parseValueList(ctx.valueList());
-        Assert.notNull(value, "The  value for 'in' operator cannot be null.");
-        List<?> list=ObjectConverter.assign(value,List.class);
+        JAssert.notNull(value, "The  value for 'in' operator cannot be null.");
+        List<?> list= JObjectConverter.assign(value,List.class);
         List<Object> newList=new ArrayList<>();
         for (Object item : list) {
             if(valueList.contains(item)){
@@ -149,7 +145,7 @@ public class JExprVisitor extends JValueVisitor {
         if(null!=ctx.literal()){
             return visitLiteral(ctx.literal());
         }
-        Assert.throwNewException("Invalid literal expression");
+        JAssert.throwNewException("Invalid literal expression");
         return null;
     }
     @Override
@@ -157,7 +153,7 @@ public class JExprVisitor extends JValueVisitor {
         if(null!=ctx.identifier()){
             return visitIdentifier(ctx.identifier());
         }
-        Assert.throwNewException("Invalid identifier expression");
+        JAssert.throwNewException("Invalid identifier expression");
         return null;
     }
     @Override
@@ -198,7 +194,7 @@ public class JExprVisitor extends JValueVisitor {
             }
             return -((Number) value).doubleValue();
         }
-        Assert.throwNewException("Cannot apply negation to non-numeric value: " +
+        JAssert.throwNewException("Cannot apply negation to non-numeric value: " +
                 (value != null ? value.getClass().getSimpleName() : "null"));
         return null;
     }
@@ -208,7 +204,7 @@ public class JExprVisitor extends JValueVisitor {
         if (value instanceof Boolean) {
             return !((Boolean) value);
         }
-        Assert.throwNewException("not supported for non-boolean value: " + value);
+        JAssert.throwNewException("not supported for non-boolean value: " + value);
         return false;
     }
     @Override
@@ -242,7 +238,7 @@ public class JExprVisitor extends JValueVisitor {
         }else if(null!=ctx.expr()){
             return visit(ctx.expr());
         }
-        Assert.throwNewException("Invalid expression");
+        JAssert.throwNewException("Invalid expression");
         return null;
     }
     @Override
@@ -252,7 +248,7 @@ public class JExprVisitor extends JValueVisitor {
         }else if("*".equals(ctx.getText())){
            return "*";
         }
-        Assert.throwNewException("Invalid expression");
+        JAssert.throwNewException("Invalid expression");
         return null;
     }
 

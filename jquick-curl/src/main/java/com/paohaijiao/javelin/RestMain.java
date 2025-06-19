@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin;
 
 import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
-import com.paohaijiao.javelin.exception.AntlrExecutionException;
+import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JThornRuleQuickRestExecutor;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
 import com.paohaijiao.javelin.resource.impl.JThornRuleReSourceFileReader;
@@ -20,7 +20,7 @@ public class RestMain {
             System.out.println(context.getRuleContent());
             Object result = executor.execute(context.getRuleContent());
             System.out.println("结果: " + result);
-        } catch (AntlrExecutionException e) {
+        } catch (JAntlrExecutionException e) {
             System.err.println("解析失败: " + e.getMessage());
             e.getErrors().forEach(err ->
                     System.err.println(" - " + err.getMessage()));

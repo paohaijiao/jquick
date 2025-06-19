@@ -1,19 +1,17 @@
 package lexer.data;
 
-import com.paohaijiao.javelin.handler.JExcelProcessor;
 import com.paohaijiao.javelin.model.JExcelExportModel;
 import com.paohaijiao.javelin.model.JStudentModel;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.ObjectConverter;
+import com.paohaijiao.javelin.util.JObjectConverter;
 import com.paohaijiao.javelin.visitor.JQuickExcelExportVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.*;
 
 public class JDataTest {
@@ -45,7 +43,7 @@ public class JDataTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.exportConfig();
-        List<Map<String, Object>> data=ObjectConverter.convert(getData());
+        List<Map<String, Object>> data= JObjectConverter.convert(getData());
         JQuickExcelExportVisitor visitor = new JQuickExcelExportVisitor(data);
         @SuppressWarnings("unchecked")
         JExcelExportModel result = (JExcelExportModel)visitor.visit(tree);
@@ -74,7 +72,7 @@ public class JDataTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.exportConfig();
-        List<Map<String, Object>> data=ObjectConverter.convert(getData());
+        List<Map<String, Object>> data= JObjectConverter.convert(getData());
         JQuickExcelExportVisitor visitor = new JQuickExcelExportVisitor(data);
         @SuppressWarnings("unchecked")
         JExcelExportModel result = (JExcelExportModel)visitor.visit(tree);
@@ -101,9 +99,9 @@ public class JDataTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickExcelParser parser = new JQuickExcelParser(tokens);
         ParseTree tree = parser.exportConfig();
-        List<Map<String, Object>> data=ObjectConverter.convert(getData());
+        List<Map<String, Object>> data= JObjectConverter.convert(getData());
         HashMap<String,Object> variable=new HashMap<>();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         variable.put("1","男");
         variable.put("2","女");
         params.put("codeTable",variable);

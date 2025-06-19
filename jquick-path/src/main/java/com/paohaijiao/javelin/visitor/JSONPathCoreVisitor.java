@@ -1,11 +1,9 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.exception.Assert;
 import com.paohaijiao.javelin.obj.JSONObject;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickJSONPathBaseVisitor;
-import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
-import com.paohaijiao.javelin.util.ReflectionUtils;
+import com.paohaijiao.javelin.util.JReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -14,7 +12,7 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
 
     protected  Object rootJsonObject;
     protected Object currentJsonObject;
-    protected ContextParams context;
+    protected JContext context;
 
     private Deque<Map<String, Object>> variableStack = new ArrayDeque<>();
     protected void setRoot(Object object){
@@ -86,7 +84,7 @@ public class JSONPathCoreVisitor extends JQuickJSONPathBaseVisitor<Object> {
         }else if(obj instanceof Map){
             return ((Map<?, ?>) obj).get(fieldName);
         }else if (obj instanceof Object) {
-            Object target= ReflectionUtils.getFieldValue(obj,fieldName);
+            Object target= JReflectionUtils.getFieldValue(obj,fieldName);
             return target;
         }
         return null;

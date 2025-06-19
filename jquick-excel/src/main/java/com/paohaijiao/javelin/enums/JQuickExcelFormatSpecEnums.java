@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.enums;
 
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import lombok.Getter;
 
 @Getter
@@ -22,7 +22,7 @@ public enum JQuickExcelFormatSpecEnums {
                 return e;
             }
         }
-        Assert.throwNewException("invalid code");
+        JAssert.throwNewException("invalid code");
         return null;
     }
 }

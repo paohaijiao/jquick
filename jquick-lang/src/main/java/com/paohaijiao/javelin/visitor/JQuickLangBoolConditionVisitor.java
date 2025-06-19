@@ -2,7 +2,7 @@ package com.paohaijiao.javelin.visitor;
 
 
 import com.paohaijiao.javelin.date.JDateCompareUtil;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -117,7 +117,7 @@ public class JQuickLangBoolConditionVisitor extends JQuickLangExprVisitor {
         if(null!=ctx.booleanExpr()){
             return visitBooleanExpr(ctx.booleanExpr());
         }
-        Assert.throwNewException("invalid compose");
+        JAssert.throwNewException("invalid compose");
         return null;
     }
 

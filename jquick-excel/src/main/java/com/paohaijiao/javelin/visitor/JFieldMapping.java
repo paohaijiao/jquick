@@ -1,9 +1,9 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.model.JKeyValueModel;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 public class JFieldMapping extends JFormatSpecVisitor{
 
@@ -14,13 +14,13 @@ public class JFieldMapping extends JFormatSpecVisitor{
         String key=null;
         if (ctx.STRING() != null&&!ctx.STRING().isEmpty()) {
             String str=ctx.STRING().get(0).getText();
-             key= StringUtils.trim(str);
+             key= JStringUtils.trim(str);
         }
-        Assert.notNull(key, "key not null");
+        JAssert.notNull(key, "key not null");
         jKeyValueModel.setKey(key);
         if (ctx.STRING() != null&&2==ctx.STRING().size()) {
             String str=ctx.STRING().get(1).getText();//field Mapping
-            value= StringUtils.trim(str);
+            value= JStringUtils.trim(str);
         }else {//invoke function to evalue the result
             value=visitFunctionCall(ctx.functionCall());
         }
@@ -34,9 +34,9 @@ public class JFieldMapping extends JFormatSpecVisitor{
         String key=null;
         if (ctx.STRING() != null) {
             String str=ctx.STRING().getText();
-            key= StringUtils.trim(str);
+            key= JStringUtils.trim(str);
         }
-        Assert.notNull(key, "key not null");
+        JAssert.notNull(key, "key not null");
         jKeyValueModel.setKey(key);
         if (ctx.formatSpec() != null) {
             value = visitFormatSpec(ctx.formatSpec());
@@ -51,9 +51,9 @@ public class JFieldMapping extends JFormatSpecVisitor{
         String key=null;
         if (ctx.STRING() != null) {
             String str=ctx.STRING().getText();
-            key= StringUtils.trim(str);
+            key= JStringUtils.trim(str);
         }
-        Assert.notNull(key, "key not null");
+        JAssert.notNull(key, "key not null");
         jKeyValueModel.setKey(key);
         if (ctx.transformValue() != null) {
             value = visitTransformValue(ctx.transformValue());
@@ -69,7 +69,7 @@ public class JFieldMapping extends JFormatSpecVisitor{
         }else if (ctx.quotedFunctionCall()!=null) {
             return visitQuotedFunctionCall(ctx.quotedFunctionCall());
         }
-        Assert.notNull(visitFunctionCall(ctx.functionCall()), "invalid TransformValue");
+        JAssert.notNull(visitFunctionCall(ctx.functionCall()), "invalid TransformValue");
         return null;
     }
 

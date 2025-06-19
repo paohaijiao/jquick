@@ -14,7 +14,7 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
@@ -40,7 +40,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariablesContext tree = parser.variables();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         params.put("type", "string");
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
@@ -52,7 +52,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DateContext tree = parser.date();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -63,7 +63,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DateContext tree = parser.date();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -74,7 +74,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.StringContext tree = parser.string();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -85,7 +85,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.NumberContext tree = parser.number();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -96,7 +96,7 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.BoolContext tree = parser.bool();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);

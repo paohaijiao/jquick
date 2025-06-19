@@ -18,9 +18,9 @@ package com.paohaijiao.javelin.visitor;
 import com.paohaijiao.javelin.handler.JExcelProcessor;
 import com.paohaijiao.javelin.model.JExcelExportModel;
 import com.paohaijiao.javelin.model.JKeyValueModel;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,13 +44,13 @@ public class JQuickExcelExportVisitor extends JFieldMapping {
     private JExcelExportModel config = new JExcelExportModel();
 
     public JQuickExcelExportVisitor(List<Map<String, Object>> data) {
-        this.context = new ContextParams();
+        this.context = new JContext();
         this.excelProcessor = new JExcelProcessor( this.context);
         this.data = data;
 
     }
 
-    public JQuickExcelExportVisitor(ContextParams context, List<Map<String, Object>> data) {
+    public JQuickExcelExportVisitor(JContext context, List<Map<String, Object>> data) {
         this.excelProcessor = new JExcelProcessor(context);
         this.data = data;
         this.context = context;
@@ -98,7 +98,7 @@ public class JQuickExcelExportVisitor extends JFieldMapping {
         boolean header=Boolean.FALSE;
         if (ctx.STRING() != null) {
             String headerText=ctx.STRING().getText();
-            header=StringUtils.trim(headerText).equalsIgnoreCase("YES");
+            header= JStringUtils.trim(headerText).equalsIgnoreCase("YES");
         }
         config.setHeader(header);
         return null;
@@ -106,7 +106,7 @@ public class JQuickExcelExportVisitor extends JFieldMapping {
 
     @Override
     public Void visitRangeOption(JQuickExcelParser.RangeOptionContext ctx) {
-        String range= StringUtils.trim(ctx.STRING().getText());
+        String range= JStringUtils.trim(ctx.STRING().getText());
         config.setRange(range);
         return null;
     }

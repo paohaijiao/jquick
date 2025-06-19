@@ -15,7 +15,7 @@
  */
 
 import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -41,7 +41,7 @@ public class JBooleanTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DateBoolContext tree = parser.dateBool();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -52,7 +52,7 @@ public class JBooleanTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.StringBoolContext tree = parser.stringBool();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -64,7 +64,7 @@ public class JBooleanTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.NumberBoolContext tree = parser.numberBool();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -75,7 +75,7 @@ public class JBooleanTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.SinggelBoolContext tree = parser.singgelBool();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -86,7 +86,7 @@ public class JBooleanTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.BooleanExprContext tree = parser.booleanExpr();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);

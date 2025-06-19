@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.obj;
 
-import com.paohaijiao.javelin.util.BeanCopyUtils;
+import com.paohaijiao.javelin.util.JBeanCopyUtils;
 import lombok.Data;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class JsonResponse {
             response.setData((JSONObject)data);
             response.setType("object");
         } else {
-             List<JSONObject> list= BeanCopyUtils.copyList((List)data,JSONObject.class);
+             List<JSONObject> list= JBeanCopyUtils.copyList((List)data,JSONObject.class);
             response.setData(new JSONArray(list));
             response.setType("array");
         }

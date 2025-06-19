@@ -1,43 +1,43 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.exception.Assert;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.exception.JAssert;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickExcelBaseVisitor;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 
 public class JQuickExcelCoreVisitor extends JQuickExcelBaseVisitor {
 
-    protected ContextParams context;
+    protected JContext context;
 
     protected Cell cell;
 
     @Override
     public String visitFileName(JQuickExcelParser.FileNameContext ctx) {
         if(ctx.STRING() != null) {
-            String fileName = StringUtils.trim(ctx.STRING().getText());
+            String fileName = JStringUtils.trim(ctx.STRING().getText());
             return fileName;
         }
-        Assert.throwNewException("Invalid file name");
+        JAssert.throwNewException("Invalid file name");
         return null;
     }
     @Override
     public String visitIdentifier(JQuickExcelParser.IdentifierContext ctx) {
         if(ctx.ID() != null) {
-            String varName = StringUtils.trim(ctx.ID().getText());
+            String varName = JStringUtils.trim(ctx.ID().getText());
             return varName;
         }
-        Assert.throwNewException("Invalid varName");
+        JAssert.throwNewException("Invalid varName");
         return null;
     }
     @Override
     public String visitDestination(JQuickExcelParser.DestinationContext ctx) {
         if(ctx.identifier() != null) {
-            String varName = StringUtils.trim(ctx.identifier().getText());
+            String varName = JStringUtils.trim(ctx.identifier().getText());
             return varName;
         }
-        Assert.throwNewException("Invalid Destination");
+        JAssert.throwNewException("Invalid Destination");
         return null;
     }
     @Override
@@ -46,7 +46,7 @@ public class JQuickExcelCoreVisitor extends JQuickExcelBaseVisitor {
             String varName = visitIdentifier(ctx.identifier());
             return this.context.get(varName);
         }
-        Assert.throwNewException("Invalid Variable");
+        JAssert.throwNewException("Invalid Variable");
         return null;
     }
 

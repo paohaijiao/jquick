@@ -6,8 +6,8 @@ import com.paohaijiao.javelin.obj.JSonKeyValue;
 import com.paohaijiao.javelin.obj.JsonResponse;
 import com.paohaijiao.javelin.parser.JSONBaseVisitor;
 import com.paohaijiao.javelin.parser.JSONParser;
-import com.paohaijiao.javelin.util.BeanCopyUtils;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JBeanCopyUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
                 response.setData((JSONObject)result);
                 response.setType("object");
             } else {
-                List<JSONObject> list= BeanCopyUtils.copyList((List)result,JSONObject.class);
+                List<JSONObject> list= JBeanCopyUtils.copyList((List)result,JSONObject.class);
                 response.setData(new JSONArray(list));
                 response.setType("array");
             }
@@ -97,7 +97,7 @@ public class JSONCommonVisitor extends JSONBaseVisitor {
     @Override
     public String visitString(JSONParser.StringContext ctx) {
         String str= ctx.getText();
-        return StringUtils.trim(str);
+        return JStringUtils.trim(str);
     }
 
     @Override

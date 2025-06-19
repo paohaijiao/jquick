@@ -15,7 +15,7 @@
  */
 
 import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickLangLexer;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -41,7 +41,7 @@ public class JFactoryTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ValueContext tree = parser.value();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -52,7 +52,7 @@ public class JFactoryTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ValueContext tree = parser.value();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);
@@ -63,7 +63,7 @@ public class JFactoryTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ReturnStatementContext tree = parser.returnStatement();
-        ContextParams params = new ContextParams();
+        JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object= tv.visit(tree);
         System.out.println(object);

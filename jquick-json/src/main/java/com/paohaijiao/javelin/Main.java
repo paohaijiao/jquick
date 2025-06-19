@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin;
 
 import com.paohaijiao.javelin.adaptor.JThornRuleAdaptor;
-import com.paohaijiao.javelin.exception.AntlrExecutionException;
+import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JSONExecutor;
 import com.paohaijiao.javelin.obj.JsonResponse;
 import com.paohaijiao.javelin.resource.JThornRuleReader;
@@ -30,7 +30,7 @@ public class Main {
 //            JSONObject obj=new JSONObject().fromBean(jsonBean);
 //            JSONObject newMap=new JSONObject().fromMap(map);
 //            System.out.println("结果: " + jsonObject);
-        } catch (AntlrExecutionException e) {
+        } catch (JAntlrExecutionException e) {
             System.err.println("解析失败: " + e.getMessage());
             e.getErrors().forEach(err ->
                     System.err.println(" - " + err.getMessage()));

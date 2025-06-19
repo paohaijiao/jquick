@@ -1,11 +1,11 @@
 package com.paohaijiao.javelin.visitor.function;
 
 import com.paohaijiao.javelin.enums.JMethodEnums;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.model.JMethodCallModel;
 import com.paohaijiao.javelin.parser.JQuickExcelLexer;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 import com.paohaijiao.javelin.visitor.JQuickExcelCoreVisitor;
 import com.paohaijiao.javelin.visitor.JQuickExcelImportVisitor;
 import org.antlr.v4.runtime.CharStreams;
@@ -21,28 +21,28 @@ public class JQuickExcelFunctionVisitor extends JQuickExcelCoreVisitor {
     public Object visitFunctionArg(JQuickExcelParser.FunctionArgContext ctx) {
         if(ctx.STRING() != null) {
             String string= ctx.STRING().getText();
-            String value= StringUtils.trim(string);
+            String value= JStringUtils.trim(string);
             return value;
         }else if(ctx.NUMBER() != null) {
             String number= ctx.NUMBER().getText();
-            String value= StringUtils.trim(number);
+            String value= JStringUtils.trim(number);
             return new BigDecimal(value);
         }else if(ctx.BOOLEAN() != null) {
             String number= ctx.BOOLEAN().getText();
-            String value= StringUtils.trim(number);
+            String value= JStringUtils.trim(number);
             return new Boolean(value);
         }else if(ctx.functionCall() != null) {
            return visitFunctionCall(ctx.functionCall());
         }else if(ctx.variable() != null) {
             Object object= visitVariable(ctx.variable());
-            Assert.notNull(object,"the variable is not initialized");
+            JAssert.notNull(object,"the variable is not initialized");
             return object;
         }
         else if(ctx.quotedFunctionCall() != null) {
             Object object= visitQuotedFunctionCall(ctx.quotedFunctionCall());
             return object;
         }
-        Assert.throwNewException("Invalid FunctionArg");
+        JAssert.throwNewException("Invalid FunctionArg");
         return null;
     }
     @Override
@@ -51,9 +51,9 @@ public class JQuickExcelFunctionVisitor extends JQuickExcelCoreVisitor {
         List<Object> list=new ArrayList<>();
         String functionName=null;
         if(ctx.ID() != null) {
-            functionName= StringUtils.trim(ctx.ID().getText());
+            functionName= JStringUtils.trim(ctx.ID().getText());
         }
-        Assert.notNull(functionName,"Invalid functionName");
+        JAssert.notNull(functionName,"Invalid functionName");
         methodCallModel.setMethod(JMethodEnums.methodOf(functionName));
         if(ctx.functionArg()!= null) {
             for (JQuickExcelParser.FunctionArgContext functionArg : ctx.functionArg()){
@@ -68,7 +68,7 @@ public class JQuickExcelFunctionVisitor extends JQuickExcelCoreVisitor {
     public Object visitQuotedFunctionCall(JQuickExcelParser.QuotedFunctionCallContext ctx) {
         if(ctx.STRING() != null) {
             String string= ctx.STRING().getText();
-            String script= StringUtils.trim(string);
+            String script= JStringUtils.trim(string);
             JQuickExcelLexer lexer = new JQuickExcelLexer(CharStreams.fromString(script));
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             JQuickExcelParser parser = new JQuickExcelParser(tokens);
@@ -77,7 +77,7 @@ public class JQuickExcelFunctionVisitor extends JQuickExcelCoreVisitor {
             Object result = visitor.visit(tree);
             return result;
         }
-        Assert.throwNewException("Invalid QuotedFunctionCall");
+        JAssert.throwNewException("Invalid QuotedFunctionCall");
         return null;
     }
 

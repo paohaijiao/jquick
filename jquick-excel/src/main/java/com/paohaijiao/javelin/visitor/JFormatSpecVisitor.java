@@ -16,10 +16,10 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.enums.JQuickExcelFormatSpecEnums;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.model.JFormatSpec;
 import com.paohaijiao.javelin.parser.JQuickExcelParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 import com.paohaijiao.javelin.visitor.function.JQuickExcelFunctionVisitor;
 
 /**
@@ -37,10 +37,10 @@ public class JFormatSpecVisitor extends JQuickExcelFunctionVisitor {
     public String visitCustomFormat(JQuickExcelParser.CustomFormatContext ctx) {
         if(ctx.STRING() != null) {
             String customString=ctx.STRING().toString();
-            String newString= StringUtils.trim(customString);
+            String newString= JStringUtils.trim(customString);
             return newString;
         }
-        Assert.throwNewException("invalid custom format");
+        JAssert.throwNewException("invalid custom format");
         return null;
     }
 
@@ -48,20 +48,20 @@ public class JFormatSpecVisitor extends JQuickExcelFunctionVisitor {
     public String visitStringFormat(JQuickExcelParser.StringFormatContext ctx) {
         if(ctx.STRING() != null) {
             String customString=ctx.STRING().toString();
-            String newString= StringUtils.trim(customString);
+            String newString= JStringUtils.trim(customString);
             return newString;
         }
-        Assert.throwNewException("invalid string format");
+        JAssert.throwNewException("invalid string format");
         return null;
     }
     @Override
     public String visitNumberFormat(JQuickExcelParser.NumberFormatContext ctx) {
         if(ctx.STRING() != null) {
             String customString=ctx.STRING().toString();
-            String newString= StringUtils.trim(customString);
+            String newString= JStringUtils.trim(customString);
             return newString;
         }
-        Assert.throwNewException("invalid NumberFormat ");
+        JAssert.throwNewException("invalid NumberFormat ");
         return null;
     }
 
@@ -69,10 +69,10 @@ public class JFormatSpecVisitor extends JQuickExcelFunctionVisitor {
     public String visitDateFormat(JQuickExcelParser.DateFormatContext ctx) {
         if(ctx.STRING() != null) {
             String customString=ctx.STRING().toString();
-            String newString= StringUtils.trim(customString);
+            String newString= JStringUtils.trim(customString);
             return newString;
         }
-        Assert.throwNewException("invalid DateFormat ");
+        JAssert.throwNewException("invalid DateFormat ");
         return null;
     }
     @Override
@@ -99,7 +99,7 @@ public class JFormatSpecVisitor extends JQuickExcelFunctionVisitor {
             jFormatSpec.setValue(value);
             return jFormatSpec;
         }
-        Assert.throwNewException("invalid format spec");
+        JAssert.throwNewException("invalid format spec");
         return null;
     }
 

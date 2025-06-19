@@ -1,10 +1,10 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JSlice;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
-import com.paohaijiao.javelin.util.ObjectConverter;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JObjectConverter;
+import com.paohaijiao.javelin.util.JStringUtils;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -18,7 +18,7 @@ public class JSubscriptVisitor extends JExprVisitor {
             return index;
         } else if (ctx.stringLiteral() != null) {//pass
             String fields = visitStringLiteral(ctx.stringLiteral());
-            String fieldName = StringUtils.trim(fields);
+            String fieldName = JStringUtils.trim(fields);
             return fieldName;
         } else if (ctx.slice() != null) {//pass
             JSlice slice = visitSlice(ctx.slice());
@@ -58,12 +58,12 @@ public class JSubscriptVisitor extends JExprVisitor {
             if(ctx.expr()!=null){
               Object obj=  visit((ctx.expr()));
               if(obj instanceof Boolean){
-                  Boolean bool=  ObjectConverter.assign(obj,Boolean.class);
+                  Boolean bool=  JObjectConverter.assign(obj,Boolean.class);
                   if(bool){
                       list.add(o);
                   }
               }else {
-                  Assert.throwNewException("FilterExpression only accept boolean express");
+                  JAssert.throwNewException("FilterExpression only accept boolean express");
               }
             }
         }

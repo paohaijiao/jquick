@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.enums;
 
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import lombok.Getter;
 
 @Getter
@@ -22,7 +22,7 @@ public enum JProxryType {
                 return httpMethod;
             }
         }
-        Assert.throwNewException("非法的方法");
+        JAssert.throwNewException("非法的方法");
         return null;
     }
 }

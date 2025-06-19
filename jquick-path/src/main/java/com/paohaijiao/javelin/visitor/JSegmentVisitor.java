@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JSlice;
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.obj.JSONObject;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 
@@ -63,7 +63,7 @@ public class JSegmentVisitor extends JSubscriptVisitor {
             this.currentJsonObject = result;
             return this.currentJsonObject;
         }
-        Assert.throwNewException("visitSubscriptSegment exception");
+        JAssert.throwNewException("visitSubscriptSegment exception");
         return null;
     }
 
@@ -76,7 +76,7 @@ public class JSegmentVisitor extends JSubscriptVisitor {
             this.currentJsonObject = results;
             return this.currentJsonObject;
         }
-        Assert.throwNewException("visitSubscriptSegment exception");
+        JAssert.throwNewException("visitSubscriptSegment exception");
         return null;
     }
 

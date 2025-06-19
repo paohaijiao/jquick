@@ -1,13 +1,13 @@
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.param.ContextParams;
+import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class JSONPathCommonVisitor extends JRootAndPathVisitor {
 
-    public JSONPathCommonVisitor(Object root, ContextParams context) {
+    public JSONPathCommonVisitor(Object root, JContext context) {
         this.rootJsonObject = root;
         this.currentJsonObject = rootJsonObject;
         this.context = context;
@@ -15,7 +15,7 @@ public class JSONPathCommonVisitor extends JRootAndPathVisitor {
     public JSONPathCommonVisitor(Object root) {
         this.rootJsonObject = root;
         this.currentJsonObject = rootJsonObject;
-        this.context = new ContextParams();
+        this.context = new JContext();
     }
     /**
      * ()

@@ -1,10 +1,9 @@
 package com.paohaijiao.javelin.visitor;
 
 import com.paohaijiao.javelin.bean.JSlice;
-import com.paohaijiao.javelin.exception.Assert;
-import com.paohaijiao.javelin.obj.JSONObject;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;
-import com.paohaijiao.javelin.util.StringUtils;
+import com.paohaijiao.javelin.util.JStringUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class JValueVisitor extends JSONPathCoreVisitor{
     @Override
     public String visitStringLiteral(JQuickJSONPathParser.StringLiteralContext ctx) {
         String string= ctx.STRING().getText();
-        return StringUtils.trim(string);
+        return JStringUtils.trim(string);
     }
     @Override
     public Object visitLiteral(JQuickJSONPathParser.LiteralContext ctx) {
@@ -46,7 +45,7 @@ public class JValueVisitor extends JSONPathCoreVisitor{
         }else if("false".equals(ctx.getText())){
             return Boolean.FALSE;
         }
-        Assert.throwNewException("the literal not support this type");
+        JAssert.throwNewException("the literal not support this type");
         return null;
     }
     @Override

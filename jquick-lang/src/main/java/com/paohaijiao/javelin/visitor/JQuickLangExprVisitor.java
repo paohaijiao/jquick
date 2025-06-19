@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.visitor;
 
 
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.parser.JQuickLangParser;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class JQuickLangExprVisitor extends JQuickLangValueVisitor {
         if(ctx.variables() != null) {
             String key= visitVariables(ctx.variables());
             Object value=this.context.get(key);
-            Assert.notNull(value,"Variable "+key+" is not initialized");
+            JAssert.notNull(value,"Variable "+key+" is not initialized");
         }else if(ctx.string() != null) {
             String str=visitString(ctx.string());
             return str;
@@ -27,7 +27,7 @@ public class JQuickLangExprVisitor extends JQuickLangValueVisitor {
         }else if (ctx.getText().equals("null")) {
             return null;
         }
-        Assert.throwNewException("invalid expression");
+        JAssert.throwNewException("invalid expression");
         return null;
     }
     @Override

@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.obj;
 
 import com.paohaijiao.javelin.mapper.BeanMapper;
-import com.paohaijiao.javelin.util.ReflectionUtils;
+import com.paohaijiao.javelin.util.JReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -203,8 +203,8 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
     @Override
     public <T> T toBean(Class<T> t) {
         try {
-            T instance = ReflectionUtils.newInstance(t);
-            List<Field> fields = ReflectionUtils.getAllFields(t);
+            T instance = JReflectionUtils.newInstance(t);
+            List<Field> fields = JReflectionUtils.getAllFields(t);
             for (Field field : fields) {
                 String fieldName = field.getName();
                 if (this.containsKey(fieldName)) {
@@ -215,7 +215,7 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
                         value = nestedJson.toBean(fieldType);
                     }
                     else if (fieldType.isEnum() && value instanceof String) {
-                        value = ReflectionUtils.getEnumByName((Class<? extends Enum>) fieldType, (String) value);
+                        value = JReflectionUtils.getEnumByName((Class<? extends Enum>) fieldType, (String) value);
                     }
                     else if (value != null && !fieldType.isAssignableFrom(value.getClass())) {
                         if (fieldType == Integer.class || fieldType == int.class) {
@@ -230,7 +230,7 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
                             value = this.getString(fieldName);
                         }
                     }
-                    ReflectionUtils.setFieldValue(instance, fieldName, value);
+                    JReflectionUtils.setFieldValue(instance, fieldName, value);
                 }
             }
 
@@ -251,7 +251,7 @@ public class JSONObject implements Map<String, Object>, BeanMapper {
             return new JSONObject();
         }
         JSONObject json = new JSONObject();
-        List<Field> fields = ReflectionUtils.getAllFields(bean.getClass());
+        List<Field> fields = JReflectionUtils.getAllFields(bean.getClass());
         for (Field field : fields) {
             try {
                 field.setAccessible(true);

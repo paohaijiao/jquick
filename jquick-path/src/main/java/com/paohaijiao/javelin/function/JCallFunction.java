@@ -1,6 +1,6 @@
 package com.paohaijiao.javelin.function;
 
-import com.paohaijiao.javelin.exception.Assert;
+import com.paohaijiao.javelin.exception.JAssert;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
@@ -42,12 +42,12 @@ public class JCallFunction {
 //                throw new EvaluationException("Function call failed: " + functionName, e);
 //            }
 //        }
-        Assert.throwNewException("Unknown function: " + functionName);
+        JAssert.throwNewException("Unknown function: " + functionName);
         return null;
     }
     private Object handleLengthFunction(Object[] args) {
         if (args.length != 1) {
-            Assert.throwNewException("length() expects exactly 1 argument");
+            JAssert.throwNewException("length() expects exactly 1 argument");
         }
 
         Object arg = args[0];
@@ -62,12 +62,12 @@ public class JCallFunction {
         } else if (arg.getClass().isArray()) {
             return Array.getLength(arg);
         }
-        Assert.throwNewException("length() cannot be applied to " + arg.getClass());
+        JAssert.throwNewException("length() cannot be applied to " + arg.getClass());
         return null;
     }
     private Object handleSumFunction(Object[] args) {
         if (args.length == 0) {
-            Assert.throwNewException("sum() requires at least 1 argument");
+            JAssert.throwNewException("sum() requires at least 1 argument");
         }
         double sum = 0;
         for (Object arg : args) {
@@ -85,7 +85,7 @@ public class JCallFunction {
     }
     private Object handleMatchesFunction(Object[] args) {
         if (args.length != 2) {
-            Assert.throwNewException("matches() requires exactly 2 arguments");
+            JAssert.throwNewException("matches() requires exactly 2 arguments");
         }
         String input = args[0].toString();
         String regex = args[1].toString();
@@ -93,7 +93,7 @@ public class JCallFunction {
             Pattern pattern = Pattern.compile(regex);
             return pattern.matcher(input).matches();
         } catch (PatternSyntaxException e) {
-            Assert.throwNewException("Invalid regex pattern: " + regex);
+            JAssert.throwNewException("Invalid regex pattern: " + regex);
         }
         return null;
     }
