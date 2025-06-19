@@ -11,10 +11,6 @@
     <dependencies>
         <dependency>
             <groupId>com.paohaijiao.javelin</groupId>
-            <artifactId>javelin-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.paohaijiao.javelin</groupId>
             <artifactId>javelin-resource</artifactId>
         </dependency>
         <dependency>
