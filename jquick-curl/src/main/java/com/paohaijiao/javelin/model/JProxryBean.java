@@ -13,13 +13,15 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.bean;
+package com.paohaijiao.javelin.model;
 
+import com.paohaijiao.javelin.enums.JProxryType;
 import lombok.Data;
 
 @Data
-public class JHeaderParam {
+public class JProxryBean {
 
-    private String key;
-    private String value;
+    private String host;
+    private Integer port;
+    private JProxryType type;
 }

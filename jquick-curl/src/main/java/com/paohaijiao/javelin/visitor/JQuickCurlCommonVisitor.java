@@ -15,7 +15,7 @@
  */
 package com.paohaijiao.javelin.visitor;
 
-import com.paohaijiao.javelin.bean.*;
+import com.paohaijiao.javelin.model.*;
 import com.paohaijiao.javelin.enums.JHttpMethod;
 import com.paohaijiao.javelin.enums.JProxryType;
 import com.paohaijiao.javelin.exception.JAssert;
@@ -24,7 +24,6 @@ import com.paohaijiao.javelin.parser.JQuickCurlLexer;
 import com.paohaijiao.javelin.parser.JQuickCurlParser;
 import com.paohaijiao.javelin.util.JStringUtils;
 import okhttp3.*;
-import okhttp3.internal.http.HttpMethod;
 import okio.ByteString;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

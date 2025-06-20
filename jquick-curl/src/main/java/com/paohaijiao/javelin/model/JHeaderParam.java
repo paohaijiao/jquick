@@ -13,14 +13,13 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.bean;
+package com.paohaijiao.javelin.model;
 
 import lombok.Data;
 
 @Data
-public class JFormParam {
+public class JHeaderParam {
 
     private String key;
     private String value;
-    private boolean isFile;
 }

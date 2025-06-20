@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.executor;
 
 import com.paohaijiao.javelin.antlr.impl.JAbstractAntlrExecutor;
-import com.paohaijiao.javelin.bean.JSONPathResult;
+import com.paohaijiao.javelin.model.JSONPathResult;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.parser.JQuickJSONPathLexer;
 import com.paohaijiao.javelin.parser.JQuickJSONPathParser;

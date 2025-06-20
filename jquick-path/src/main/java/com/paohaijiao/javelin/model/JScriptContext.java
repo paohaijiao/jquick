@@ -1,4 +1,4 @@
-package com.paohaijiao.javelin.bean;
+package com.paohaijiao.javelin.model;
 
 import java.util.HashMap;
 import java.util.Map;

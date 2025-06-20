@@ -14,7 +14,7 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
-import com.paohaijiao.javelin.bean.JSONPathResult;
+import com.paohaijiao.javelin.model.JSONPathResult;
 import com.paohaijiao.javelin.executor.JSONPathExecutor;
 import com.paohaijiao.javelin.model.JSONObject;
 import org.junit.Test;

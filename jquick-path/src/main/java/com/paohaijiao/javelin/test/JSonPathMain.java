@@ -1,7 +1,7 @@
 package com.paohaijiao.javelin.test;
 
 import com.paohaijiao.javelin.adaptor.JQuickAdaptor;
-import com.paohaijiao.javelin.bean.JSONPathResult;
+import com.paohaijiao.javelin.model.JSONPathResult;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JSONPathExecutor;
 import com.paohaijiao.javelin.resource.JQuickReader;

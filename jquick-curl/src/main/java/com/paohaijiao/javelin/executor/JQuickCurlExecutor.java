@@ -16,7 +16,7 @@
 package com.paohaijiao.javelin.executor;
 
 import com.paohaijiao.javelin.antlr.impl.JAbstractAntlrExecutor;
-import com.paohaijiao.javelin.bean.JResult;
+import com.paohaijiao.javelin.model.JResult;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.parser.JQuickCurlLexer;
 import com.paohaijiao.javelin.parser.JQuickCurlParser;

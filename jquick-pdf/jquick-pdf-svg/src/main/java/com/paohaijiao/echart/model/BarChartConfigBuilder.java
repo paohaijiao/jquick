@@ -13,7 +13,7 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.bean;
+package com.paohaijiao.echart.model;
 
 import java.util.Arrays;
 import java.util.List;

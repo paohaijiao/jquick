@@ -13,19 +13,21 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.echart.bean;
+package com.paohaijiao.javelin.model;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-/**
- *
- */
+import okhttp3.Headers;
 @Data
-@AllArgsConstructor
-public class JIndicator {
-    private String name;
-    private double maxValue;
+public class JOptionModel {
 
+    private Integer httpStatus;
+
+    private Headers Headers;
+
+    private String allow;
+    @Override
+    public String toString(){
+        String result=String.format("HTTP Status:{} \nAllowed Methods:{},\nHeaders:{}",this.httpStatus,this.allow,this.Headers.toString());
+        return result;
+    }
 }

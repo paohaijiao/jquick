@@ -13,15 +13,19 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.bean;
+package com.paohaijiao.echart.model;
 
-import com.paohaijiao.javelin.enums.JProxryType;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ *
+ */
 @Data
-public class JProxryBean {
+@AllArgsConstructor
+public class JIndicator {
+    private String name;
+    private double maxValue;
 
-    private String host;
-    private Integer port;
-    private JProxryType type;
 }

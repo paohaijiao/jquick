@@ -13,21 +13,14 @@
  *
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
-package com.paohaijiao.javelin.bean;
+package com.paohaijiao.javelin.model;
 
 import lombok.Data;
-import okhttp3.Headers;
+
 @Data
-public class JOptionModel {
+public class JFormParam {
 
-    private Integer httpStatus;
-
-    private Headers Headers;
-
-    private String allow;
-    @Override
-    public String toString(){
-        String result=String.format("HTTP Status:{} \nAllowed Methods:{},\nHeaders:{}",this.httpStatus,this.allow,this.Headers.toString());
-        return result;
-    }
+    private String key;
+    private String value;
+    private boolean isFile;
 }

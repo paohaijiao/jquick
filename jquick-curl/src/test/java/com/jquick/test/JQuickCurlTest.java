@@ -15,7 +15,7 @@
  */
 package com.jquick.test;
 
-import com.paohaijiao.javelin.bean.JResult;
+import com.paohaijiao.javelin.model.JResult;
 import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickCurlLexer;
 import com.paohaijiao.javelin.parser.JQuickCurlParser;
