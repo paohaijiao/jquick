@@ -17,6 +17,7 @@ package com.paohaijiao.echart.heatMap;
 
 import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.series.JHeatmap;
+import com.paohaijiao.echart.provider.JAbstractChartRenderer;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,7 +30,11 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import com.paohaijiao.data.JOption;
+import com.paohaijiao.echart.provider.JAbstractChartRenderer;
+import org.apache.batik.svggen.SVGGraphics2D;
 
+import java.awt.*;
 /**
  * packageName com.paohaijiao.echart.generate
  *
@@ -39,72 +44,17 @@ import java.util.List;
  * @date 2025/6/13
  * @description
  */
-public class JHeatMapChartRenderer {
-    // Default configuration
-    private static final Color BACKGROUND_COLOR = Color.WHITE;
-    private static final Color AXIS_COLOR = Color.BLACK;
+public class JHeatMapChartRenderer extends JAbstractChartRenderer {
     private static final Color CELL_BORDER_COLOR = Color.LIGHT_GRAY;
-    private static final Font TITLE_FONT = new Font("Arial", Font.BOLD, 20);
-    private static final Font LABEL_FONT = new Font("Arial", Font.PLAIN, 12);
     private static final Font VALUE_FONT = new Font("Arial", Font.PLAIN, 10);
 
-    /**
-     * Generate heatmap SVG from ECharts Option
-     *
-     * @param option ECharts configuration option
-     * @param width SVG width
-     * @param height SVG height
-     * @return SVG string
-     */
-    public static String generateHeatmapSvg(JOption option, int width, int height) {
-        try {
-            // 1. Extract data from Option
-            HeatmapDataExtractor extractor = new HeatmapDataExtractor(option);
+    @Override
+    protected void drawChart(SVGGraphics2D svgGenerator, JOption option, int width, int height) {
+        // Extract data from Option
+        HeatmapDataExtractor extractor = new HeatmapDataExtractor(option);
 
-            // 2. Create SVG document
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document document = db.newDocument();
-
-            // 3. Create SVG root element
-            Element svgRoot = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgRoot.setAttributeNS(null, "width", String.valueOf(width));
-            svgRoot.setAttributeNS(null, "height", String.valueOf(height));
-            document.appendChild(svgRoot);
-
-            // 4. Create SVGGraphics2D
-            SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
-
-            // 5. Draw heatmap
-            drawHeatmap(svgGenerator, extractor, width, height);
-
-            // 6. Fill SVG content
-            svgGenerator.getRoot(svgRoot);
-
-            // 7. Write to string
-            try (Writer out = new StringWriter()) {
-                svgGenerator.stream(svgRoot, out);
-                return out.toString();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private static void drawHeatmap(SVGGraphics2D g2d, HeatmapDataExtractor extractor,
-                                    int width, int height) {
-        // Draw background
-        g2d.setColor(BACKGROUND_COLOR);
-        g2d.fillRect(0, 0, width, height);
-
-        // Draw title
-        if (extractor.getTitle() != null && !extractor.getTitle().isEmpty()) {
-            g2d.setFont(TITLE_FONT);
-            g2d.setColor(AXIS_COLOR);
-            int titleWidth = g2d.getFontMetrics().stringWidth(extractor.getTitle());
-            g2d.drawString(extractor.getTitle(), (width - titleWidth) / 2, 30);
-        }
+        // Draw title (using parent class method)
+        drawTitle(svgGenerator, option, width);
 
         // Calculate dimensions
         int margin = 50;
@@ -114,11 +64,11 @@ public class JHeatMapChartRenderer {
         int cellHeight = heatmapHeight / extractor.getYLabels().size();
 
         // Draw x-axis labels
-        g2d.setFont(LABEL_FONT);
+        svgGenerator.setFont(LABEL_FONT);
         for (int i = 0; i < extractor.getXLabels().size(); i++) {
             String label = extractor.getXLabels().get(i);
-            int labelWidth = g2d.getFontMetrics().stringWidth(label);
-            g2d.drawString(label,
+            int labelWidth = svgGenerator.getFontMetrics().stringWidth(label);
+            svgGenerator.drawString(label,
                     margin + i * cellWidth + (cellWidth - labelWidth) / 2,
                     margin + heatmapHeight + 20);
         }
@@ -126,8 +76,8 @@ public class JHeatMapChartRenderer {
         // Draw y-axis labels
         for (int i = 0; i < extractor.getYLabels().size(); i++) {
             String label = extractor.getYLabels().get(i);
-            int labelWidth = g2d.getFontMetrics().stringWidth(label);
-            g2d.drawString(label,
+            int labelWidth = svgGenerator.getFontMetrics().stringWidth(label);
+            svgGenerator.drawString(label,
                     margin - labelWidth - 5,
                     margin + i * cellHeight + cellHeight / 2 + 5);
         }
@@ -139,26 +89,26 @@ public class JHeatMapChartRenderer {
                 Color color = calculateCellColor(value, extractor.getMinValue(), extractor.getMaxValue());
 
                 // Draw cell
-                g2d.setColor(color);
-                g2d.fillRect(
+                svgGenerator.setColor(color);
+                svgGenerator.fillRect(
                         margin + i * cellWidth,
                         margin + j * cellHeight,
                         cellWidth, cellHeight);
 
                 // Draw border
-                g2d.setColor(CELL_BORDER_COLOR);
-                g2d.drawRect(
+                svgGenerator.setColor(CELL_BORDER_COLOR);
+                svgGenerator.drawRect(
                         margin + i * cellWidth,
                         margin + j * cellHeight,
                         cellWidth, cellHeight);
 
                 // Draw value
                 if (cellWidth > 30 && cellHeight > 20) { // Only draw if cell is large enough
-                    g2d.setColor(AXIS_COLOR);
-                    g2d.setFont(VALUE_FONT);
+                    svgGenerator.setColor(AXIS_COLOR);
+                    svgGenerator.setFont(VALUE_FONT);
                     String valueStr = String.format("%.1f", value);
-                    int valueWidth = g2d.getFontMetrics().stringWidth(valueStr);
-                    g2d.drawString(valueStr,
+                    int valueWidth = svgGenerator.getFontMetrics().stringWidth(valueStr);
+                    svgGenerator.drawString(valueStr,
                             margin + i * cellWidth + (cellWidth - valueWidth) / 2,
                             margin + j * cellHeight + cellHeight / 2 + 5);
                 }
@@ -166,7 +116,7 @@ public class JHeatMapChartRenderer {
         }
 
         // Draw legend
-        drawLegend(g2d,
+        drawLegend(svgGenerator,
                 margin + heatmapWidth + 20,
                 margin,
                 30,
@@ -175,7 +125,7 @@ public class JHeatMapChartRenderer {
                 extractor.getMaxValue());
     }
 
-    private static Color calculateCellColor(double value, double minValue, double maxValue) {
+    private Color calculateCellColor(double value, double minValue, double maxValue) {
         // Simple color gradient from blue (low) to red (high)
         float ratio = (float)((value - minValue) / (maxValue - minValue));
         ratio = Math.max(0, Math.min(1, ratio)); // Clamp between 0 and 1
@@ -187,8 +137,8 @@ public class JHeatMapChartRenderer {
         return new Color(red, green, blue, 128); // Semi-transparent
     }
 
-    private static void drawLegend(SVGGraphics2D g2d, int x, int y, int width, int height,
-                                   double minValue, double maxValue) {
+    private void drawLegend(SVGGraphics2D g2d, int x, int y, int width, int height,
+                            double minValue, double maxValue) {
         // Draw gradient legend
         for (int i = 0; i < height; i++) {
             float ratio = 1 - (float)i / height;
@@ -209,10 +159,6 @@ public class JHeatMapChartRenderer {
         g2d.drawString(String.format("%.1f", (maxValue + minValue) / 2), x + width + 5, y + height/2 + 5);
         g2d.drawString(String.format("%.1f", minValue), x + width + 5, y + height - 5);
     }
-
-    /**
-     * Helper class to extract data from ECharts Option
-     */
     private static class HeatmapDataExtractor {
         private final List<String> xLabels;
         private final List<String> yLabels;
@@ -224,11 +170,11 @@ public class JHeatMapChartRenderer {
         public HeatmapDataExtractor(JOption option) {
             // Extract x-axis labels
             this.xLabels = option.getxAxis() != null && !option.getxAxis().isEmpty() ?
-                    (List<String>) option.getxAxis().get(0).getData() :new ArrayList<>();
+                    option.getxAxis().get(0).getData() : new ArrayList<>();
 
             // Extract y-axis labels
             this.yLabels = option.getyAxis() != null && !option.getyAxis().isEmpty() ?
-                    (List<String>) option.getyAxis().get(0).getData() :new ArrayList<>();
+                    option.getyAxis().get(0).getData() : new ArrayList<>();
 
             // Initialize data matrix
             this.data = new double[xLabels.size()][yLabels.size()];
@@ -263,11 +209,10 @@ public class JHeatMapChartRenderer {
                 }
             }
 
-            this.minValue = tempMin;
-            this.maxValue = tempMax;
-            this.title = option.getTitle() != null && null!=option.getTitle()?
-                    option.getTitle().getText() :
-                    "";
+            this.minValue = tempMin != Double.MAX_VALUE ? tempMin : 0;
+            this.maxValue = tempMax != Double.MIN_VALUE ? tempMax : 1;
+            this.title = option.getTitle() != null ?
+                    option.getTitle().getText() : "";
         }
 
         public List<String> getXLabels() {
@@ -279,7 +224,10 @@ public class JHeatMapChartRenderer {
         }
 
         public double getValue(int x, int y) {
-            return data[x][y];
+            if (x >= 0 && x < xLabels.size() && y >= 0 && y < yLabels.size()) {
+                return data[x][y];
+            }
+            return 0;
         }
 
         public double getMinValue() {

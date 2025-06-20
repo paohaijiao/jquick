@@ -74,6 +74,11 @@ public class JLink implements Serializable {
         this.target = target;
         this.weight = weight;
     }
+    public JLink(Object source, Object target) {
+        this.source = source;
+        this.target = target;
+        this.weight = 1;
+    }
 
     /**
      * 获取source值

@@ -15,10 +15,24 @@
  */
 package com.paohaijiao.echart.provider;
 
-import com.paohaijiao.echart.anno.JChartType;
+import com.paohaijiao.data.JOption;
 
+import java.io.IOException;
 
-public interface JSvgProvider <T>{
+public interface JChartRenderer {
+    /**
+     * 渲染图表到文件
+     * @param option 图表配置选项
+     * @param outputPath 输出文件路径
+     * @throws IOException 如果文件操作出错
+     */
+    void render(JOption option, String outputPath) throws IOException;
 
-    public void drawSvg(JChartType type, T data);
+    /**
+     * 渲染图表到字符串
+     * @param option 图表配置选项
+     * @return SVG字符串
+     * @throws IOException 如果操作出错
+     */
+    String renderToString(JOption option) throws IOException;
 }

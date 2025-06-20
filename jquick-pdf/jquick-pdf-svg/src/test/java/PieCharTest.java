@@ -18,11 +18,10 @@ import com.paohaijiao.data.JOption;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.data.JData;
 import com.paohaijiao.data.series.JPie;
+import com.paohaijiao.echart.pie.JPieChartsRenderer;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import static com.paohaijiao.echart.pie.JPieChartsRenderer.renderPieChartToSVG;
 
 /**
  * @ClassName BarCharTest
@@ -50,8 +49,8 @@ public class PieCharTest {
                 new JData().name("袜子").value(4)
         );
         option.series(pie);
-        renderPieChartToSVG(option, "d://test//accurate-pie-chart.svg");
-        System.out.println("精确版饼图SVG文件已生成: accurate-pie-chart.svg");
+        JPieChartsRenderer  renderer=new JPieChartsRenderer();
+        renderer.render(option, "d://test//accurate-pie-chart.svg");
     }
 
 }

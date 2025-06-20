@@ -19,11 +19,11 @@ import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.data.JData;
 import com.paohaijiao.data.series.JScatter;
+import com.paohaijiao.echart.scatter.JScatterChartsRenderer;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.scatter.JScatterChartsRenderer.renderScatterToSvg;
 
 /**
  * @ClassName BarCharTest
@@ -73,7 +73,11 @@ public class ScatterCharTest {
         scatter.symbolSize(20)
                 .data(createScatterData());
         option.series(scatter);
-        renderScatterToSvg(option, "D://test//final-scatter.svg");
+
+
+        JScatterChartsRenderer renderer=new JScatterChartsRenderer();
+        renderer.render(option, "d://test//final-scatter.svg");
+        System.out.println("雷达图SVG已生成: radar_chart.svg");
         System.out.println("散点图SVG已生成: final-scatter.svg");
     }
 

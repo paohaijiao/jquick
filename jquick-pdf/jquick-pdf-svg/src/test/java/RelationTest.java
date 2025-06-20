@@ -1,4 +1,26 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
+ */
 import com.paohaijiao.data.JOption;
+import com.paohaijiao.data.code.JLayout;
+import com.paohaijiao.data.json.JGsonOption;
+import com.paohaijiao.data.series.JGraph;
+import com.paohaijiao.data.series.force.JCategory;
+import com.paohaijiao.data.series.force.JLink;
+import com.paohaijiao.data.series.force.JNode;
+import com.paohaijiao.echart.radar.JRadarChartsRenderer;
 import com.paohaijiao.echart.relation.JRelationChartRenderer;
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
@@ -13,92 +35,65 @@ import java.util.*;
 public class RelationTest {
     @Test
     public void testBarChar1() throws IOException, ParserConfigurationException, TransformerException {
-        JOption option = new JOption();
-        option.title("关系图示例");
-        List<Map<String, Object>> nodes = Arrays.asList(
-                new HashMap<String, Object>() {{
-                    put("name", "CEO");
-                    put("category", "管理");
-                    put("symbolSize", 50);
-                    put("itemStyle", new HashMap<String, String>() {{
-                        put("color", "#c23531");
-                    }});
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "技术部");
-                    put("category", "部门");
-                    put("symbolSize", 40);
-                    put("itemStyle", new HashMap<String, String>() {{
-                        put("color", "#2f4554");
-                    }});
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "产品部");
-                    put("category", "部门");
-                    put("symbolSize", 40);
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "前端组");
-                    put("category", "团队");
-                    put("symbolSize", 30);
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "后端组");
-                    put("category", "团队");
-                    put("symbolSize", 30);
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "UI设计");
-                    put("category", "岗位");
-                    put("symbolSize", 20);
-                }},
-                new HashMap<String, Object>() {{
-                    put("name", "Java开发");
-                    put("category", "岗位");
-                    put("symbolSize", 20);
-                }}
-        );
-        List<Map<String, Object>> links = Arrays.asList(
-                new HashMap<String, Object>() {{
-                    put("source", "CEO");
-                    put("target", "技术部");
-                    put("label", "直属管理");
-                    put("lineStyle", new HashMap<String, Object>() {{
-                        put("width", 3);
-                        put("type", "solid");
-                    }});
-                }},
-                new HashMap<String, Object>() {{
-                    put("source", "技术部");
-                    put("target", "前端组");
-                    put("label", "包含");
-                    put("lineStyle", new HashMap<String, Object>() {{
-                        put("width", 2);
-                        put("type", "dashed");
-                    }});
-                }},
-                new HashMap<String, Object>() {{
-                    put("source", "前端组");
-                    put("target", "UI设计");
-                    put("label", "协作");
-                    put("lineStyle", new HashMap<String, Object>() {{
-                        put("width", 1);
-                        put("type", "dotted");
-                    }});
-                }},
-                new HashMap<String, Object>() {{
-                    put("source", "技术部");
-                    put("target", "产品部");
-                    put("label", "跨部门合作");
-                    put("lineStyle", new HashMap<String, Object>() {{
-                        put("color", "#61a0a8");
-                        put("curveness", 0.3); // 曲线度
-                    }});
-                }}
-        );
-               Document document = GenericDOMImplementation.getDOMImplementation()
-               .createDocument("http://www.w3.org/2000/svg", "svg", null);SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
-        SVGGraphics2D svgGraphics2D = new SVGGraphics2D(document);
-        JRelationChartRenderer.generateHeatmapSVG(nodes,links);
+
+        JGsonOption option = new JGsonOption();
+        option.title("Relationship Chart Test");
+
+        // 创建图系列
+        JGraph graph = new JGraph();
+        graph.name("关系图");
+        graph.layout(JLayout.force); // 使用力导向布局
+        graph.force().repulsion(100); // 设置排斥力
+        graph.draggable(true); // 节点可拖动
+
+        // 添加节点 - 修正了ID问题
+        List<JNode> nodes = new ArrayList<>();
+        nodes.add(new JNode("1", "Node A").symbolSize(30).category(0));//id 1
+        nodes.add(new JNode("2", "Node B").symbolSize(25).category(1));
+        nodes.add(new JNode("3", "Node C").symbolSize(20).category(2));
+        nodes.add(new JNode("4", "Node D").symbolSize(15).category(0));
+        nodes.add(new JNode("5", "Node E").symbolSize(35).category(1));
+        nodes.add(new JNode("6", "Node F").symbolSize(20).category(3));
+        nodes.add(new JNode("7", "Node G").symbolSize(25).category(2));
+        nodes.add(new JNode("8", "Node H").symbolSize(15).category(4));
+        nodes.add(new JNode("9", "Node I").symbolSize(30).category(3));
+        nodes.add(new JNode("10", "Node J").symbolSize(20).category(0));
+        graph.setData(nodes);
+
+        // 添加连接
+        List<JLink> links = new ArrayList<>();
+        links.add(new JLink("1", "2"));
+        links.add(new JLink("1", "3"));
+        links.add(new JLink("2", "4"));
+        links.add(new JLink("3", "5"));
+        links.add(new JLink("4", "6"));
+        links.add(new JLink("5", "7"));
+        links.add(new JLink("6", "8"));
+        links.add(new JLink("7", "9"));
+        links.add(new JLink("8", "10"));
+        links.add(new JLink("9", "1"));
+        links.add(new JLink("10", "2"));
+        links.add(new JLink("3", "6"));
+        links.add(new JLink("4", "7"));
+        links.add(new JLink("5", "8"));
+        graph.setLinks(links);
+
+        // 添加类别
+        List<JCategory> categories = new ArrayList<>();
+        categories.add(new JCategory().name("Category 1"));
+        categories.add(new JCategory().name("Category 2"));
+        categories.add(new JCategory().name("Category 3"));
+        categories.add(new JCategory().name("Category 4"));
+        categories.add(new JCategory().name("Category 5"));
+        graph.setCategories(categories);
+
+        option.series(graph);
+        option.legend().data("Category 1", "Category 2", "Category 3", "Category 4", "Category 5");
+
+        JRelationChartRenderer renderer=new JRelationChartRenderer();
+        renderer.render(option, "d://test//relation_chart.svg");
+        System.out.println("雷达图SVG已生成: radar_chart.svg");
+
+
     }
 }

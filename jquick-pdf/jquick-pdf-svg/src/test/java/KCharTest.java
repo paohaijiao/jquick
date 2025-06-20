@@ -19,6 +19,7 @@ import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.series.JCandlestick;
+import com.paohaijiao.echart.heatMap.JHeatMapChartRenderer;
 import com.paohaijiao.echart.k.JKChartsRenderer;
 import org.junit.Test;
 
@@ -60,7 +61,8 @@ public class KCharTest {
                         new Object[]{110.4, 112.1, 109.5, 112.8}
                 );
         option.series(candlestick);
-        JKChartsRenderer.generateSVGFromOption(option, "d://test//kline_chart.svg");
+        JKChartsRenderer renderer=new JKChartsRenderer();
+        renderer.render(option,"d://test//kline_chart.svg");
 
     }
 

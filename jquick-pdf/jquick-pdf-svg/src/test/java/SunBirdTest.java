@@ -1,3 +1,4 @@
+
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +16,16 @@
  */
 
 import com.paohaijiao.data.JOption;
-import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
-import com.paohaijiao.data.series.JBar;
-import com.paohaijiao.echart.bar.JBarChartsRenderer;
+import com.paohaijiao.data.data.JData;
+import com.paohaijiao.data.series.JScatter;
+import com.paohaijiao.echart.scatter.JScatterChartsRenderer;
+import com.paohaijiao.echart.sunburst.JSunburstChart;
 import org.junit.Test;
 
 import java.io.IOException;
+
 
 /**
  * @ClassName BarCharTest
@@ -34,20 +37,16 @@ import java.io.IOException;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class BarCharTest {
+public class SunBirdTest {
+
     @Test
     public void testBarChar1() throws IOException {
         JOption option = new JOption();
-        option.title().text("销售数据").subtext("2023年度");
-        option.tooltip().trigger(JTrigger.axis);
-        JCategoryAxis xAxis = new JCategoryAxis();
-        xAxis.data("衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子");
-        option.xAxis(xAxis);
-        option.yAxis(new JValueAxis());
-        JBar bar = new JBar();
-        bar.name("销量").data(5, 20, 36, 10, 10, 20);
-        option.series(bar);
-        JBarChartsRenderer jBarChartsRenderer = new JBarChartsRenderer();
-        jBarChartsRenderer.render(option,"D://test//echart-output.svg");
+        option.title().text("Sunburst Chart");
+        JSunburstChart chart = new JSunburstChart();
+        // 渲染到文件
+        chart.render(option, "d://test//sunburst_chart.svg");
+
     }
+
 }

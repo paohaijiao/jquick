@@ -19,11 +19,11 @@ import com.paohaijiao.data.axis.JCategoryAxis;
 import com.paohaijiao.data.axis.JValueAxis;
 import com.paohaijiao.data.code.JTrigger;
 import com.paohaijiao.data.series.JLine;
+import com.paohaijiao.echart.line.JLineChartsRenderer;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.paohaijiao.echart.line.JLineChartsRenderer.generateSVGFromOption;
 
 /**
  * @ClassName BarCharTest
@@ -44,15 +44,12 @@ public class LineCharTest {
         JCategoryAxis xAxis = new JCategoryAxis();
         xAxis.data("1月", "2月", "3月", "4月", "5月", "6月", "7月");
         option.xAxis(xAxis);
-
         option.yAxis(new JValueAxis());
-
         JLine line = new JLine();
         line.name("销售额").data(120, 132, 101, 134, 90, 230, 210);
         option.series(line);
-        generateSVGFromOption(option, "D://test//line_chart.svg");
-
-
+        JLineChartsRenderer renderer=new JLineChartsRenderer();
+        renderer.render(option, "D://test//line_chart.svg");
     }
 
 }
