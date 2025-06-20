@@ -2,13 +2,13 @@ package com.paohaijiao.javelin;
 
 import com.paohaijiao.javelin.adaptor.JQuickAdaptor;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
-import com.paohaijiao.javelin.executor.JThornRuleQuickRestExecutor;
+import com.paohaijiao.javelin.executor.JQuickCurlExecutor;
 import com.paohaijiao.javelin.resource.JQuickReader;
 import com.paohaijiao.javelin.resource.impl.JQuickReSourceFileReader;
 
 public class RestMain {
     public static void main(String[] args) {
-        JThornRuleQuickRestExecutor executor = new JThornRuleQuickRestExecutor();
+        JQuickCurlExecutor executor = new JQuickCurlExecutor();
         executor.addErrorListener(error -> {
             System.err.printf("错误: 行%d:%d - %s%n",
                     error.getLine(), error.getCharPosition(), error.getMessage());

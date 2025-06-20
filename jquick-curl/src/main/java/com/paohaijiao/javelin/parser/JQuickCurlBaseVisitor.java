@@ -1,9 +1,9 @@
-// Generated from D:/idea/jthornruleGrammer/QuickRest/JThornRuleQuickRest.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickCurl.g4 by ANTLR 4.13.2
 package com.paohaijiao.javelin.parser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
- * This class provides an empty implementation of {@link JThornRuleQuickRestVisitor},
+ * This class provides an empty implementation of {@link JQuickCurlVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
@@ -11,138 +11,159 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class JThornRuleQuickRestBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements JThornRuleQuickRestVisitor<T> {
+public class JQuickCurlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements JQuickCurlVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCurlCommand(JThornRuleQuickRestParser.CurlCommandContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCurlCommand(JQuickCurlParser.CurlCommandContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOption(JThornRuleQuickRestParser.OptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOption(JQuickCurlParser.OptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRequestMethod(JThornRuleQuickRestParser.RequestMethodContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRequestMethod(JQuickCurlParser.RequestMethodContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHeaderOption(JThornRuleQuickRestParser.HeaderOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHeaderOption(JQuickCurlParser.HeaderOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProxryOption(JThornRuleQuickRestParser.ProxryOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitProxryOption(JQuickCurlParser.ProxryOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSocketOption(JThornRuleQuickRestParser.SocketOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSocketOption(JQuickCurlParser.SocketOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHttp2Option(JThornRuleQuickRestParser.Http2OptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHttp2Option(JQuickCurlParser.Http2OptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIgnoreOption(JThornRuleQuickRestParser.IgnoreOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHeadOption(JQuickCurlParser.HeadOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDataOption(JThornRuleQuickRestParser.DataOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIgnoreOption(JQuickCurlParser.IgnoreOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDataUrlEncodeOption(JThornRuleQuickRestParser.DataUrlEncodeOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDataOption(JQuickCurlParser.DataOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEmptyData(JThornRuleQuickRestParser.EmptyDataContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDataUrlEncodeOption(JQuickCurlParser.DataUrlEncodeOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFormData(JThornRuleQuickRestParser.FormDataContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEmptyData(JQuickCurlParser.EmptyDataContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUserOption(JThornRuleQuickRestParser.UserOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFormData(JQuickCurlParser.FormDataContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLocationOption(JThornRuleQuickRestParser.LocationOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUserOption(JQuickCurlParser.UserOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLoption(JThornRuleQuickRestParser.LoptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLocationOption(JQuickCurlParser.LocationOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOtherOption(JThornRuleQuickRestParser.OtherOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLoption(JQuickCurlParser.LoptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDownloadOption(JThornRuleQuickRestParser.DownloadOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOtherOption(JQuickCurlParser.OtherOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUploadOption(JThornRuleQuickRestParser.UploadOptionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDownloadOption(JQuickCurlParser.DownloadOptionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitUrl(JThornRuleQuickRestParser.UrlContext ctx) { return visitChildren(ctx); }
+	@Override public T visitUploadOption(JQuickCurlParser.UploadOptionContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUrl(JQuickCurlParser.UrlContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitString(JQuickCurlParser.StringContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitVariable(JQuickCurlParser.VariableContext ctx) { return visitChildren(ctx); }
 }

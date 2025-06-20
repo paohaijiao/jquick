@@ -15,13 +15,19 @@
  */
 package com.paohaijiao.javelin.bean;
 
-import com.paohaijiao.javelin.enums.JProxryType;
 import lombok.Data;
-
+import okhttp3.Headers;
 @Data
-public class JProxryBean {
+public class JOptionModel {
 
-    private String host;
-    private Integer port;
-    private JProxryType type;
+    private Integer httpStatus;
+
+    private Headers Headers;
+
+    private String allow;
+    @Override
+    public String toString(){
+        String result=String.format("HTTP Status:{} \nAllowed Methods:{},\nHeaders:{}",this.httpStatus,this.allow,this.Headers.toString());
+        return result;
+    }
 }
