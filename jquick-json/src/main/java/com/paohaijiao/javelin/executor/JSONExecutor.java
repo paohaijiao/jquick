@@ -50,6 +50,7 @@ public class JSONExecutor extends JAbstractAntlrExecutor<String, JsonResponse> {
         JQuickJSONParser calcParser = (JQuickJSONParser) parser;
         JQuickJSONParser.JsonContext tree = calcParser.json();
         JSONCommonVisitor visitor = new JSONCommonVisitor(context);
-        return visitor.visitJson(tree);
+        JsonResponse response= visitor.visitJson(tree);
+        return response;
     }
 }

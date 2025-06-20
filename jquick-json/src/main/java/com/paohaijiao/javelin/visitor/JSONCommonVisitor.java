@@ -79,7 +79,8 @@ public class JSONCommonVisitor extends JQuickJSONBaseVisitor {
             return visitNull(ctx.null_());
         }
         if(null!=ctx.variable()){
-            return visitVariable(ctx.variable());
+            Object obj= visitVariable(ctx.variable());
+            return obj;
         }
         return null;
     }

@@ -24,7 +24,9 @@ import java.util.List;
 @Data
 public class JsonResponse {
     private Object data;
+
     private String type;
+
     public JsonResponse getData() {
         JsonResponse response = new JsonResponse();
         if (data instanceof JSONObject) {
@@ -36,5 +38,12 @@ public class JsonResponse {
             response.setType("array");
         }
         return response;
+    }
+    @Override
+    public String toString() {
+        return "{" +
+                "type=" + type +
+                ", data=" + data +
+                '}';
     }
 }
