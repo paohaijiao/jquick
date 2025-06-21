@@ -113,8 +113,8 @@ public class JLoggingInterceptor implements Interceptor {
                     log.info("\n{}", bodyString);
                     response = response.newBuilder().body(ResponseBody.create(bodyString, responseBody.contentType()))
                             .build();
-                    ResponseBody clonedBody = responseBody.peekBody(Long.MAX_VALUE);
-                    log.info("\n{}", clonedBody.string());
+//                    ResponseBody clonedBody = responseBody.peekBody(Long.MAX_VALUE);
+//                    log.info("\n{}", clonedBody.string());
                 } else {
                     log.info("<-- [binary body omitted, content-type: {}]", responseBody.contentType());
                 }
