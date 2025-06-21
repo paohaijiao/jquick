@@ -24,8 +24,7 @@ public class JQuickJSonTest {
         JContext jcontext = new JContext();
         jcontext.put("name","paohaijiao");
         JSONExecutor executor = new JSONExecutor(jcontext);
-        executor.addErrorListener(error -> {
-        });
+        executor.addErrorListener(error -> {});
         try {
             JQuickReader fileReader = new JQuickReSourceFileReader("rule.txt");
             JQuickAdaptor context = new JQuickAdaptor(fileReader);

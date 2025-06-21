@@ -15,12 +15,10 @@
  */
 package com.paohaijiao.javelin.serializer;
 
-import com.paohaijiao.javelin.exception.JAntlrExecutionException;
-import com.paohaijiao.javelin.executor.JSONExecutor;
 import com.paohaijiao.javelin.model.JSONArray;
 import com.paohaijiao.javelin.model.JSONObject;
-import com.paohaijiao.javelin.model.JsonResponse;
 import com.paohaijiao.javelin.param.JContext;
+import com.paohaijiao.javelin.support.JSONSupport;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -34,12 +32,12 @@ import java.util.Collection;
  * @date 2025/6/20
  * @description
  */
-public class DefaultJSONSerializer implements JSONSerializer{
+public class JDefaultJSONSerializer implements JSONSerializer{
     private JContext context;
-    public DefaultJSONSerializer() {
+    public JDefaultJSONSerializer() {
         context=new JContext();
     }
-    public DefaultJSONSerializer(JContext context) {
+    public JDefaultJSONSerializer(JContext context) {
         context=context;
     }
     @Override
@@ -157,16 +155,6 @@ public class DefaultJSONSerializer implements JSONSerializer{
     }
 
     private JSONArray parseJSONArray(String json) {
-        JSONExecutor executor = new JSONExecutor(this.context);
-        executor.addErrorListener(error -> {});
-        try {
-            JsonResponse jsonObject = executor.execute(json);
-            System.out.println(jsonObject);
-            //return (JSONArray)jsonObject.getData();
-        } catch (JAntlrExecutionException e) {
-            System.err.println("解析失败: " + e.getMessage());
-            e.getErrors().forEach(err -> System.err.println(" - " + err.getMessage()));
-        }
-        return new JSONArray();
+        return JSONSupport.parseArray(json);
     }
 }

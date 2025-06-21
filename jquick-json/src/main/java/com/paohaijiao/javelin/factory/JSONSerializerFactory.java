@@ -15,8 +15,10 @@
  */
 package com.paohaijiao.javelin.factory;
 
-import com.paohaijiao.javelin.serializer.DefaultJSONSerializer;
+import com.paohaijiao.javelin.param.JContext;
+import com.paohaijiao.javelin.serializer.JDefaultJSONSerializer;
 import com.paohaijiao.javelin.serializer.JSONSerializer;
+import com.paohaijiao.javelin.serializerQ.JQuickJSONSerializer;
 
 /**
  * packageName com.paohaijiao.javelin.factory
@@ -29,13 +31,16 @@ import com.paohaijiao.javelin.serializer.JSONSerializer;
  */
 public class JSONSerializerFactory {
 
-    private static final JSONSerializer DEFAULT_SERIALIZER = new DefaultJSONSerializer();
+    private static final JSONSerializer DEFAULT_SERIALIZER = new JDefaultJSONSerializer();
 
     public static JSONSerializer getDefaultSerializer() {
         return DEFAULT_SERIALIZER;
     }
 
     public static JSONSerializer createSerializer() {
-        return new DefaultJSONSerializer();
+        return new JDefaultJSONSerializer();
+    }
+    public static JSONSerializer createJQuickSerializer(JContext context) {
+        return new JQuickJSONSerializer(context);
     }
 }
