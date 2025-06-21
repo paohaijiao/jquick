@@ -15,6 +15,7 @@
  */
 package com.jquick.test;
 
+import com.paohaijiao.javelin.anno.JTimeout;
 import com.paohaijiao.javelin.model.JResult;
 import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.parser.JQuickCurlLexer;
@@ -29,6 +30,7 @@ import java.io.IOException;
 
 public class JQuickCurlTest {
     @Test
+    @JTimeout(connect = 5000, read = 10000)
     public void test1() throws IOException {
         String input = "curl -X GET --location 'http://localhost:8080/api/users/all'";
         System.out.println(input);

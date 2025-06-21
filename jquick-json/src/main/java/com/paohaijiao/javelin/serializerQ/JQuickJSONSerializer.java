@@ -27,6 +27,7 @@ import com.paohaijiao.javelin.resource.impl.JQuickReSourceFileReader;
 import com.paohaijiao.javelin.serializer.JSONSerializer;
 import com.paohaijiao.javelin.support.JSONSupport;
 import com.paohaijiao.javelin.util.JStringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
@@ -58,7 +59,7 @@ public class JQuickJSONSerializer implements JSONSerializer {
             return object.toString();
         }
         if (object instanceof String) {
-            return quoteString((String) object);
+            return StringUtils.trim((String) object);
         }
         if (object instanceof Number || object instanceof Boolean) {
             return object.toString();
@@ -77,7 +78,7 @@ public class JQuickJSONSerializer implements JSONSerializer {
         if (json == null || json.trim().isEmpty()) return null;
         json = json.trim();
         if (json.startsWith("{")) {
-            JSONExecutor executor = new JSONExecutor();
+            JSONExecutor executor = new JSONExecutor(context);
             executor.addErrorListener(error -> {});
             JQuickReader fileReader = new JQuickReSourceFileReader("rule.txt");
             JQuickAdaptor context = new JQuickAdaptor(fileReader);
@@ -86,7 +87,7 @@ public class JQuickJSONSerializer implements JSONSerializer {
             JsonResponse response= jsonObject.getData();
         }
         if (json.startsWith("[")) {
-            JSONExecutor executor = new JSONExecutor();
+            JSONExecutor executor = new JSONExecutor(context);
             executor.addErrorListener(error -> {});
             JQuickReader fileReader = new JQuickReSourceFileReader("rule.txt");
             JQuickAdaptor context = new JQuickAdaptor(fileReader);
@@ -97,9 +98,6 @@ public class JQuickJSONSerializer implements JSONSerializer {
         return deserializePrimitive(json, clazz);
     }
 
-    private String quoteString(String str) {
-        return "\"" + JSONObject.escape(str) + "\"";
-    }
 
     private String serializeArray(Object array) {
         JSONArray jsonArray = new JSONArray();
