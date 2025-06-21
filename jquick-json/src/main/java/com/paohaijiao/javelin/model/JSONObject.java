@@ -71,6 +71,27 @@ public class JSONObject implements Map<String, Object>, JBeanMapper {
         }
         return null;
     }
+    public JSONArray getJSONArray(String key) {
+        Object value = map.get(key);
+        if (value instanceof JSONArray) {
+            return (JSONArray) value;
+        }
+        if (value instanceof List) {
+            List<?> list = (List<?>) value;
+            JSONArray jsonArray = new JSONArray();
+            for (Object item : list) {
+                if (item instanceof Map) {
+                    jsonArray.add(new JSONObject((Map<String, Object>) item));
+                } else {
+                    JSONObject wrapper = new JSONObject();
+                    wrapper.put("value", item);
+                    jsonArray.add(wrapper);
+                }
+            }
+            return jsonArray;
+        }
+        return null;
+    }
 
     @Override
     public int size() {
@@ -305,12 +326,10 @@ public class JSONObject implements Map<String, Object>, JBeanMapper {
     }
 
     private Map<String, Object> deepCopyMap(Map<String, Object> original, IdentityHashMap<Object, Object> processed) {
-        // 如果已经处理过这个对象，直接返回null或原始值（根据需求决定）
         if (processed.containsKey(original)) {
-            return null; // 或者返回 original，根据你的需求决定如何处理循环引用
+            return null;
         }
-        processed.put(original, null); // 标记为已处理
-
+        processed.put(original, null);
         Map<String, Object> copy = new LinkedHashMap<>();
         for (Map.Entry<String, Object> entry : original.entrySet()) {
             Object value = entry.getValue();
@@ -330,7 +349,6 @@ public class JSONObject implements Map<String, Object>, JBeanMapper {
             return null;
         }
         processed.put(original, null);
-
         List<Object> copy = new ArrayList<>();
         for (Object item : original) {
             if (item instanceof Map) {

@@ -3,14 +3,18 @@ package com.jquick.test;
 import com.paohaijiao.javelin.adaptor.JQuickAdaptor;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
 import com.paohaijiao.javelin.executor.JSONExecutor;
+import com.paohaijiao.javelin.factory.JSONSerializerFactory;
+import com.paohaijiao.javelin.model.JUser;
 import com.paohaijiao.javelin.model.JsonResponse;
 import com.paohaijiao.javelin.param.JContext;
 import com.paohaijiao.javelin.resource.JQuickReader;
 import com.paohaijiao.javelin.resource.impl.JQuickReSourceFileReader;
+import com.paohaijiao.javelin.serializer.JSONSerializer;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JQuickJSonTest {
 
@@ -54,4 +58,24 @@ public class JQuickJSonTest {
                     System.err.println(" - " + err.getMessage()));
         }
     }
+    @Test
+    @Ignore
+    public void test3() throws IOException {
+        JUser user = new JUser("John", 30);
+        JSONSerializer serializer = JSONSerializerFactory.getDefaultSerializer();
+        String json = serializer.serialize(user);
+        System.out.println(json);
+
+        String jsonStr = "{\"name\":\"Alice\",\"age\":25}";
+        JUser deserializedUser = serializer.deserialize(jsonStr, JUser.class);
+        System.out.println(deserializedUser.getName());
+
+        String jsonArray = "[{\"name\":\"Alice\",\"age\":25}]";
+        List<JUser> deserializedUserArray = serializer.deserialize(jsonArray, List.class);
+        System.out.println(deserializedUserArray);
+
+
+    }
+
+
 }

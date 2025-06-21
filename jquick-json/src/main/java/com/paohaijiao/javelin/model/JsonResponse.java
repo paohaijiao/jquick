@@ -33,7 +33,7 @@ public class JsonResponse {
             response.setData((JSONObject)data);
             response.setType("object");
         } else {
-             List<JSONObject> list= JBeanCopyUtils.copyList((List)data,JSONObject.class);
+            List<JSONObject> list= JBeanCopyUtils.copyList((List)data,JSONObject.class);
             response.setData(new JSONArray(list));
             response.setType("array");
         }

@@ -17,8 +17,8 @@ package com.paohaijiao.javelin.model;
 
 import java.util.*;
 
-public class JSONArray implements List<JSONObject> {
-    private final List<JSONObject> list;
+public class JSONArray implements List<Object> {
+    private final List<Object> list;
 
     public JSONArray() {
         this.list = new ArrayList<>();
@@ -28,7 +28,7 @@ public class JSONArray implements List<JSONObject> {
         this.list = new ArrayList<>(initialCapacity);
     }
 
-    public JSONArray(List<JSONObject> list) {
+    public JSONArray(List<?> list) {
         this.list = new ArrayList<>(list);
     }
 
@@ -53,12 +53,12 @@ public class JSONArray implements List<JSONObject> {
     }
 
     public Boolean getBoolean(int index) {
-        JSONObject value = list.get(index);
+        Object value = list.get(index);
         return value == null ? null : Boolean.valueOf(value.toString());
     }
 
     public JSONObject getJSONObject(int index) {
-        JSONObject value = list.get(index);
+        Object value = list.get(index);
         if (value instanceof JSONObject) {
             return (JSONObject) value;
         }
@@ -74,7 +74,7 @@ public class JSONArray implements List<JSONObject> {
             return (JSONArray) value;
         }
         if (value instanceof List) {
-            return new JSONArray((List<JSONObject>) value);
+            return new JSONArray((List<Object>) value);
         }
         return null;
     }
@@ -96,7 +96,7 @@ public class JSONArray implements List<JSONObject> {
     }
 
     @Override
-    public Iterator<JSONObject> iterator() {
+    public Iterator<Object> iterator() {
         return list.iterator();
     }
 
@@ -111,7 +111,7 @@ public class JSONArray implements List<JSONObject> {
     }
 
     @Override
-    public boolean add(JSONObject o) {
+    public boolean add(Object o) {
         return list.add(o);
     }
 
@@ -126,12 +126,12 @@ public class JSONArray implements List<JSONObject> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends JSONObject> c) {
+    public boolean addAll(Collection<? extends Object> c) {
         return list.addAll(c);
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends JSONObject> c) {
+    public boolean addAll(int index, Collection<? extends Object> c) {
         return list.addAll(index, c);
     }
 
@@ -151,22 +151,22 @@ public class JSONArray implements List<JSONObject> {
     }
 
     @Override
-    public JSONObject get(int index) {
+    public Object get(int index) {
         return list.get(index);
     }
 
     @Override
-    public JSONObject set(int index, JSONObject element) {
+    public Object set(int index, Object element) {
         return list.set(index, element);
     }
 
     @Override
-    public void add(int index, JSONObject element) {
+    public void add(int index, Object element) {
         list.add(index, element);
     }
 
     @Override
-    public JSONObject remove(int index) {
+    public Object remove(int index) {
         return list.remove(index);
     }
 
@@ -181,17 +181,17 @@ public class JSONArray implements List<JSONObject> {
     }
 
     @Override
-    public ListIterator<JSONObject> listIterator() {
+    public ListIterator<Object> listIterator() {
         return list.listIterator();
     }
 
     @Override
-    public ListIterator<JSONObject> listIterator(int index) {
+    public ListIterator<Object> listIterator(int index) {
         return list.listIterator(index);
     }
 
     @Override
-    public List<JSONObject> subList(int fromIndex, int toIndex) {
+    public List<Object> subList(int fromIndex, int toIndex) {
         return list.subList(fromIndex, toIndex);
     }
 
